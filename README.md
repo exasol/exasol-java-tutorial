@@ -14,6 +14,12 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aexasol-java-tutorial&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.exasol%3Aexasol-java-tutorial)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aexasol-java-tutorial&metric=ncloc)](https://sonarcloud.io/dashboard?id=com.exasol%3Aexasol-java-tutorial)
 
+## Information for Developers
+
+Start your journey with the obligatory [hello world](doc/tutorial/hello_world-md) tutorial to learn the basics of defining an inline Java extension that can be called from SQL.
+
+Up your game with a full blown automated integration test that exercises a more complex Java extension that gets [statistics from Markdown](doc/tutorial/mdstats.md) text stored in an Exasol table. Learn to package the installation in a JAR archive in the course of this tutorial.
+
 ## Additional Information
 
 * [Changelog](doc/changes/changelog.md)

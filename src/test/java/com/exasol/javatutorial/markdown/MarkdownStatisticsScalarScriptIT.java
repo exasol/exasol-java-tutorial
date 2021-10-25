@@ -1,5 +1,7 @@
 package com.exasol.javatutorial.markdown;
 
+import static com.exasol.matcher.ResultSetStructureMatcher.table;
+import static com.exasol.matcher.TypeMatchMode.NO_JAVA_TYPE_CHECK;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.FileNotFoundException;
@@ -11,12 +13,12 @@ import org.junit.jupiter.api.*;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import com.exasol.bucketfs.Bucket;
 import com.exasol.bucketfs.BucketAccessException;
 import com.exasol.containers.ExasolContainer;
 import com.exasol.dbbuilder.dialects.DatabaseObjectFactory;
 import com.exasol.dbbuilder.dialects.Schema;
 import com.exasol.dbbuilder.dialects.exasol.ExasolObjectFactory;
-import com.exasol.matcher.ResultSetStructureMatcher;
 
 @Tag("slow")
 @Testcontainers
@@ -42,38 +44,38 @@ class MarkdownStatisticsScalarScriptIT {
 
     @Test
     void testGetMarkdownStatistics() {
-        final Schema schema = MarkdownStatisticsScalarScriptIT.factory.createSchema("SCHEMA_FOR_MARKDOWN_STATISICS");
+        final Schema schema = factory.createSchema("SCHEMA_FOR_MARKDOWN_STATISICS");
         schema.createTable("TEXTS", "TEXT", "VARCHAR(2000)") //
                 .insert("# A Headline\n\nAnd some text with _emphasis_.");
         installMdStatsScript();
-        final ResultSet result = execute("SELECT MDSTAT(TEXT) FROM TEXTS", "run MDSTAT query");
-        assertThat(result, ResultSetStructureMatcher.table().row(7, 1, 1).matches());
+        final ResultSet result = execute("SELECT MDSTAT(TEXT) FROM TEXTS");
+        assertThat(result, table().row(7, 1, 1).matches(NO_JAVA_TYPE_CHECK));
     }
 
     private void installMdStatsScript() throws AssertionError {
+        final Bucket bucket = EXASOL.getDefaultBucket();
         try {
-            EXASOL.getDefaultBucket().uploadFile(Path.of("target", JAR_FILE_NAME), JAR_FILE_NAME);
+            bucket.uploadFile(Path.of("target", JAR_FILE_NAME), JAR_FILE_NAME);
         } catch (FileNotFoundException | BucketAccessException exception) {
             throw new AssertionError("Unable to install scalar Script " + JAR_FILE_NAME, exception);
         } catch (final TimeoutException exception) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(exception);
         }
-        final String createScalarScriptSql = "CREATE JAVA SCALAR SCRIPT MDSTAT(TEXT VARCHAR(2000))"
+        final String createScalarScriptSql = "CREATE JAVA SCALAR SCRIPT MDSTAT(MDTEXT VARCHAR(2000))"
                 + " EMITS (WORDS INTEGER, HEADINGS INTEGER, PARAGRAPHS INTEGER) AS\n" //
-                + "    %scriptclass com.exasol.tutorial,markdown.MdStat;\n" //
-                + " %jar /bucketfs/default/default/" + JAR_FILE_NAME + ";\n" //
+                + "    %scriptclass " + MdStat.class.getName() + ";\n" //
+                + "    %jar /buckets/" + bucket.getFullyQualifiedBucketName() + "/" + JAR_FILE_NAME + ";\n" //
                 + "/";
-        execute(createScalarScriptSql, "create scalar script for test");
+        execute(createScalarScriptSql);
     }
 
-    private ResultSet execute(final String sql, final String action) throws AssertionError {
+    private ResultSet execute(final String sql) throws AssertionError {
         try (final Statement statement = connection.createStatement()) {
             statement.execute(sql);
             return statement.getResultSet();
         } catch (final SQLException exception) {
-            throw new AssertionError("Unable to " + action + ".", exception);
+            throw new AssertionError("Unable to execute: " + sql, exception);
         }
     }
-
 }

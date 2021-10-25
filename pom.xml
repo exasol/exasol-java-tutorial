@@ -299,7 +299,7 @@
                     <descriptors>
                         <descriptor>src/assembly/all-dependencies.xml</descriptor>
                     </descriptors>
-                    <finalName>${project.artifactId}</finalName>
+                    <finalName>exasol-java-tutorial</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>

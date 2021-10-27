@@ -1,10 +1,15 @@
-# Exasol Java tutorial 0.1.0, released 2021-??-??
+# Exasol Java tutorial 0.1.0, released 2021-10-27
 
-Code name:
+Code name: Scalar scripts
+
+In version 0.1.0 of the `exasol-java-tutorial` we provided two tutorials. One is the obligatory "hello world" example that focuses on the absolute minimum code required to implement a Java User Defined Function (UDF).
+
+The other one builds on the first an introduces a scalar script that emits three columns. The main focus of that tutorial is not on the implementation though but on how to create an automated integration test that verifies the UDF you wrote.
 
 ## Features
 
-* ISSUE_NUMBER: description
+* #1: Added two tutorial for scalar scripts.
+
 ## Dependency Updates
 
 ### Compile Dependency Updates

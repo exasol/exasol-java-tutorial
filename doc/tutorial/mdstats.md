@@ -1,5 +1,9 @@
 # Markdown Statistics
 
+## Before you Start
+
+If you haven't done so already, we recommend that you do the ["Hello world"](hello_world.md) tutorial first. We are building on that knowledge here.
+
 ## What you are Going to Learn in This Tutorial
 
 1. Creating a scalar script that emits multiple columns.
@@ -28,8 +32,14 @@ The missing piece in the puzzle is that you need statistics from the blog articl
 As in the ["Hello World"](hello_world.md) example we first need a running Exasol instance again.
 
 ```bash
-docker run --name exasoldb --publish 127.0.0.1:8563:8563 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
+docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2850:2850 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
 ```
+
+Note that after terminating the instance, the data will be gone.
+
+Another prerequisite is a web client for managing files in Bucket FS. If you haven't had contact with BucketFS please check out the official [BucketFS documentation](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm). BucketFS is not exactly trivial, so you should definitely take a few minutes to familiarize yourself with the concepts and usage.
+
+If you are unsure which client to pick, use [curl](https://curl.se/)
 
 ### Dependencies
 
@@ -174,7 +184,7 @@ After the upload is done, we register the scalar script:
 ```java
     private void installMdStatsScript() {
     ...
-        final String createScalarScriptSql = "CREATE JAVA SCALAR SCRIPT MDSTAT(MDTEXT VARCHAR(2000))"
+        final String createScalarScriptSql = "CREATE JAVA SCALAR SCRIPT MDSTAT(MDTEXT VARCHAR(2000000))"
                 + " EMITS (WORDS INTEGER, HEADINGS INTEGER, PARAGRAPHS INTEGER) AS\n" //
                 + "    %scriptclass " + MdStat.class.getName() + ";\n" //
                 + "    %jar /buckets/" + bucket.getFullyQualifiedBucketName() + "/" + JAR_FILE_NAME + ";\n" //
@@ -184,6 +194,49 @@ After the upload is done, we register the scalar script:
 ```
 
 Note here that we inject the class name, the path in the bucket and the file name in the SQL, to avoid coupling.
+
+## Running the Tests
+
+Use the following [Maven](https://maven.apache.org/) command to build the JAR archive and run all tests:
+
+```sql
+mvn verify
+```
+
+While building and unit testing the extension are fast, especially the first integration test will take a while, since the testcontainers first need to download the Exasol Docker image and then start the dockerized instance. Expect around five to ten minutes depending on your Internet connection and the power of your development machine.
+
+## Deploying an Extension as JAR
+
+While we now have everything fully automated, you are probably curious on how you would deploy this by hand in a production environment.
+
+If you looked closely at the code of the `installMdStatsScript()` earlier, you probably already guess the answer.
+
+First you need a web client to upload the JAR file to a bucket in BucketFS. As mentioned earlier in this tutorial, please read the official [BucketFS documentation](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm) before you proceed.
+
+We used a `docker-db` image of Exasol, where a BucketFS service and a default bucket are available right from the start, so you can skip the setup process.
+
+**Important:** The _write_-password of that bucket is _auto-generated_. If you want to write to that bucket, you must read the generated password from the file `/exa/etc/EXAConf` inside the docker environment. It is Base64 encoded, so you must decode it first. In your integration tests the `exasol-testcontainer` does that automatically for you, but if you want to do it by hand, you don't have that luxury.
+
+Given an unmodified `docker-db` image, you can however extract the generated password like this:
+
+```bash
+export CONTAINERID = <id-if-exasol-docker-container>
+docker exec -it "$CONTAINERID" sed -nr 's/ *WritePasswd = ([0-9a-zA-Z]*=?=?)/\1/p' /exa/etc/EXAConf | base64 -di
+```
+
+Now use your web client to upload the JAR file to the default bucket under the following path `localhost:2850/bfsdefault/default/exasol-java-tutorial.jar` with user "`w`" and the password you just extracted.
+
+Finally, run `CREATE JAVA SCALAR SCRIPT` to register the Function.
+
+```sql
+--/
+CREATE JAVA SCALAR SCRIPT JAVA_TUTORIAL.MDSTAT(MDTEXT VARCHAR(2000000))
+EMITS (WORDS INTEGER, HEADINGS INTEGER, PARAGRAPHS INTEGER) AS
+    %scriptclass com.exasol.javatutorial.markdown.MdStats;
+    %jar /buckets/bfsdefault/default/exasol-java-tutorial.jar;
+/
+```
+
 
 ## Summary
 

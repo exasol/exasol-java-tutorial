@@ -21,7 +21,7 @@ public class ElementCountVisitor extends AbstractVisitor {
 
     @Override
     public void visit(final Paragraph paragraph) {
-        ++this.paragraph;
+        ++this.paragraphCount;
         super.visit(paragraph);
     }
 
@@ -56,6 +56,6 @@ public class ElementCountVisitor extends AbstractVisitor {
      * @return text statistics containing the counts for different text elements
      */
     public TextStatistics getTextStatistics() {
-        return new TextStatistics(this.wordCount, this.headingCount, this.paragraph);
+        return new TextStatistics(this.wordCount, this.headingCount, this.paragraphCount);
     }
 }

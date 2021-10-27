@@ -11,7 +11,7 @@ import org.commonmark.node.*;
 public class ElementCountVisitor extends AbstractVisitor {
     private int wordCount = 0;
     private int headingCount = 0;
-    private int paragraph;
+    private int paragraphCount = 0;
 
     @Override
     public void visit(final Heading heading) {

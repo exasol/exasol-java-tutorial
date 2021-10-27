@@ -37,8 +37,8 @@ class MarkdownStatisticsScalarScriptIT {
 
     @AfterAll
     static void afterAll() throws SQLException {
-        if (MarkdownStatisticsScalarScriptIT.connection != null) {
-            MarkdownStatisticsScalarScriptIT.connection.close();
+        if (connection != null) {
+            connection.close();
         }
     }
 

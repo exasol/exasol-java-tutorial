@@ -12,7 +12,7 @@
 
 Imagine the following scenario:
 
-You work as a data scientist at a big online tech-magazine. The people in your company about a hundred news articles and how-tos on your blog.
+You work as a data scientist at a big online tech-magazine. The people in your company publish about a hundred news articles and how-tos on your blog per year.
 To separate content from layout the articles are written in Markdown and rendered via Cascading Stylesheets (CSS).
 
 Each article that gets read has a counter to find out which ones are popular.
@@ -28,7 +28,7 @@ The missing piece in the puzzle is that you need statistics from the blog articl
 As in the ["Hello World"](hello_world.md) example we first need a running Exasol instance again.
 
 ```bash
-docker run --name exasoldb -p 127.0.0.1:8563:8563 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
+docker run --name exasoldb --publish 127.0.0.1:8563:8563 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
 ```
 
 ### Dependencies
@@ -49,8 +49,8 @@ Runtime dependencies are those libraries that end up in the final JAR file the c
 Since this tutorial is also intended to teach you how to efficiently test your Exasol extensions, we will introduce a couple of dependencies that are only used to run the unit and integration tests.
 
 1. [`exasol-testcontainer`](https://github.com/exasol/exasol-testcontainers): wrapper for Exasol's docker-db that automatically creates Exasol instances for your integration tests
-1. [`hamcrest-resultset-matcher`](https://github.com/exasol/hamcrest-resultset-matcher): check the results of JDBC queries against expectations
 1. [`test-db-builder-java`](https://github.com/exasol/test-db-builder-java): quickly create test database structures and contents
+1. [`hamcrest-resultset-matcher`](https://github.com/exasol/hamcrest-resultset-matcher): check the results of JDBC queries against expectations
 
 ## Building an Integration Test
 
@@ -72,7 +72,7 @@ First we create an instance of an `ExasolTestcontainer` which is an extension of
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import com.exasol.containers.ExasolContainer;
-...
+// ...
 
     @Container
     private static final ExasolContainer<? extends ExasolContainer<?>> EXASOL = new ExasolContainer<>().withReuse(true);
@@ -80,14 +80,14 @@ import com.exasol.containers.ExasolContainer;
 
 The `.withReuse(true)` call keeps the container running across multiple tests, thus greatly reducing the overall test time.
 
-Be careful with clean test setup though when using this option. While the Exasol testcontainer cleans up the database with the start of each new test class, it does not do this for each individual test case. If you want to avoid problems, either make sure your tests create resources that don't interfere with each other or purge the database in `beforeEach()`.
+Be careful with clean test setup though when using this option. While the Exasol testcontainer cleans up the database content with the start of each new test class, it does not do this for each individual test case. If you want to avoid problems, either make sure your tests create resources that don't interfere with each other or purge the database in `beforeEach()`.
 
-Next we set up the [`test-db-builder-java`](https://github.com/exasol/test-db-builder-java). This allows us to create database structures an populate them with data in a compact and readable fashion.
+Next we set up the [`test-db-builder-java`](https://github.com/exasol/test-db-builder-java). This allows us to create database structures and populate them with data in a compact and readable fashion.
 
 ```java
 import com.exasol.dbbuilder.dialects.DatabaseObjectFactory;
 import com.exasol.dbbuilder.dialects.exasol.ExasolObjectFactory;
-...
+// ...
     private static Connection connection;
     private static DatabaseObjectFactory factory;
 
@@ -109,7 +109,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import com.exasol.matcher.ResultSetStructureMatcher;
 ```
 
-The first import gives us an enum value that we will later use to switch of type matching in a test where the Java type is irrelevant because we are only interested in the value.
+The first import gives us an enum value that we will later use to switch off type matching in a test where the Java type is irrelevant because we are only interested in the value.
 The second import restores the `assertThat()` method which was dropped from the central JUnit libraries with JUnit5.
 Finally, we have the import of the actual result set matcher.
 
@@ -135,7 +135,7 @@ In the setup phase, we first create a database schema with a table that contains
 
 After that is done, we execute a query with the scalar script and record the result.
 
-Finally we hold the result against our expectation with are seven words, one heading and one paragraph.
+Finally we hold the result against our expectation which are seven words, one heading and one paragraph.
 
 We tell the matcher to only match the values and ignore any Java type differences. Otherwise we would have to provide `long` values as expectations, which makes the tests less readable.
 
@@ -145,18 +145,18 @@ The `row(7, 1, 1)` call adds an expected data row and `matches(NO_JAVA_TYPE_CHEC
 
 As you can see, the test is intentionally kept compact. Six lines is all it takes to formulate the test.
 
-The most complicated part is abstracted by the method `installMdStatsScript()`.
+The most complicated part is abstracted by the method `installMdStatsScript()`:
 
 First it uploads the JAR archive containing the scalar script from the project's `target/exasol-java-tutorial.jar` path to the default bucket in BucketFS under `/exasol-java-tutorial.jar`.
 
 ```java
 import com.exasol.bucketfs.Bucket;
 import com.exasol.bucketfs.BucketAccessException;
-...
+// ...
     private static final String JAR_FILE_NAME = "exasol-java-tutorial.jar";
-    ...
+    // ...
     
-    private void installMdStatsScript() throws AssertionError {
+    private void installMdStatsScript() {
         final Bucket bucket = EXASOL.getDefaultBucket();
         try {
             bucket.uploadFile(Path.of("target", JAR_FILE_NAME), JAR_FILE_NAME);
@@ -172,7 +172,7 @@ Uploading a file has a lot of potential exceptions. While you could just let the
 After the upload is done, we register the scalar script:
 
 ```java
-    private void installMdStatsScript() throws AssertionError {
+    private void installMdStatsScript() {
     ...
         final String createScalarScriptSql = "CREATE JAVA SCALAR SCRIPT MDSTAT(MDTEXT VARCHAR(2000))"
                 + " EMITS (WORDS INTEGER, HEADINGS INTEGER, PARAGRAPHS INTEGER) AS\n" //

@@ -51,13 +51,13 @@ CREATE JAVA SCALAR SCRIPT JAVA_TUTORIAL.HELLO() RETURNS VARCHAR(20) AS
 
 As you can tell from the function definition our function is called `HELLO`, lives in the schema `JAVA_TUTORIAL`, expects no input value and returns a variable length string with a maximum of 20 characters.
 
-Since we are not defining the entry class name via a special directive, we need to make sure that the class name and the script name are identical. That is why the class is called `HELLO`, which breaks the established naming conventions in java which says that class names should be upper camel case.
+Since we are not defining the entry class name via a special directive, we need to make sure that the class name and the script name are identical. That is why the class is called `HELLO`, which breaks the established naming conventions in Java which says that class names should be upper camel case.
 
-While you could call the scalar function `"Hello"` (including the double quotes, we do not recommend this, since it is an established standard in SQL to use the databases default case for function names. Since Exasol's default case is upper case, the name `HELLO` is the best choice.
+While you could call the scalar function `"Hello"` (including the double quotes), we do not recommend this, since it is an established standard in SQL to use the databases default case for function names. Since Exasol's default case is upper case, the name `HELLO` is the best choice.
 
-If you look at the classes implementation, you will find it trivial. Think of the `run` method like a Java applications typical main method. It has a fixed signature that you need to adhere to if you want Exasol to find the entry point of the script.
+If you look at the classes implementation, you will find it trivial. Think of the `run` method like a Java application's typical main method. It has a fixed signature that you need to adhere to if you want Exasol to find the entry point of the script.
 
-`ExaMetadata metadata` holds a lot of the information about the script and the environment it runs in. The `ExaIterator context` provides functions for scanning the input values and emmiting complex output. Neither are used in this example, so we are going to accept their existence and otherwise ignore them for now.
+The `run` method's parameter `ExaMetadata metadata` holds a lot of the information about the script and the environment it runs in. The `ExaIterator context` parameter provides functions for scanning the input values and emitting complex output. Neither are used in this example, so we are going to accept their existence and otherwise ignore them for now.
 
 The only real instruction in this example is returning the fixed string "Hello world!", which is exacly what you would expect from a "hello world" example.
 
@@ -71,7 +71,7 @@ SELECT hello()
 
 The result that you should see in your SQL client has one row with one column of type `VARCHAR(20)` and a value of "Hello world!".
 
-Congratulations, you successfully created an ran your first own Exasol extension in Java.
+Congratulations, you successfully created and ran your first own Exasol extension in Java 🎉 
 
 ## Summary
 

@@ -14,7 +14,7 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aexasol-java-tutorial&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.exasol%3Aexasol-java-tutorial)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aexasol-java-tutorial&metric=ncloc)](https://sonarcloud.io/dashboard?id=com.exasol%3Aexasol-java-tutorial)
 
-If you are a Java developer and you are thinking about extending Exasol with new functionality, this tutorial takes you tour around Exasol's interfaces and the libraries we provide.
+If you are a Java developer and you are thinking about extending Exasol with new functionality, this tutorial takes you on a tour around Exasol's interfaces and the libraries we provide.
 
 Not only do you learn how to implement [User Defined Functions (UDF)](https://docs.exasol.com/database_concepts/udf_scripts.htm) in Java, but you also will see how to run automated integration tests.
 

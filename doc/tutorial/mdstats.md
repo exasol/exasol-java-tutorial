@@ -32,12 +32,12 @@ The missing piece in the puzzle is that you need statistics from the blog articl
 As in the ["Hello World"](hello_world.md) example we first need a running Exasol instance again.
 
 ```bash
-docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2850:2850 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
+docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
 ```
 
 Note that after terminating the instance, the data will be gone.
 
-Another prerequisite is a web client for managing files in Bucket FS. If you haven't had contact with BucketFS please check out the official [BucketFS documentation](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm). BucketFS is not exactly trivial, so you should definitely take a few minutes to familiarize yourself with the concepts and usage.
+Another prerequisite is a web client for managing files in Bucket FS. If you haven't had contact with BucketFS, please check out the official [BucketFS documentation](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm). BucketFS is not exactly trivial, so you should definitely take a few minutes to familiarize yourself with the concepts and usage.
 
 If you are unsure which client to pick, use [curl](https://curl.se/)
 
@@ -61,6 +61,143 @@ Since this tutorial is also intended to teach you how to efficiently test your E
 1. [`exasol-testcontainer`](https://github.com/exasol/exasol-testcontainers): wrapper for Exasol's docker-db that automatically creates Exasol instances for your integration tests
 1. [`test-db-builder-java`](https://github.com/exasol/test-db-builder-java): quickly create test database structures and contents
 1. [`hamcrest-resultset-matcher`](https://github.com/exasol/hamcrest-resultset-matcher): check the results of JDBC queries against expectations
+
+## Implementing the Markdown Statistics Function
+
+One goal of this tutorial is to demonstrate how to deal with dependencies to libraries in Java UDFs. It is obvious from the task description that we need to parse Markdown. There is no point in reinventing the wheel here, so we need an existing Markdown parser library.
+
+We picked [`commonmark-java`](https://github.com/commonmark/commonmark-java) for this purpose, a lean library under active development that does the job without any transitive dependencies. Perfect for our tutorial.
+
+To count the Markdown headings, paragraphs and words, we need to implement our own visitor that we inject into the Markdown parser. If you haven't heard about the [visitor pattern](https://en.wikipedia.org/wiki/Visitor_pattern) yet, take a little time to read up on the topic. In a nutshell it is a tree walker that can be configured with callback different implementations depending on the element of the tree that is is processing. Since most parsers generate trees, the visitor is a common way to deal with the parsing results.
+
+Take a moment look at the source of the class [`MarkdownStatitsitcsScanner`](../../src/main/java/com/exasol/javatutorial/markdown/MarkdownStatisticsScanner.java].
+
+You will understand the main principle if look at this snippet:
+
+```java
+import org.commonmark.node.*;
+
+public class ElementCountVisitor extends AbstractVisitor {
+    private int headingCount = 0;
+    // ...
+    
+    @Override
+    public void visit(final Heading heading) {
+        ++this.headingCount;
+        super.visit(heading);
+    }
+    
+    // ...
+    
+    public TextStatistics getTextStatistics() {
+        return new TextStatistics(this.wordCount, this.headingCount, this.paragraphCount);
+    }
+}
+```
+
+The first thing you'll notice is the `org.commonmark` import. This is where our external dependency comes into play.
+
+What you see here is a call-back function that the tree walker call every time it hits a heading. Counting is then simple enough, we just keep a counter in an instance variable. Needless to say that this class is intended to be disposed after each scan. Since we are doing only a single scan, nothing bad can happen.
+
+Counting paragraphs is equally simple. There is a little bit more work involved for counting the words. We won't go into details here, since that is besides the point of this tutorial. You can always read the code if your are curious.
+
+The next piece of the puzzle is abstracting the statistics scan, so that the parser and visitor details don't shine through in the calls from the main entry point.
+
+```java
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+
+public class MarkdownStatisticsScanner {
+    private final Parser parser = Parser.builder().build();
+
+    public TextStatistics scan(final String markdown) {
+        final Node document = this.parser.parse(markdown);
+        final ElementCountVisitor elementCounter = new ElementCountVisitor();
+        document.accept(elementCounter);
+        return elementCounter.getTextStatistics();
+    }
+}
+```
+
+Here we are first creating a parser. We do this as an instance variable, so that if `scan` was called multiple times, we would safe the effort of doing that repeatedly.
+
+Inside the `scan` method, we let the Markdown scanner scan the Markdown document, then we inject our own visitor into the tree walker of the document and fire it up using `accept`.
+
+As a result our visitor how has all the statistics and we can return them.
+
+Finally we write the entry point of the scalar function.
+
+```java
+import com.exasol.ExaIterator;
+import com.exasol.ExaMetadata;
+
+public class MdStat {
+    private static final String SCRIPT_PARAMETER_1_NAME = "MDTEXT";
+    private static final MarkdownStatisticsScanner SCANNER = new MarkdownStatisticsScanner();
+    
+    // ...
+
+    public static void run(final ExaMetadata metadata, final ExaIterator context) throws Exception {
+        final String markdownText = context.getString(SCRIPT_PARAMETER_1_NAME);
+        final TextStatistics statistics = SCANNER.scan(markdownText);
+        context.emit(statistics.getWords(), statistics.getHeadings(), statistics.getParagraphs());
+    }
+}
+```
+
+As you probably expected this consists of getting the input value from the script parameter `MDTEXT`, running the Markdown statistics scanner we just created and emitting the results.
+
+That's it where the implementation is concerned. Not too complicated, is it?
+
+## Packaging the Fat JAR
+
+Now that we have all the parts of the implementation place, we still need to deploy our extension. Unlike in our "hello world" example inlining the Java code into SQL code is not an option anymore. First we have an external dependency that is packaged as a JAR and thus impossible to inline, second the attempt to inline even this mildly complex Java code would get unmaintainable as SQL / Java hybrid code in a single script. Third and by no means last, demonstrating how to deploy and test a properly packaged Java plug-in is the whole point of this tutorial.
+
+So now, let's check our options. We could either package our own code into a JAR file and then register that in the SQL code next to the registration of the external dependency.
+
+This is perfectly possible and there are situations where this absolutely makes sense. If the license of the external dependency for example requires that you distribute it in unmodified form. Or if you want your users to be able to update your part and the external dependency independently. For example if the library is a driver. In that case updating the driver might be necessary in order to keep your plugin compatible with newer versions of the service the driver attaches to. We take that approach in our [Virtual Schemas](https://github.com/exasol/virtual-schemas).
+
+On the other hand, it is more convenient for users if they need to install only a single artifact as a plugin. Fewer moving parts means fewer places where things can go wrong. In this case you should build a all-in-one JAR or as the folk saying goes a "fat JAR".
+
+The good news is that you don't have to do a lot here. Basically it boils down to telling your build framework to make it happen.
+
+Please take a look a the file `../../pom.xml` again. In the `plugins` section there is one entry using the `maven-assembly-plugin` that tells Maven to build everything into a single JAR archive &mdash; including all dependencies:
+
+```xml
+<plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <groupId>org.apache.maven.plugins</groupId>
+    <version>3.3.0</version>
+    <configuration>
+        <descriptors>
+            <descriptor>src/assembly/all-dependencies.xml</descriptor>
+        </descriptors>
+        <finalName>exasol-java-tutorial</finalName>
+        <appendAssemblyId>false</appendAssemblyId>
+    </configuration>
+    <executions>
+        <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+```
+
+You can copy and paste that part into your own projects. The only parts you might want to modify are the plug-in version number and the `finalName` parameter.
+
+When it comes to naming, note that in this example we sacrificed an important aspect of artifact naming for the sake of simplicity. The artifact name does not contain a version number, which for a production plug-in it **absolutely should feature**! We did this so that the documentation and the test code remain stable across versions of this tutorial. In a real-world scenario we highly recommend that you include the version number in the JAR name! You can use the Maven variable `project.version` to achieve this.
+
+```xml
+<finalName>exasol-java-tutorial-${project.version}</finalName>
+```
+
+And one more word of warning: if you build distribution files, you take over responsibility for everything they contain. So make sure that you read and respect the licenses of what you are including, check regularly for security updates and be prepared to maintain or replace the external dependencies should the original maintainers abandon them.
+
+Okay, now that we got this out of the way, let's recap what the fruits of our Maven build step are. We now have a JAR file called `exasol-java-tutorial.jar` that contains everything we need to install it as a standalone plug-in.
 
 ## Building an Integration Test
 
@@ -126,17 +263,19 @@ Finally, we have the import of the actual result set matcher.
 Okay, let's now put it all together and create a test case.
 
 ```java
-@Test
-void testGetMarkdownStatistics() {
-    final Schema schema = factory.createSchema("SCHEMA_FOR_MARKDOWN_STATISICS");
-    schema.createTable("TEXTS", "TEXT", "VARCHAR(2000)")
-            .insert("# A Headline\n\nAnd some text with _emphasis_.");
-    installMdStatsScript();
-
-    final ResultSet result = execute("SELECT MDSTAT(TEXT) FROM TEXTS");
-
-    assertThat(result, table().row(7, 1, 1).matches(NO_JAVA_TYPE_CHECK));
-}
+    @Test
+    void testGetMarkdownStatistics() {
+        final Schema schema = factory.createSchema("SCHEMA_FOR_MARKDOWN_STATISICS");
+        schema.createTable("TEXTS", "TEXT", "VARCHAR(2000)") //
+                .insert("# A Headline\n\nAnd some text with _emphasis_.");
+        installMdStatsScript();
+        
+        final ResultSet result = execute("SELECT MDSTAT(TEXT) FROM TEXTS");
+        
+        final int expectedWords = 7, expectedHeadings = 1, expectedParagraphs = 1;
+        assertThat(result,
+                table().row(expectedWords, expectedHeadings, expectedParagraphs).matches(NO_JAVA_TYPE_CHECK));
+    }
 ```
 
 As with every good test case, we have three distinct phases here: setup, execution and result verification.
@@ -217,14 +356,20 @@ We used a `docker-db` image of Exasol, where a BucketFS service and a default bu
 
 **Important:** The _write_-password of that bucket is _auto-generated_. If you want to write to that bucket, you must read the generated password from the file `/exa/etc/EXAConf` inside the docker environment. It is Base64 encoded, so you must decode it first. In your integration tests the `exasol-testcontainer` does that automatically for you, but if you want to do it by hand, you don't have that luxury.
 
-Given an unmodified `docker-db` image, you can however extract the generated password like this:
+Given an unmodified `docker-db` image, you can however extract the generated password like this into the variable `WPASSWD`:
 
 ```bash
 export CONTAINERID = <id-if-exasol-docker-container>
-docker exec -it "$CONTAINERID" sed -nr 's/ *WritePasswd = ([0-9a-zA-Z]*=?=?)/\1/p' /exa/etc/EXAConf | base64 -di
+export WPASSWD=$(docker exec -it "$CONTAINERID" sed -nr 's/ *WritePasswd = ([0-9a-zA-Z]*=?=?)/\1/p' /exa/etc/EXAConf | base64 -di)
 ```
 
 Now use your web client to upload the JAR file to the default bucket under the following path `localhost:2850/bfsdefault/default/exasol-java-tutorial.jar` with user "`w`" and the password you just extracted.
+
+Here is an example with `curl`:
+
+```bash
+curl -X PUT -T target/exasol-java-tutorial.jar "http://w:$WPASSWD@localhost:2580/default/exasol-java-turorial.jar"
+```
 
 Finally, run `CREATE JAVA SCALAR SCRIPT` to register the Function.
 
@@ -237,7 +382,12 @@ EMITS (WORDS INTEGER, HEADINGS INTEGER, PARAGRAPHS INTEGER) AS
 /
 ```
 
-
 ## Summary
 
-In this tutorial you let the test framework start a docker-based Exasol instance in a test container for you. You installed a scalar script, set up the necessary database structure and contents for the test with the test database builder. Then you executed a query that contains the scalar script. Finally you used a dedicated Hamcrest matcher to verify that the results from the query matched your expectations.
+In this tutorial you created a scalar script that took an input value and emitted three columns. Then you built a standalone JAR file from your code and an external dependency, which serves as UDF plug-in.
+
+You let the test framework start a docker-based Exasol instance in a test container for you. You registered the plug-in as a scalar script, set up the necessary database structure and contents for the test with the test database builder.
+
+Then you executed a query that contains the scalar script.
+
+Finally you used a dedicated Hamcrest matcher to verify that the results from the query matched your expectations.

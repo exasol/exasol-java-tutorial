@@ -49,7 +49,9 @@ class MarkdownStatisticsScalarScriptIT {
                 .insert("# A Headline\n\nAnd some text with _emphasis_.");
         installMdStatsScript();
         final ResultSet result = execute("SELECT MDSTAT(TEXT) FROM TEXTS");
-        assertThat(result, table().row(7, 1, 1).matches(NO_JAVA_TYPE_CHECK));
+        final int expectedWords = 7, expectedHeadings = 1, expectedParagraphs = 1;
+        assertThat(result,
+                table().row(expectedWords, expectedHeadings, expectedParagraphs).matches(NO_JAVA_TYPE_CHECK));
     }
 
     private void installMdStatsScript() throws AssertionError {

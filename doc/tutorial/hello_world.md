@@ -7,14 +7,14 @@ In this tutorial we are going to cover the absolute minimal amount of steps requ
 You need a running Exasol instance and the simplest possible way to get there is to use our [`dockerdb`](https://github.com/exasol/docker-db) images and start Exasol in a Docker container.
 
 ```bash
-docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2850:2850 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
+docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
 ```
 
 Note that if you terminate the docker instance, the data inside is lost.
 
 You can check the latest `docker-db` version in the [release list](https://github.com/exasol/docker-db/releases).
 
-We forward two ports from the docker instance to the host here, the standard database port 8563 and the [BucketFS](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm) port. For this particular tutorial the BucketFS port is irrelevant because we are not using BucketFS, but it will come in handy in subsequent tutorials.
+We forward two ports from the docker instance to the host here, the standard database port 8563 and the [BucketFS](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm) port 2580. For this particular tutorial the BucketFS port is irrelevant because we are not using BucketFS, but it will come in handy in subsequent tutorials.
 
 ## Creating a Minimal Scalar Script
 

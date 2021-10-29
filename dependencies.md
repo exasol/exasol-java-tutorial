@@ -46,10 +46,11 @@
 
 [20]: https://github.com/exasol/project-keeper-maven-plugin
 [32]: https://www.eclemma.org/jacoco/index.html
+[2]: https://github.com/commonmark/commonmark-java
 [27]: http://www.apache.org/licenses/LICENSE-2.0.txt
 [30]: https://maven.apache.org/surefire/maven-surefire-plugin/
-[2]: https://github.com/commonmark/commonmark-java/commonmark
 [46]: http://maven.apache.org/plugins/maven-clean-plugin/
+[1]: https://mit-license.org/
 [5]: https://opensource.org/licenses/MIT
 [18]: https://github.com/mockito/mockito
 [42]: https://maven.apache.org/surefire/maven-failsafe-plugin/
@@ -72,7 +73,6 @@
 [12]: https://junit.org/junit5/
 [26]: https://sonatype.github.io/ossindex-maven/maven-plugin/
 [6]: https://testcontainers.org
-[1]: LICENSE-exasol-script-api.txt
 [16]: http://hamcrest.org/JavaHamcrest/
 [52]: http://maven.apache.org/plugins/maven-deploy-plugin/
 [54]: http://maven.apache.org/plugins/maven-site-plugin/

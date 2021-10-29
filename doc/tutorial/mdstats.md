@@ -39,7 +39,7 @@ Note that after terminating the instance, the data will be gone.
 
 Another prerequisite is a web client for managing files in Bucket FS. If you haven't had contact with BucketFS, please check out the official [BucketFS documentation](https://docs.exasol.com/administration/on-premise/bucketfs/bucketfs.htm). BucketFS is not exactly trivial, so you should definitely take a few minutes to familiarize yourself with the concepts and usage.
 
-If you are unsure which client to pick, use [curl](https://curl.se/)
+If you are unsure which client to pick, use [curl](https://curl.se/).
 
 ### Dependencies
 
@@ -72,7 +72,7 @@ To count the Markdown headings, paragraphs and words, we need to implement our o
 
 Take a moment look at the source of the class [`MarkdownStatitsitcsScanner`](../../src/main/java/com/exasol/javatutorial/markdown/MarkdownStatisticsScanner.java].
 
-You will understand the main principle if look at this snippet:
+You will understand the main principle if you look at this snippet:
 
 ```java
 import org.commonmark.node.*;
@@ -97,9 +97,9 @@ public class ElementCountVisitor extends AbstractVisitor {
 
 The first thing you'll notice is the `org.commonmark` import. This is where our external dependency comes into play.
 
-What you see here is a call-back function that the tree walker call every time it hits a heading. Counting is then simple enough, we just keep a counter in an instance variable. Needless to say that this class is intended to be disposed after each scan. Since we are doing only a single scan, nothing bad can happen.
+What you see here is a call-back function that the tree walker calls every time it hits a heading. Counting is then simple enough, we just keep a counter in an instance variable. Needless to say that this class is intended to be disposed after each scan. Since we are doing only a single scan, nothing bad can happen.
 
-Counting paragraphs is equally simple. There is a little bit more work involved for counting the words. We won't go into details here, since that is besides the point of this tutorial. You can always read the code if your are curious.
+Counting paragraphs is equally simple. There is a little bit more work involved for counting the words. We won't go into details here, since that is besides the point of this tutorial. You can always read the code if you are curious.
 
 The next piece of the puzzle is abstracting the statistics scan, so that the parser and visitor details don't shine through in the calls from the main entry point.
 
@@ -121,9 +121,9 @@ public class MarkdownStatisticsScanner {
 
 Here we are first creating a parser. We do this as an instance variable, so that if `scan` was called multiple times, we would safe the effort of doing that repeatedly.
 
-Inside the `scan` method, we let the Markdown scanner scan the Markdown document, then we inject our own visitor into the tree walker of the document and fire it up using `accept`.
+Inside the `scan` method, we let the Markdown parser parse the Markdown document, then we inject our own visitor into the tree walker of the document and fire it up using `accept`.
 
-As a result our visitor how has all the statistics and we can return them.
+As a result our visitor now has all the statistics and we can return them.
 
 Finally we write the entry point of the scalar function.
 
@@ -151,17 +151,19 @@ That's it where the implementation is concerned. Not too complicated, is it?
 
 ## Packaging the Fat JAR
 
-Now that we have all the parts of the implementation place, we still need to deploy our extension. Unlike in our "hello world" example inlining the Java code into SQL code is not an option anymore. First we have an external dependency that is packaged as a JAR and thus impossible to inline, second the attempt to inline even this mildly complex Java code would get unmaintainable as SQL / Java hybrid code in a single script. Third and by no means last, demonstrating how to deploy and test a properly packaged Java plug-in is the whole point of this tutorial.
+Now that we have all the parts of the implementation in place, we still need to deploy our extension. Unlike in our "hello world" example inlining the Java code into SQL code is not an option anymore. First we have an external dependency that is packaged as a JAR and thus impossible to inline, second the attempt to inline even this mildly complex Java code would get unmaintainable as SQL / Java hybrid code in a single script. Third and by no means last, demonstrating how to deploy and test a properly packaged Java plug-in is the whole point of this tutorial.
 
 So now, let's check our options. We could either package our own code into a JAR file and then register that in the SQL code next to the registration of the external dependency.
 
-This is perfectly possible and there are situations where this absolutely makes sense. If the license of the external dependency for example requires that you distribute it in unmodified form. Or if you want your users to be able to update your part and the external dependency independently. For example if the library is a driver. In that case updating the driver might be necessary in order to keep your plugin compatible with newer versions of the service the driver attaches to. We take that approach in our [Virtual Schemas](https://github.com/exasol/virtual-schemas).
+This is perfectly possible and there are situations where this absolutely makes sense, e.g. if the license of the external dependency for example requires that you distribute it in unmodified form. Or if you want your users to be able to update your part and the external dependency independently, e.g. if the library is a driver. In that case updating the driver might be necessary in order to keep your plugin compatible with newer versions of the service the driver attaches to. We take that approach in our [Virtual Schemas](https://github.com/exasol/virtual-schemas).
 
-On the other hand, it is more convenient for users if they need to install only a single artifact as a plugin. Fewer moving parts means fewer places where things can go wrong. In this case you should build a all-in-one JAR or as the folk saying goes a "fat JAR".
+On the other hand, it is more convenient for users if they need to install only a single artifact as a plugin. Fewer moving parts means fewer places where things can go wrong. In this case you should build an all-in-one JAR or as the folk saying goes a "fat JAR".
 
 The good news is that you don't have to do a lot here. Basically it boils down to telling your build framework to make it happen.
 
-Please take a look a the file `../../pom.xml` again. In the `plugins` section there is one entry using the `maven-assembly-plugin` that tells Maven to build everything into a single JAR archive &mdash; including all dependencies:
+Please take a look a the file `[pom.xml](../../pom.xml)` again. In the `plugins` section there is one entry using the `maven-assembly-plugin` that tells Maven to build everything into a single JAR archive &mdash; including all dependencies.
+
+If you are not using Maven, you will easily find instructions how to build fat JARs with your tool.
 
 ```xml
 <plugin>

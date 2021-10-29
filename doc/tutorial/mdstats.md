@@ -211,7 +211,7 @@ We want to have an integration test that without any interactions
 1. calls the scalar script on the test data and
 1. verifies the results.
 
-Please take a look at [`MarkdownStatisticsScalarScriptIT`](../../src/test/com/exasol/javatutorial/markdown/MarkdownStatisticsScalarScriptIT.java). In this JUnit5-based test we use the [`exasol-testcontainer`](https://github.com/exasol/exasol-testcontainers) to install, start and control an Exasol instance agains which we then run the tests.
+Please take a look at [`MarkdownStatisticsScalarScriptIT`](../../src/test/java/com/exasol/javatutorial/markdown/MarkdownStatisticsScalarScriptIT.java). In this JUnit5-based test we use the [`exasol-testcontainer`](https://github.com/exasol/exasol-testcontainers) to install, start and control an Exasol instance agains which we then run the tests.
 
 First we create an instance of an `ExasolTestcontainer` which is an extension of the original testcontainers that provides all the necessary Exasol specifics. For more clarity you also find the necessary imports in the snippet below.
 

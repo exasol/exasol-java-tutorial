@@ -144,12 +144,10 @@
                         <module>jar_artifact</module>
                         <module>integration_tests</module>
                     </modules>
-                    <configuration>
-                        <linkReplacements>
-                            <linkReplacement>LICENSE-exasol-script-api.txt|https://mit-license.org/</linkReplacement>
-                            <linkReplacement>https://github.com/commonmark/commonmark-java/commonmark|https://github.com/commonmark/commonmark-java</linkReplacement>
-                        </linkReplacements>
-                    </configuration>
+                    <linkReplacements>
+                        <linkReplacement>LICENSE-exasol-script-api.txt|https://mit-license.org/</linkReplacement>
+                        <linkReplacement>https://github.com/commonmark/commonmark-java/commonmark|https://github.com/commonmark/commonmark-java</linkReplacement>
+                    </linkReplacements>
                 </configuration>
             </plugin>
             <plugin>

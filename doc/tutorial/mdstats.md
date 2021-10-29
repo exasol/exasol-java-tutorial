@@ -382,6 +382,16 @@ EMITS (WORDS INTEGER, HEADINGS INTEGER, PARAGRAPHS INTEGER) AS
 /
 ```
 
+## Running "MDSTAT"
+
+To run the scalar script you can embed the function into a `SELECT` statement:
+
+```
+SELECT MDSTAT('This is a **Markdown** example')
+```
+
+Of course if you want it to be more realistic, you should create a table that contains a couple of Markdown texts and then use that as an input for the function instead of a `VARCHAR` constant.
+
 ## Summary
 
 In this tutorial you created a scalar script that took an input value and emitted three columns. Then you built a standalone JAR file from your code and an external dependency, which serves as UDF plug-in.

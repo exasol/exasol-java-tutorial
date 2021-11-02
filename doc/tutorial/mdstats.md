@@ -119,7 +119,7 @@ public class MarkdownStatisticsScanner {
 }
 ```
 
-Here we are first creating a parser. We do this as an instance variable, so that if `scan` was called multiple times, we would safe the effort of doing that repeatedly.
+Here we are first creating a parser. We do this as an instance variable, so that if `scan` was called multiple times, we would save the effort of doing that repeatedly.
 
 Inside the `scan` method, we let the Markdown parser parse the Markdown document, then we inject our own visitor into the tree walker of the document and fire it up using `accept`.
 

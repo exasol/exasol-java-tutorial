@@ -1,4 +1,4 @@
-# Exasol Java tutorial 0.1.0, released 2021-10-29
+# Exasol Java tutorial 0.1.0, released 2021-11-02
 
 Code name: Scalar scripts
 

@@ -12,7 +12,7 @@
         <java.version>11</java.version>
         <junit.version>5.7.2</junit.version>
         <maven.surefire-and-failsafe.version>3.0.0-M3</maven.surefire-and-failsafe.version>
-        <testcontainers.version>1.16.1</testcontainers.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
         <gpg.skip>true</gpg.skip>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
@@ -222,7 +222,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

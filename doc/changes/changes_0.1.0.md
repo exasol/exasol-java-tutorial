@@ -26,7 +26,7 @@ The other one builds on the first and introduces a scalar script that emits thre
 * Added `org.junit.jupiter:junit-jupiter-engine:5.7.2`
 * Added `org.junit.jupiter:junit-jupiter-params:5.7.2`
 * Added `org.mockito:mockito-junit-jupiter:4.0.0`
-* Added `org.testcontainers:junit-jupiter:1.16.1`
+* Added `org.testcontainers:junit-jupiter:1.16.2`
 
 ### Plugin Dependency Updates
 
@@ -46,5 +46,5 @@ The other one builds on the first and introduces a scalar script that emits thre
 * Added `org.apache.maven.plugins:maven-site-plugin:3.3`
 * Added `org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M3`
 * Added `org.codehaus.mojo:versions-maven-plugin:2.7`
-* Added `org.jacoco:jacoco-maven-plugin:0.8.5`
+* Added `org.jacoco:jacoco-maven-plugin:0.8.7`
 * Added `org.sonatype.ossindex.maven:ossindex-maven-plugin:3.1.0`

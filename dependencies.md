@@ -45,7 +45,6 @@
 | [Maven Site Plugin 3][54]                               | [The Apache Software License, Version 2.0][27] |
 
 [20]: https://github.com/exasol/project-keeper-maven-plugin
-[32]: https://www.eclemma.org/jacoco/index.html
 [2]: https://github.com/commonmark/commonmark-java
 [27]: http://www.apache.org/licenses/LICENSE-2.0.txt
 [30]: https://maven.apache.org/surefire/maven-surefire-plugin/
@@ -62,6 +61,7 @@
 [3]: http://opensource.org/licenses/BSD-2-Clause
 [33]: https://www.eclipse.org/legal/epl-2.0/
 [4]: https://github.com/exasol/exasol-testcontainers
+[32]: https://www.jacoco.org/jacoco/trunk/doc/maven.html
 [19]: https://github.com/mockito/mockito/blob/main/LICENSE
 [10]: https://github.com/exasol/hamcrest-resultset-matcher
 [36]: http://zlika.github.io/reproducible-build-maven-plugin

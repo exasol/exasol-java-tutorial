@@ -1,0 +1,5 @@
+error-tags:
+  EJTUT:
+    packages:
+      - com.exasol.javatutorial.markdown
+    highest-index: 1

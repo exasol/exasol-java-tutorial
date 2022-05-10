@@ -32,7 +32,7 @@ The missing piece in the puzzle is that you need statistics from the blog articl
 As in the ["Hello World"](hello_world.md) example we first need a running Exasol instance again.
 
 ```bash
-docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
+docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.10
 ```
 
 Note that after terminating the instance, the data will be gone.

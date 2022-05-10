@@ -47,10 +47,11 @@
 | [Maven Site Plugin 3][58]                               | [The Apache Software License, Version 2.0][29] |
 
 [8]: https://github.com/exasol/test-db-builder-java/
+[2]: https://github.com/commonmark/commonmark-java
 [29]: http://www.apache.org/licenses/LICENSE-2.0.txt
 [34]: https://maven.apache.org/surefire/maven-surefire-plugin/
-[2]: https://github.com/commonmark/commonmark-java/commonmark
 [50]: http://maven.apache.org/plugins/maven-clean-plugin/
+[1]: https://mit-license.org/
 [5]: https://opensource.org/licenses/MIT
 [18]: https://github.com/mockito/mockito
 [44]: https://maven.apache.org/surefire/maven-failsafe-plugin/
@@ -79,7 +80,6 @@
 [30]: https://sonatype.github.io/ossindex-maven/maven-plugin/
 [6]: https://testcontainers.org
 [28]: https://www.mojohaus.org/flatten-maven-plugin/flatten-maven-plugin
-[1]: LICENSE-exasol-script-api.txt
 [16]: http://hamcrest.org/JavaHamcrest/
 [56]: http://maven.apache.org/plugins/maven-deploy-plugin/
 [58]: http://maven.apache.org/plugins/maven-site-plugin/

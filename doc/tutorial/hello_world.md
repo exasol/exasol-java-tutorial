@@ -7,7 +7,7 @@ In this tutorial we are going to cover the absolute minimal amount of steps requ
 You need a running Exasol instance and the simplest possible way to get there is to use our [`dockerdb`](https://github.com/exasol/docker-db) images and start Exasol in a Docker container.
 
 ```bash
-docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.2
+docker run --name exasoldb --publish 127.0.0.1:8563:8563 --publish 127.0.0.1:2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.10
 ```
 
 Note that if you terminate the docker instance, the data inside is lost.

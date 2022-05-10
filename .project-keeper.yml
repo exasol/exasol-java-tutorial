@@ -1,0 +1,9 @@
+sources:
+  - type: maven
+    path: pom.xml
+    modules:
+      - jar_artifact
+      - integration_tests
+linkReplacements:
+  - "LICENSE-exasol-script-api.txt|https://mit-license.org/"
+  - "https://github.com/commonmark/commonmark-java/commonmark|https://github.com/commonmark/commonmark-java"

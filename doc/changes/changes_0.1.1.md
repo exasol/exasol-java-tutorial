@@ -6,6 +6,10 @@ Code name: 0.1.1: Upgrade dependencies
 
 * #3: Upgraded dependencies to fix [CVE-2022-21724](https://ossindex.sonatype.org/vulnerability/0f319d1b-e964-4471-bded-db3aeb3c3a29?component-type=maven&component-name=org.postgresql.postgresql&utm_source=ossindex-client&utm_medium=integration&utm_content=1.1.1) in the PostgreSQL JDBC driver.
 
+## Bug fixes
+
+* #5: Fixed issues reported by broken links checker
+
 ## Dependency Updates
 
 ### Compile Dependency Updates
@@ -25,7 +29,7 @@ Code name: 0.1.1: Upgrade dependencies
 
 * Updated `com.exasol:artifact-reference-checker-maven-plugin:0.3.1` to `0.4.1`
 * Updated `com.exasol:error-code-crawler-maven-plugin:0.1.1` to `1.1.1`
-* Updated `com.exasol:project-keeper-maven-plugin:1.3.1` to `2.3.2`
+* Updated `com.exasol:project-keeper-maven-plugin:1.3.1` to `2.4.6`
 * Updated `io.github.zlika:reproducible-build-maven-plugin:0.13` to `0.15`
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.8.1` to `3.10.1`
 * Updated `org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M3` to `3.0.0`

@@ -2,12 +2,9 @@
 
 Code name: 0.1.1: Upgrade dependencies
 
-## Features
-
-* #3: Upgraded dependencies to fix [CVE-2022-21724](https://ossindex.sonatype.org/vulnerability/0f319d1b-e964-4471-bded-db3aeb3c3a29?component-type=maven&component-name=org.postgresql.postgresql&utm_source=ossindex-client&utm_medium=integration&utm_content=1.1.1) in the PostgreSQL JDBC driver.
-
 ## Bug fixes
 
+* #3: Upgraded dependencies to fix CVE-2022-21724 in the PostgreSQL JDBC driver.
 * #5: Fixed issues reported by broken links checker
 
 ## Dependency Updates

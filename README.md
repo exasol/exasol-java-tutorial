@@ -30,9 +30,9 @@ Topics we are touching in the tutorials:
 
 ## Tutorials
 
-Start your journey with the obligatory [hello world](doc/tutorial/hello_world.md) tutorial to learn the basics of defining an inline Java extension that can be called from SQL.
+Start your journey with the obligatory [hello world](hello-world-tutorial/doc/hello_world.md) tutorial to learn the basics of defining an inline Java extension that can be called from SQL.
 
-Up your game with a full blown automated integration test that exercises a more complex Java extension that gets [statistics from Markdown](doc/tutorial/mdstats.md) text stored in an Exasol table. Learn to package the installation in a JAR archive in the course of this tutorial.
+Up your game with a full-blown automated integration test that exercises a more complex Java extension that gets [statistics from Markdown](markdown-statistics-tutorial/doc/mdstats.md) text stored in an Exasol table. Learn to package the installation in a JAR archive in the course of this tutorial.
 
 ## Additional Information
 

@@ -21,13 +21,13 @@ public class CertificateName {
     }
 
     private CertificateName(final String name) {
-        final String[] pathElements = name.split("\\s*,\\s*");
+        final String[] pathElements = name.split("\\s{0,256},\\s{0,256}");
         for(String pathElement : pathElements) {
             if(pathElement != null) {
-                final String[] parts = pathElement.split("\\s*=\\s*");
-                if(parts.length >= 2) {
-                    final String key = parts[0];
-                    final String value = parts[1];
+                final int assigmentOperatorPosition = pathElement.indexOf("=");
+                if(assigmentOperatorPosition >= 1) {
+                    final String key = pathElement.substring(0, assigmentOperatorPosition);
+                    final String value = pathElement.substring(assigmentOperatorPosition + 1);
                     namePathElements.put(key, value);
                 }
             }

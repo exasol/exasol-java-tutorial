@@ -14,7 +14,7 @@ Since people always have a wrong perception, I will stress that a TLS connection
 
 The job of TLS is to provide a secure communication channel between two partners.
 
-What does 'secure' mean? Security is always composed of three components that together form the easy to remember acronym [CIA](https://developer.mozilla.org/en-US/docs/Web/Security/Information_Security_Basics/Confidentiality,_Integrity,_and_Availability).
+What does 'secure' mean? Security is always composed of three components that together form the easy to remember acronym [CIA](https://en.wikipedia.org/wiki/Information_security#Key_concepts).
 
 * Confidentiality
 * Integrity
@@ -30,7 +30,7 @@ Availability highlights that users should have access to a secure connection. Th
 
 ![Alice, Bob and Eve](images/cl_alice_bob_and_eve.svg)
 
-It is almost impossible to read about security and not come across these three people. They are [personas](https://en.wikipedia.org/wiki/Persona) meant to serve as a graphical example of the challenges involved in information security. Alice and Bob are two regular communication partners. The names were picked because of their initials A and B [see Rivest, Shamir, Adleman, 1978, p. 3](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.607.2677).
+It is almost impossible to read about security and not come across these three people. They are [personas](https://en.wikipedia.org/wiki/Persona) meant to serve as a graphical example of the challenges involved in information security. Alice and Bob are two regular communication partners. The names were picked because of their initials A and B [see Rivest, Shamir, Adleman, 1978, p. 3](https://dl.acm.org/doi/10.1145/359340.359342).
 
 Eve on the other hand was chosen because it sounds sufficiently similar to eavesdropping and reminds readers that this persona wants get her hands on information that isn’t intended for her. We’re going to use those three established personas in our examples.
 

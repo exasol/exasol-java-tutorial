@@ -48,7 +48,7 @@ The OSI model classifies the typical building blocks of technical communication 
 |   4    | Transport layer    | TCP              |
 |   3    | Network layer      | IP               |
 |   2    | Data link layer    | MAC              |
-|   1    | Pyhsical layer     | Network adapter  |
+|   1    | Physical layer     | Network adapter  |
 
 The most obvious one is the physical layer. Here you find the hardware and the physical communication channel like an optical fiber. The data link layer provides a point-to-point connection between two nodes. The network layer allows you to transfer data to other  nodes beyond that direct neighbor. It’s the job of the transport layer to make sure that the data arrives intact on the other side of the communication &mdash; especially if that data is too large to fit into a single transfer unit and needs to be split at the source, correctly reassembled at the sink.
 

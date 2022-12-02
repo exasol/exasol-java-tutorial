@@ -2,9 +2,9 @@
 allow_mixing
 
 !include ../clean.skin
-!include ACTOR(Alice)
-!include ACTOR(Bob)
-!include ACTOR(Eve)
+actor Alice
+actor Bob
+actor Eve
 
 Alice -r- Bob : communicating
 (Alice, Bob) .. Eve : eavesdropping

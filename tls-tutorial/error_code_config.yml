@@ -1,0 +1,5 @@
+error-tags:
+  EJTUT-TLS:
+    packages:
+      - com.exasol.javatutorial.tls
+    highest-index: 1

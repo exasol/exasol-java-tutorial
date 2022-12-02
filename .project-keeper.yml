@@ -1,9 +1,27 @@
+version: 0.2.0
+
 sources:
-  - type: maven
-    path: pom.xml
+  - type: "maven"
+    path: "markdown-statistics-tutorial/pom.xml"
     modules:
       - jar_artifact
       - integration_tests
+    parentPom:
+      groupId: "com.exasol"
+      artifactId: "exasol-java-tutorial"
+      version: "${revision}"
+      relativePath: "../pom.xml"
+  - type: "maven"
+    path: "tls-tutorial/pom.xml"
+    modules:
+      - jar_artifact
+      - integration_tests
+    parentPom:
+      groupId: "com.exasol"
+      artifactId: "exasol-java-tutorial"
+      version: "${revision}"
+      relativePath: "../pom.xml"
+
 linkReplacements:
   - "LICENSE-exasol-script-api.txt|https://mit-license.org/"
   - "https://github.com/commonmark/commonmark-java/commonmark|https://github.com/commonmark/commonmark-java"

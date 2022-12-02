@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="261px" preserveAspectRatio="none" style="width:293px;height:261px;" version="1.1" viewBox="0 0 293 261" width="293px" zoomAndPan="magnify"><defs/><g><!--MD5=[2c779ae8328ac3f1086abb313344728d]
+entity Alice--><ellipse cx="24" cy="17.5" fill="#F8F8F8" rx="8" ry="8" style="stroke: #383838; stroke-width: 1.5;"/><path d="M24,25.5 L24,52.5 M11,33.5 L37,33.5 M24,52.5 L11,67.5 M24,52.5 L37,67.5 " fill="none" style="stroke: #383838; stroke-width: 1.5;"/><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="32" x="8" y="84.9951">Alice</text><!--MD5=[c88e65a0f892c31524c9bc6fd9ce900f]
+entity Bob--><ellipse cx="237" cy="17.5" fill="#F8F8F8" rx="8" ry="8" style="stroke: #383838; stroke-width: 1.5;"/><path d="M237,25.5 L237,52.5 M224,33.5 L250,33.5 M237,52.5 L224,67.5 M237,52.5 L250,67.5 " fill="none" style="stroke: #383838; stroke-width: 1.5;"/><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="223" y="84.9951">Bob</text><!--MD5=[07e85bd3c328ec7077b5adce0caa2b02]
+entity Eve--><ellipse cx="184" cy="180.5" fill="#F8F8F8" rx="8" ry="8" style="stroke: #383838; stroke-width: 1.5;"/><path d="M184,188.5 L184,215.5 M171,196.5 L197,196.5 M184,215.5 L171,230.5 M184,215.5 L197,230.5 " fill="none" style="stroke: #383838; stroke-width: 1.5;"/><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="171.5" y="247.9951">Eve</text><ellipse cx="184" cy="49" fill="#000000" rx="2" ry="2" style="stroke: none; stroke-width: 1.0;"/><!--MD5=[231331a304d6df4aaec132a564385e1c]
+link Alice to apoint6--><path d="M42.04,49 C80.29,49 167.22,49 181.88,49 " fill="none" id="Alice-apoint6" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Calibri" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="99" x="62.5" y="40.0669">communicating</text><!--MD5=[0dd6411ce8d171e97224cf3b2e61051c]
+link apoint6 to Bob--><path d="M186.07,49 C197.61,49 209.15,49 220.69,49 " fill="none" id="apoint6-Bob" style="stroke: #383838; stroke-width: 1.0;"/><!--MD5=[6da305cea9b04e6d81da9dd1c6f80b4b]
+link apoint6 to Eve--><path d="M184,51.03 C184,60.05 184,126.5 184,170.87 " fill="none" id="apoint6-Eve" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><text fill="#000000" font-family="Calibri" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="187" y="135.0669">eavesdropping</text><!--MD5=[9ace6780ecffeb6e34b370aff11ac52d]
+@startuml
+allow_mixing
+
+hide empty methods
+hide empty attributes
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+skinparam defaultFontName Calibri
+
+skinparam monochrome true
+
+skinparam padding 2
+actor Alice
+actor Bob
+actor Eve
+
+Alice -r- Bob : communicating
+(Alice, Bob) .. Eve : eavesdropping
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 11:22:07 CET 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.16+8-post-Ubuntu-0ubuntu122.04
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

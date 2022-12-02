@@ -1,0 +1,11 @@
+@startuml
+allow_mixing
+
+!include ../clean.skin
+actor Alice
+actor Bob
+actor Eve
+
+Alice -r- Bob : communicating
+(Alice, Bob) .. Eve : eavesdropping
+@enduml

@@ -14,15 +14,15 @@ You will also need:
 
 ## UDFs
 
-A User Defined Function (short "UDF") is a way to extend Exasol with new features that can be called from within SQL statements. Basically, they are programs that run on the Exasol cluster in the context of an SQL query. They get their parameters from the SQL statement and their return values can be used by other parts of the query.
+A User Defined Function (short "UDF") is a way to extend the Exasol database with new features that can be called from within Exasol SQL statements. Basically. A UDF is a program that runs on the Exasol cluster in the context of an SQL query. The UDF gets its parameters from the SQL statement and its return values can be used by other parts of the query.
 
-UDFs run in a sandbox that only lives in the context of a single statement. This ensures that UDFs can't be used to escape the boundaries of the statement they belong too and prevents data leakage.
+Each UDF runs in a sandbox that only lives in the context of a single statement. This ensures that UDF can't be used to escape the boundaries of the statement it belongs too and prevents data leakage.
 
-While the sandbox makes UDFs more secure, it unfortunately makes using TLS harder.
+While the sandbox makes the UDF more secure, it unfortunately makes using TLS harder.
 
 ## Language Containers
 
-UDFs can be written in multiple programming languages, requiring different runtime environments. Those environments are provided by our so-called "Language Containers". A standard container for Java and Python is shipped with Exasol. Other containers and updates for the standard container are [available for download on GitHub](https://github.com/exasol/script-languages-release/releases).
+A UDF can be written in an arbitrary programming language but requires an appropriate runtime environment that can be provided as a so-called "Language Container". The Exasol database ships with a standard container providing the runtime environment for Java and Python. Other containers and updates for the standard container are [available for download on GitHub](https://github.com/exasol/script-languages-release/releases).
 
 All UDFs require such a language container &mdash; except Lua UDFs, since Lua is embedded directly into the Exasol engine.
 
@@ -32,13 +32,13 @@ Whenever you run a SQL statement that contains a UDF, Exasol starts the correspo
 
 ## Certificate Validation in UDFs
 
-In the introduction I talked about how certificates are used to authenticate communication partners in TLS. As you might remember, you need a valid chain of certificates down to a certification agency (CA) that you trust.
+The introduction talked about how certificates are used to authenticate communication partners in TLS. As you might remember, you need a valid chain of certificates down to a certification agency (CA) that you trust.
 
-Since UDFs run in a sandbox, they can only see what the sandbox provides. That means without extra effort UDFs can only validate TLS certificates down to a CA certificate available in the sandbox (i.e. the language container). This is usually no problem if you want to access a service on the Internet, because in almost all cases services exposed to the internet have certificates that can be traced down to one of the well-established CAs. And the certificates for these CAs are shipped with the language container.
+Since the UDF runs in a sandbox, it can only see what the sandbox provides. That means without extra effort the UDF can only validate TLS certificates down to a CA certificate available in the sandbox (i.e. the language container). This is usually no problem if you want to access a service on the Internet, because in almost all cases services exposed to the internet have certificates that can be traced down to one of the well-established CAs. And the certificates for these CAs are shipped with the language container.
 
 ### Listing the Standard Certificates
 
-This tutorial comes with a UDF that can be built into the JAR `tls-tutorial.jar`. You can install it by following these steps:
+This tutorial comes with a UDF that can be built into the JAR `tls-tutorial.jar`. You can install the JAR by following these steps:
 
 1. Change to the base directory of this `exasol-java-tutorial`
 2. If you haven't already, build the binaries (JAR files)
@@ -49,6 +49,7 @@ This tutorial comes with a UDF that can be built into the JAR `tls-tutorial.jar`
    ```shell
    curl -v -X PUT http://w:<write-password>@<host>:2580/default/tls-tutorial.jar -T tls-tutorial/target/tls-tutorial.jar
    ```
+   Note that you need to replace the write-password and host with their actual values.
 4. Create a database schema `TLS_TUTORIAL` where you can put the UDF with `CREATE SCHEMA`
 5. Register the UDF with `CREATE SCRIPT` 
 6. Reference the uploaded JAR with the `%jar` directive in the script definition
@@ -82,20 +83,19 @@ Here are the first few rows of an example output.
 
 This script is especially helpful if you want to find out, which CA certificates are available in you UDF.
 
-It goes without saying that if a certificate is missing, trust chains based on it cannot be verified.
+It goes without saying that if a certificate is missing, trust chains based on it cannot be verified and access to corresponding services will fail.
 
-The column names are path element for the so-called "distinguished name" (DN) of the certificate. Think of that name as a unique identifier. The elements are "common name" (CN), organization (O), organizational unit (OU), country (C). 
+Each column corresponds to a path element for the so-called "distinguished name" (DN) of the certificate. Think of that name as a unique identifier. The elements are "common name" (CN), "organization" (O), "organizational unit" (OU), and "country" (C). 
 
 ### Self-issued Certificates and UDFs
 
-If you want your UDF to connect to a service on your own premisses, chances are the TLS certificate it uses was issued by our very own CA &mdash; of your organization's CA for that matter.
+If you want your UDF to connect to a service on your own premises, chances are that the corresponding TLS certificate was issued by your own CA or your organization's CA for that matter.
 
 Now things are starting to get interesting. One thing is for sure, you won't find that certificate in the language container &mdash; unless you are planning to build your own, but that has its own learning curve and would also go way beyond the scope of this tutorial.
 
 A better way to use your own certificates with UDFs is to create a truststore in [BucketFS](https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm). BucketFS is a distributed filesystem that makes files available to all data nodes on an Exasol cluster. It is also the only filesystem accessible from a UDF, except the read-only filesystem of the language container.
 
-
-### An Example Truststore For Our Experiments
+### An Example Truststore For This Tutorial
 
 You could start from scratch and create your very own CA certificate, but for the sake of keeping this tutorial compact, let's take an existing one and use that for our proof-of-concept.
 
@@ -119,7 +119,7 @@ keytool -import -file 'isrgrootx1.pem' -alias 'ISRG_Root_X1' -keystore "$trustst
 
 You have to provide a password now to protect your new keystore. For this tutorial simply use `tutorial`. Obviously in a real world scenario, you would generate a non-guessable password with your favorite password manager.
 
-The directory no contains the downloaded PEM file and the truststore that we just created. You can verify that the truststore only contains the certificate we just imported like this:
+The directory now contains the downloaded PEM file and the truststore that we just created. You can verify that the truststore only contains the certificate we just imported like this:
 
 ```shell
 keytool -list -keystore "$truststore_file"
@@ -147,13 +147,11 @@ We are going to use [`curl` to upload the truststore](https://docs.exasol.com/db
 curl -v -X PUT "http://w:<write-password>@<host>:2580/default/$truststore_file" -T "$truststore_file"
 ```
 
-Note that you need to replace the write-password and host with their actual values.
-
 We use `curl` in verbose mode (`-v`), so that we can see if the upload actually succeeded by checking for this line in the output:
 
     HTTP/1.1 200 OK
 
-List the contents of the default bucket to verify we have everything in place:
+Additionally, we check the contents of the default bucket to verify we have everything in place:
 
 ```shell
 curl "http://localhost:2580/default"
@@ -169,10 +167,10 @@ This should list the following items:
 
 While Java comes with a default trust store, you can override it using JVM arguments. To do this, you have the following properties:
 
-| Property                           | Meaning                        | Example |
-|------------------------------------|--------------------------------|---------|
-| `javax.net.ssl.trustStore`         | Path to the trust store file   |         | 
-| `javax.net.ssl.trustStorePassword` | Password for the trust store   |         |
+| Property                           | Meaning                        | Example                                         |
+|------------------------------------|--------------------------------|-------------------------------------------------|
+| `javax.net.ssl.trustStore`         | Path to the trust store file   | `/etc/ssl/certs/java/cacerts` (on Ubuntu Linux) | 
+| `javax.net.ssl.trustStorePassword` | Password for the trust store   | `changeit`                                      |
 
 If you want to inject JVM arguments into a UDF, you can use the `%jvmoption` directive in the [`CREATE SCRIPT`](https://docs.exasol.com/db/latest/sql/create_script.htm) statement.
 
@@ -189,9 +187,9 @@ SELECT JAVA_TUTORIAL.CUSTOM_CERTIFICATES();
 
 At this point you should see only the one entry that we added to our new trusstore earlier.
 
-| CN           | O                                | OU       | C  |
-|--------------|----------------------------------|----------|----|
-| ISRG Root X1 | Internet Security Research Group |          | US |
+| CN           | O                                | OU  | C   |
+|--------------|----------------------------------|-----|-----|
+| ISRG Root X1 | Internet Security Research Group |     | US  |
 
 ### Trust Store Password and Protecting the Truststore
 
@@ -216,6 +214,7 @@ In an operating system this is usually achieved by restricting write access to t
 5. [Grant access to the connection object](https://docs.exasol.com/db/latest/sql/grant.htm?Highlight=connection) to the users that will use the truststore in their UDFs
 6. Upload the truststore file to that bucket using the write-password
 
+In summary, we propose to live with a simple truststore password and to refer to the items in the list above in order to gain an acceptable level of security.
 ## Summary
 
 * User Defined Functions run in a sandbox.

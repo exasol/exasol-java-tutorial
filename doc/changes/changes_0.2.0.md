@@ -1,12 +1,21 @@
-# Markdown Statistics Tutorial 0.2.0, released 2022-??-??
+# exasol-java-tutorial 0.2.0, released 2022-12-??
 
-Code name:
+Code name: TLS tutorial
 
 ## Summary
 
+In this release we added a tutorial that explains how to use TLS in combination with Exasol. It especially focuses on the case where [User Defined Functions (UDFs) need TLS connections](../../tls-tutorial/doc/tls_in_udfs.md).
+
+The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_introduction.md) to TLS to establish the base know-how for the tutorial.
+
 ## Features
 
-* ISSUE_NUMBER: description
+* #7: Added TLS Tutorial
+
+## Bugfixes
+
+* #3: Upgraded dependencies to fix security issue.
+* #5: Fixed issues reported by broken links checker
 
 ## Dependency Updates
 

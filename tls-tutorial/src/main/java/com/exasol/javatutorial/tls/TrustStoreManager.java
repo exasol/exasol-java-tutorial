@@ -15,6 +15,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class provides an abstraction on accessing a Java truststore.
+ * <p>
+ * In the context of the TLS tutorial it also serves as a demonstration on how to get
+ * <a href="https://www.rfc-editor.org/rfc/rfc5280">X.509 certificates</a> from that truststore.
+ * </p>
+ */
 public class TrustStoreManager {
     /**
      * Create a new instance of the {@link TrustStoreManager}.
@@ -23,6 +30,11 @@ public class TrustStoreManager {
         // Added for JavaDoc completeness
     }
 
+    /**
+     * Get the X.509 certificates that are contained in the truststore.
+     *
+     * @return list of certificates the truststore contains
+     */
     public List<X509Certificate> listCertificates() {
         try {
             final KeyStore keyStore = loadKeyStore();
@@ -46,7 +58,6 @@ public class TrustStoreManager {
             throw new IllegalStateException("Unable to load truststore.", exception);
         }
     }
-
 
     private Path getDefaultTruststorePath() {
         final String javaHome = System.getProperty(Constants.JAVA_HOME_PROPERTY);

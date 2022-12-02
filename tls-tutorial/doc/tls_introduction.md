@@ -54,11 +54,11 @@ The most obvious one is the physical layer. Here you find the hardware and the p
 
 The session layer is responsible for managing the connection state between communication partners. TLS has a session concept &mdash; so a part of TLS lives in this layer. The presentation layer is a translator between what the application expects and what the lower layers provide. In case of TLS,  this means encryption and decryption of application data.
 
-The image above shows an example for an HTTPS connection. While you can see that the association between protocols and most layers is clear, TLS has parts of both the session and presentation layer.
+The image above shows an example for an HTTPS connection. While you can see that the association between protocols and most layers is clear, TLS affects parts of both the session and presentation layer.
 
 ## The Life Cycle of a TLS Connection
 
-In the following sections, I am going to touch on the most important aspects of a TLS connection. Please note, the details can be very tricky and for many of the steps there are multiple possible variants &mdash; for example, different encryption algorithms can be used.
+The following sections will touch the most important aspects of a TLS connection. Please note, the details can be very tricky and for many of the steps there are multiple possible variants &mdash; for example, different encryption algorithms can be used.
 
 ### Initial Connection
 
@@ -74,11 +74,11 @@ Alice and Bob add random data and a timestamp to the first messages of the commu
 
 Now the communication partners establish each other’s authenticity &mdash; or more precisely they should. We’ll get to that in a minute. For now, you just need to be aware that the goal of this step is to make sure that the communication partners are who they claim to be. The driving technology behind this step is called public-key cryptography or asymmetric cryptography.
 
-Think of a  box with a lock that needs two keys &mdash; one for locking it and one for unlocking it. Bob can give copies of the locking key to anyone he likes, Alice for example. As long as Bob keeps the other key, only he can open the box to get out what other people put in.
+Think of a box with a lock that needs two keys &mdash; one for locking it and one for unlocking it. Bob can give copies of the locking key to anyone he likes, Alice for example. As long as Bob keeps the other key, only he can open the box to get out what other people put in.
 
 In cryptographic terms we speak of a private key and a public key. As the name suggests, Bob needs to keep the private key secret and can share the other one. Bob could theoretically post the public key on Twitter without compromising security. But there are better ways to do this, and we will discuss them later.
 
-Asymmetric cryptography works nicely for authenticating a communication partner. Conceptually, Alice creates a piece of data that is sufficiently hard to guess (for example a large random number) and asks Bob to encrypt it with that Bob’s private key. Bob then sends the result back. Alice uses Bob’s public key to decrypt the data and compare it with the original. If the data matches, Alice knows she is talking to Bob. The details are, of course, more complicated in reality. But as a first approximation this example is good enough.
+Asymmetric cryptography works nicely for authenticating a communication partner. Conceptually, Alice creates a piece of data that is sufficiently hard to guess (for example a large random number) and asks Bob to encrypt it with Bob’s private key. Bob then sends the result back. Alice uses Bob’s public key to decrypt the data and compare the result with the original data. If the data matches, Alice knows she is talking to Bob. The details are, of course, more complicated in reality. But as a first approximation this example is good enough.
 
 ### Key Exchange
 
@@ -86,7 +86,7 @@ One aspect that makes all mechanisms like TLS more complex is the fact that asym
 
 As said, asymmetric cryptography is too expensive to transfer mass data. What’s a more efficient way then? Negotiating a new key after the initial handshake and switching the encryption to symmetric (e.g. [AES](http://www.faqs.org/rfcs/rfc3268.html)) from that point on. So, symmetric encryption is by orders of magnitude, cheaper.
 
-The symmetric key is what we call the 'session key' as it is created each time you start a new session. In fact, it can even be exchanged during a running session if it reaches a predefined expiry.
+The symmetric key is what we call the 'session key' as it is created each time you start a new session. In fact, it can even be replaced during a running session if it reaches a predefined expiry.
 
 ### Payload Transfer, Overheads and True Cost of Keeping Alive a TLS Connection
 

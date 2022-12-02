@@ -1,5 +1,9 @@
 package com.exasol.javatutorial.tls;
 
+/**
+ * Class that holds common constants relevant in the TLS context, such as the names of the properties that control which
+ * truststore is used.
+ */
 public final class Constants {
     public static final String TRUSTSTORE_PATH_PROPERTY = "javax.net.ssl.trustStore";
     public static final String TRUSTSTORE_PASSWORD_PROPERTY = "javax.net.ssl.trustStorePassword";

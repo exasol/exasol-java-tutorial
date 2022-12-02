@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class provides access to the parts of the LDAP path that makes up a certificate name.
+ * This class provides access to the parts of the LDAP path that make up a certificate name.
  */
 public class CertificateName {
     private final Map<String, String> namePathElements = new HashMap<>();

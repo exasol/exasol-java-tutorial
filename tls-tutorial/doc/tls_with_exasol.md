@@ -19,7 +19,7 @@ TODO: add incoming TLS diagram
 
 ### The Default TLS Certificate and why you Should Replace it
 
-In order to allow incoming connections from the start, Exasol comes pre-loaded with a default server certificate. Once you open a browser connection to that machine, your browser will display a warning that the connection isn’t secure. There are two reasons for this:
+In order to allow incoming connections from the start, Exasol comes preloaded with a default server certificate. Once you open a browser connection to that machine, your browser will display a warning that the connection isn’t secure. There are two reasons for this:
 
 1. The certificate is signed by an Exasol Certification Agency (CA) and your machine does not have that CA’s certificate pre-installed 
 2. Exasol can’t predict where the certificate is going to be hosted, so the hostname is left blank in the certificate
@@ -46,7 +46,7 @@ Depending on the certificate issuer outgoing TLS connections can either be as ea
 
 ### Services With Certificates Issued by a Popular CA
 
-If an application on your Exasol cluster wants to connect to the public application programming interface (API) of a service with a certificate signed by a popular CA – like one of those that come pre-loaded in most truststores – there isn’t much to do. The TLS connection should work out of the box. The TLS client can verify the server certificate by following the certificate chain down to that known root CA.
+If an application on your Exasol cluster wants to connect to the public application programming interface (API) of a service with a certificate signed by a popular CA – like one of those that come preloaded in most truststores – there isn’t much to do. The TLS connection should work out of the box. The TLS client can verify the server certificate by following the certificate chain down to that known root CA.
 
 ### Services With Certificates Issued by a Custom CA
 
@@ -66,45 +66,45 @@ A Linux machine has a central truststore in the `/etc` directory, typically in f
 
 Let's look at a few typical scenarios and what you need to get them working.
 
-### Data Import Using the EXALoader
+#### Data Import Using the EXALoader
 
 If all you need is running [`IMPORT`](https://docs.exasol.com/db/latest/sql/import.htm) statements, certificate installation is still pretty straight forward.
 
 Most of the connections that you will import from are JDBC connections and in that case you only need to install the necessary certificates in the Java truststore under `/etc/pki/ca-trust/extracted/java/cacerts` using Java's [keytool](https://docs.oracle.com/en/java/javase/11/tools/keytool.html).
 
-### Cluster Nodes and Truststores
+##### Cluster Nodes and Truststores
 
-Exasol distributes work across cluster nodes. While that is what you want of a performance database, it also means that the import can and will run on any of the data nodes of the cluster, so installing the certificates properly for an import means you need to install them on **all** cluster nodes.  
+Exasol distributes work across cluster nodes. While that is what you want of a performance database, it also means that the import can and will run on any of the data nodes of the cluster, so installing the certificates properly for an import means you need to install them on **all** cluster nodes.
 
-### Installing CA Certificates on an Exasol Cluster
+There are several ways to achieve this.
 
-The previous graphic shows the effort needed to install CA certificates for all languages on all cluster nodes. On the plus side most times you only really need to place the CA certificate in the Java truststore under: `/etc/pki`
+* If you only have a few nodes in the cluster you could do it by hand.
+* You could use [Distributed Shell (DSH)](https://manpages.org/dsh) to enter the command only once.
+* With a larger cluster tools like [Ansible](https://www.ansible.com/), [Chef](https://www.chef.io/) or [Puppet](https://puppet.com/) can help you script the job.
+* Or you could simply write a shell script and loop through the hosts.
 
-Installation in other truststores is optional and rarely needed. You’re most likely going to use the outgoing connection from the [EXALoader](https://docs.exasol.com/db/latest/planning/data_migration.htm#ExaLoaderImportCommand) to run [`IMPORT`](https://docs.exasol.com/db/latest/sql/import.htm) statements. The Loader part that connects to external JDBC databases is written in Java, so extending the central Java truststore is sufficient to get `IMPORT` working with TLS all cases that use a JDBC connection.
+We will not look at those options here in detail, because that would be way out of the scope of this article.
 
-### Installing new TLS Certificates on an Exasol Cluster
+#### Using TLS in User Defined Functions (UDFs)
 
-Before you start installing TLS certificates, you need to ask yourself:
+UDFs run in a sandbox for security reasons. The main effect you should be aware of in the context of TLS is that this means UDFs cannot see the host filesystem. And that means that the certificates on the host filesystem are visible to the EXALoader, but **not** to UDFs.
 
-1. Do I need TLS connections from UDFs or only from the EXALoader (i.e. for the `IMPORT` command)? 
-2. If I need UDFs, what programming languages do I need to support?
+Since this is a tricky topic, we have a separate article about using [TLS in UDFs](tls_in_udfs.md).
 
-Installing certificates so that the EXALoader can use them for imports is fairly straightforward. If the external source should be accessed via JDBC, you need to add your certificates via Java’s keytool on all data nodes in the cluster. The Java truststore is located under
+### Combining UDFs With the EXALoader
 
-    /etc/pki/ca-trust/extracted/java/cacerts
+This is the point where things get really complicated. As mentioned before, UDFs run in a sandbox. So they cannot see the certificate files on the host filesystem. The EXALoader can though.
 
-### 
+In a scenario where you need both &mdash; let's say you want to use a Virtual Schema &mdash; you have different options.
 
-The trouble starts when you need TLS in a UDF. The UDF truststores currently form an integral part of the language containers. They can and should be modified in situ. That way client applications work without modification or special configuration because the truststore is in its default location inside the running container. But there are also downsides. Firstly, this only applies until a language container update. And secondly, you have to locate the truststore files first – and they have variable path elements unlike the central one.
+Remember that if UDF and EXALoader only need to connect to servers that use a TLS certificate signed by a CA that is in the default trust stores, you don't have to do anything.
 
-To find the Java truststore in the language container, run the following command:
+If on the other hand you want to use your own CA, we recommend that you install the certificates twice. In the host filesystem of each data note, so that the EXALoader can see it as described in section ["Data Import Using the EXALoader"](#data-import-using-the-exaloader). And additionally in BucketFS as described in ["TLS with UDFs"](tls_in_udfs.md).
 
-updatedblocate --regex 'ScriptLanguages.*/java/cacerts'
+There are other options like using symlinks from Buckets to the host file system to avoid duplication. But this has other side effects, so the cost-benefit ratio of installing the certificates twice is better.
 
-Remember, you have to install the certificates on all data nodes.
-Reinstalling the certificates after a language container update
+## Conclusion
 
-Updates of a language container currently overwrite the corresponding truststores. So you need to remember to reinstall all custom certificates after any update.
-The future of TLS in UDF containers: shared truststores
+TLS with Exasol is simple as long as the CA certificates required are shipped with Exasol (and the language containers).
 
-To improve handling of TLS certificates in UDF containers, we’re planning to share truststores from the base system with the UDFs. This means you can install certificates in the central truststore and they’ll be available to UDFs too – but not the other way round to prevent security issues.
+If you want to use certificates singed by you own CA for an Exasol cluster, you need to install those certificates. [UDFs run in a container, so special effort is needed to install certificates for them](tls_in_udfs.md).

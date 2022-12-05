@@ -10,7 +10,8 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 ## Features
 
-* #7: Added TLS Tutorial
+* #7: Added TLS UDF Tutorial
+* #11: Added general information about TLS with Exasol
 
 ## Bugfixes
 

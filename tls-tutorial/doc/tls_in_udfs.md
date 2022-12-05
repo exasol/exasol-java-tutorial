@@ -14,15 +14,15 @@ You will also need:
 
 ## UDFs
 
-A User Defined Function (short "UDF") is a way to extend the Exasol database with new features that can be called from within Exasol SQL statements. Basically. A UDF is a program that runs on the Exasol cluster in the context of an SQL query. The UDF gets its parameters from the SQL statement and its return values can be used by other parts of the query.
+A User Defined Function (short "UDF") is a way to extend the Exasol database with new features that can be called from within Exasol SQL statements. Basically, a UDF is a program that runs on the Exasol cluster in the context of an SQL query. The UDF gets its parameters from the SQL statement and its return values can be used by other parts of the query.
 
-Each UDF runs in a sandbox that only lives in the context of a single statement. This ensures that UDF can't be used to escape the boundaries of the statement it belongs too and prevents data leakage.
+Each UDF runs in a sandbox that only lives in the context of a single statement. This ensures that UDF can't be used to escape the boundaries of the statement it belongs to and prevents data leakage.
 
 While the sandbox makes the UDF more secure, it unfortunately makes using TLS harder.
 
 ## Language Containers
 
-A UDF can be written in an arbitrary programming language but requires an appropriate runtime environment that can be provided as a so-called "Language Container". The Exasol database ships with a standard container providing the runtime environment for Java and Python. Other containers and updates for the standard container are [available for download on GitHub](https://github.com/exasol/script-languages-release/releases).
+A UDF can be written in an arbitrary programming language but requires an appropriate runtime environment that can be provided as a so-called "Language Container". The Exasol database is shipped with a standard container providing the runtime environment for Java, Python and R. Other containers and updates for the standard container are [available for download on GitHub](https://github.com/exasol/script-languages-release/releases).
 
 All UDFs require such a language container &mdash; except Lua UDFs, since Lua is embedded directly into the Exasol engine.
 
@@ -81,7 +81,7 @@ Here are the first few rows of an example output.
 | AffirmTrust Commercial         | AffirmTrust                |          | US       |
 | &hellip;                       | &hellip;                   | &hellip; | &hellip; |
 
-This script is especially helpful if you want to find out, which CA certificates are available in you UDF.
+This script is especially helpful if you want to find out, which CA certificates are available in your UDF.
 
 It goes without saying that if a certificate is missing, trust chains based on it cannot be verified and access to corresponding services will fail.
 
@@ -154,7 +154,7 @@ We use `curl` in verbose mode (`-v`), so that we can see if the upload actually 
 Additionally, we check the contents of the default bucket to verify we have everything in place:
 
 ```shell
-curl "http://localhost:2580/default"
+curl "http://<host>:2580/default"
 ```
 
 This should list the following items:

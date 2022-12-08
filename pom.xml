@@ -16,15 +16,6 @@
     <name>Exasol Java tutorial</name>
     <description>Learn how to extend Exasol with Java.</description>
     <url>https://github.com/exasol/exasol-java-tutorial/</url>
-    <repositories>
-        <repository>
-            <id>maven.exasol.com</id>
-            <url>https://maven.exasol.com/artifactory/exasol-releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.exasol</groupId>

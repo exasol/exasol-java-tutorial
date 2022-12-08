@@ -42,7 +42,7 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 * Added `com.exasol:artifact-reference-checker-maven-plugin:0.4.2`
 * Added `com.exasol:error-code-crawler-maven-plugin:1.2.1`
-* Added `com.exasol:project-keeper-maven-plugin:2.9.0`
+* Added `com.exasol:project-keeper-maven-plugin:2.9.1`
 * Added `io.github.zlika:reproducible-build-maven-plugin:0.16`
 * Added `org.apache.maven.plugins:maven-assembly-plugin:3.4.2`
 * Added `org.apache.maven.plugins:maven-clean-plugin:2.5`
@@ -82,7 +82,7 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 * Added `com.exasol:artifact-reference-checker-maven-plugin:0.4.2`
 * Added `com.exasol:error-code-crawler-maven-plugin:1.2.1`
-* Added `com.exasol:project-keeper-maven-plugin:2.9.0`
+* Added `com.exasol:project-keeper-maven-plugin:2.9.1`
 * Added `io.github.zlika:reproducible-build-maven-plugin:0.16`
 * Added `org.apache.maven.plugins:maven-assembly-plugin:3.4.2`
 * Added `org.apache.maven.plugins:maven-clean-plugin:2.5`

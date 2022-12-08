@@ -11,6 +11,7 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 ## Features
 
 * #7: Added TLS Tutorial
+* #14: Added Tutorial for `IMPORT` with organization-issued TLS certificate
 
 ## Bugfixes
 

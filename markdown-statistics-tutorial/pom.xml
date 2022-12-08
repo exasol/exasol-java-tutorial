@@ -20,14 +20,19 @@
         <dependency>
             <groupId>org.commonmark</groupId>
             <artifactId>commonmark</artifactId>
-            <version>0.20.0</version>
+            <version>0.21.0</version>
         </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>com.exasol</groupId>
+                <artifactId>project-keeper-maven-plugin</artifactId>
+                <version> 2.9.1</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <!-- Note that we intentionally don't include a version number here in order to make the tutorial
                     simpler. -->

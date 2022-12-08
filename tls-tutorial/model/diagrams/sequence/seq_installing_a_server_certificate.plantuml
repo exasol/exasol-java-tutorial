@@ -1,0 +1,40 @@
+@startuml
+!include ../clean.skin
+
+title "Installing Certificates On-premise"
+
+Participant "Certification Agency (CA)" as CA
+Actor Administrator
+Participant Exasol
+Participant Network
+Participant "ClientMachine" as Client
+
+Administrator -> CA : download CA certificate
+Administrator -> Client : install CA certificate
+
+Administrator -> Administrator : create server\ncertificate
+Administrator -> CA : request signing server certificate
+activate CA
+CA -->> Administrator : signed certificate
+deactivate CA
+
+create Network
+Administrator -> Network : create closed network
+create Exasol
+Administrator -> Exasol : install in closed network
+Administrator -> Exasol : log into Exasol via ssh
+Administrator -> Exasol : install CA certificate
+note right
+    required for outgoing
+    connections to
+    organization servers
+    (otherwise optional)
+end note
+Administrator -> Exasol : replace server certificate
+note right
+    for incoming
+    connections
+end note
+Administrator -> Network : open network to client
+
+@enduml

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="437px" preserveAspectRatio="none" style="width:590px;height:437px;background:#FFFFFF;" version="1.1" viewBox="0 0 590 437" width="590px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="30.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="224" x="176" y="5"/><text fill="#000000" font-family="Calibri" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="210" x="183" y="24.9951">Incoming TLS Connections</text><!--MD5=[0c8408905736681a4b53c4f12b162ef1]
+cluster Exasol Cluster Node--><g id="cluster_Exasol Cluster Node"><polygon fill="none" points="293,57.2969,303,47.2969,573,47.2969,573,410.2969,563,420.2969,293,420.2969,293,57.2969" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="563" x2="573" y1="57.2969" y2="47.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="293" x2="563" y1="57.2969" y2="57.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="563" x2="563" y1="57.2969" y2="420.2969"/><text fill="#000000" font-family="Calibri" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="160" x="349" y="75.292">Exasol Cluster Node</text></g><!--MD5=[daef0bbcaf26be77f2d331b4f844fd95]
+cluster Keystore--><g id="cluster_Keystore"><path d="M327.5,186.2969 L404.5,186.2969 A3.75,3.75 0 0 1 407,188.7969 L414,212.5938 L538.5,212.5938 A2.5,2.5 0 0 1 541,215.0938 L541,294.7969 A2.5,2.5 0 0 1 538.5,297.2969 L327.5,297.2969 A2.5,2.5 0 0 1 325,294.7969 L325,188.7969 A2.5,2.5 0 0 1 327.5,186.2969 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="325" x2="414" y1="212.5938" y2="212.5938"/><text fill="#000000" font-family="Calibri" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="72" x="331" y="203.292">Keystore</text></g><!--MD5=[3b574e6685cf58699e2f8a3d42314048]
+cluster Client Machine--><g id="cluster_Client Machine"><polygon fill="none" points="16,57.2969,26,47.2969,269,47.2969,269,410.2969,259,420.2969,16,420.2969,16,57.2969" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="259" x2="269" y1="57.2969" y2="47.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="16" x2="259" y1="57.2969" y2="57.2969"/><line style="stroke:#181818;stroke-width:1.0;" x1="259" x2="259" y1="57.2969" y2="420.2969"/><text fill="#000000" font-family="Calibri" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="118" x="79.5" y="75.292">Client Machine</text></g><!--MD5=[80877abf6b7e2427400d8ce12abb576e]
+cluster Truststore--><g id="cluster_Truststore"><path d="M50.5,186.2969 L139.5,186.2969 A3.75,3.75 0 0 1 142,188.7969 L149,212.5938 L234.5,212.5938 A2.5,2.5 0 0 1 237,215.0938 L237,294.7969 A2.5,2.5 0 0 1 234.5,297.2969 L50.5,297.2969 A2.5,2.5 0 0 1 48,294.7969 L48,188.7969 A2.5,2.5 0 0 1 50.5,186.2969 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="48" x2="149" y1="212.5938" y2="212.5938"/><text fill="#000000" font-family="Calibri" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="84" x="54" y="203.292">Truststore</text></g><!--MD5=[b27e5738b6290df25a902246a3e69dab]
+entity EXAoperation--><g id="elem_EXAoperation"><rect fill="#F1F1F1" height="70.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="142" x="309" y="333.2969"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="431" y="338.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="429" y="340.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="429" y="344.2969"/><text fill="#000000" font-family="Calibri" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="69" x="340.5" y="368.292">«service»</text><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacing" textLength="98" x="326" y="388.5889">EXAoperation</text></g><!--MD5=[fa1e3283224feb76407c84b7e90ed808]
+entity Database--><g id="elem_Database"><rect fill="#F1F1F1" height="70.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="113" x="309.5" y="91.2969"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="402.5" y="96.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="400.5" y="98.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="400.5" y="102.2969"/><text fill="#000000" font-family="Calibri" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="69" x="326.5" y="126.292">«service»</text><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacing" textLength="68" x="327" y="146.5889">Database</text></g><!--MD5=[0d732cecc5223509a6ec0426623c658c]
+entity SCert--><g id="elem_SCert"><path d="M368.5,235.7969 L368.5,271.0938 A2.5,2.5 0 0 0 371,273.5938 L515,273.5938 A2.5,2.5 0 0 0 517.5,271.0938 L517.5,243.2969 L507.5,233.2969 L371,233.2969 A2.5,2.5 0 0 0 368.5,235.7969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><path d="M507.5,233.2969 L507.5,240.7969 A2.5,2.5 0 0 0 510,243.2969 L517.5,243.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacing" textLength="125" x="380.5" y="258.292">Server Certificate</text></g><!--MD5=[e9dede37b31fdda9664526f66258b036]
+entity Browser--><g id="elem_Browser"><rect fill="#F1F1F1" height="70.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="138" x="73" y="333.2969"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="191" y="338.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="189" y="340.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="189" y="344.2969"/><text fill="#000000" font-family="Calibri" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="89" x="92.5" y="368.292">«consumer»</text><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacing" textLength="94" x="90" y="388.5889">Web Browser</text></g><!--MD5=[8a3a9f61a3fda9a38d7acccfc63385bb]
+entity Driver--><g id="elem_Driver"><rect fill="#F1F1F1" height="70.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="133" x="75.5" y="91.2969"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="188.5" y="96.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="186.5" y="98.2969"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="186.5" y="102.2969"/><text fill="#000000" font-family="Calibri" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="89" x="92.5" y="126.292">«consumer»</text><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacing" textLength="83" x="95.5" y="146.5889">JDBC Driver</text></g><!--MD5=[bd67ba53b3f86f3e1e3e6172e2b93b4c]
+entity CACert--><g id="elem_CACert"><path d="M91,235.7969 L91,271.0938 A2.5,2.5 0 0 0 93.5,273.5938 L210.5,273.5938 A2.5,2.5 0 0 0 213,271.0938 L213,243.2969 L203,233.2969 L93.5,233.2969 A2.5,2.5 0 0 0 91,235.7969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><path d="M203,233.2969 L203,240.7969 A2.5,2.5 0 0 0 205.5,243.2969 L213,243.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="Calibri" font-size="14" lengthAdjust="spacing" textLength="98" x="103" y="258.292">CA Certificate</text></g><!--MD5=[6fbb36ec39148ec1a364447636dedae0]
+link Database to Keystore--><g id="link_Database_Keystore"><path d="M333,162.3669 C333,166.7519 333,171.3578 333,176.0727 C333,178.4301 333,180.8148 333,183.2127 C333,183.8122 333,184.4125 333,185.0134 C333,185.3139 333,185.6145 333,185.9152 " fill="none" id="Database-Keystore" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[414d1e907854f0601494dee697557e9e]
+link Keystore to EXAoperation--><g id="link_Keystore_EXAoperation"><path d="M333,297.5324 C333,298.0468 333,298.5627 333,299.0799 C333,300.1144 333,301.1542 333,302.198 C333,304.2855 333,306.3889 333,308.4967 C333,316.9281 333,325.4319 333,333.2869 " fill="none" id="Keystore-EXAoperation" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[4ff4008b94f7f027eb151eeee9e679d1]
+link Driver to Truststore--><g id="link_Driver_Truststore"><path d="M75.09,127.2969 C63.98,127.2969 56,127.2969 56,127.2969 C56,127.2969 56,134.6875 56,145.8889 C56,151.4896 56,158.043 56,165.1016 C56,168.6309 56,172.2865 56,176.0125 C56,177.8755 56,179.7561 56,181.6473 C56,182.5929 56,183.5411 56,184.4911 C56,184.9661 56,185.4416 56,185.9174 " fill="none" id="Driver-Truststore" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1d0e3863766489cc0c55d1294acd1b3f]
+link Truststore to Browser--><g id="link_Truststore_Browser"><path d="M83.25,297.5408 C83.25,297.6796 83.25,297.8185 83.25,297.9575 C83.25,298.5135 83.25,299.0713 83.25,299.6305 C83.25,301.8674 83.25,304.128 83.25,306.3983 C83.25,315.4794 83.25,324.7144 83.25,333.1969 " fill="none" id="Truststore-Browser" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[e05625bef682d5bc9c2b257422a9519a]
+link Browser to EXAoperation--><g id="link_Browser_EXAoperation"><path d="M211.16,369.2969 C211.16,369.2969 303.6,369.2969 303.6,369.2969 " fill="none" id="Browser-to-EXAoperation" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="308.6,369.2969,299.6,365.2969,303.6,369.2969,299.6,373.2969,308.6,369.2969" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="Calibri" font-size="13" lengthAdjust="spacing" textLength="100" x="207.38" y="384.3638">TLS Connection</text></g><!--MD5=[b01a67f4ac363cc98715dc437bc04e8f]
+link Driver to Database--><g id="link_Driver_Database"><path d="M208.6,127.2969 C208.6,127.2969 304.49,127.2969 304.49,127.2969 " fill="none" id="Driver-to-Database" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="309.49,127.2969,300.49,123.2969,304.49,127.2969,300.49,131.2969,309.49,127.2969" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="Calibri" font-size="13" lengthAdjust="spacing" textLength="100" x="206.55" y="142.3638">TLS Connection</text></g><!--MD5=[1dabb87944be62aa8be5007ec128edda]
+link SCert to CACert--><g id="link_SCert_CACert"><path d="M368.44,264.2969 C368.44,264.2969 218.13,264.2969 218.13,264.2969 " fill="none" id="SCert-to-CACert" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="213.13,264.2969,222.13,268.2969,218.13,264.2969,222.13,260.2969,213.13,264.2969" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="Calibri" font-size="13" lengthAdjust="spacing" textLength="63" x="227.29" y="258.3638">signed by</text></g><!--MD5=[3afa4b5f45f98798d496c290728525fa]
+@startuml
+!include ../clean.skin
+skinparam linetype ortho
+
+title "Incoming TLS Connections"
+
+node "Exasol Cluster Node" {
+    component EXAoperation <<service>>
+    component Database <<service>>
+    folder Keystore {
+        file "Server Certificate" as SCert
+    }
+
+    Database -d- Keystore
+    EXAoperation -u- Keystore
+}
+node "Client Machine" {
+    component "Web Browser" as Browser <<consumer>>
+    component "JDBC Driver" as Driver <<consumer>>
+    folder Truststore {
+        file "CA Certificate" as CACert
+    }
+
+    Driver -d- Truststore
+    Browser -u- Truststore
+}
+
+Browser -> EXAoperation : TLS Connection
+Driver -> Database : TLS Connection
+SCert -> CACert : signed by
+@enduml
+
+@startuml
+hide empty methods
+hide empty attributes
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+skinparam defaultFontName Calibri
+
+skinparam monochrome true
+
+skinparam padding 2
+skinparam linetype ortho
+
+title "Incoming TLS Connections"
+
+node "Exasol Cluster Node" {
+    component EXAoperation <<service>>
+    component Database <<service>>
+    folder Keystore {
+        file "Server Certificate" as SCert
+    }
+
+    Database -d- Keystore
+    EXAoperation -u- Keystore
+}
+node "Client Machine" {
+    component "Web Browser" as Browser <<consumer>>
+    component "JDBC Driver" as Driver <<consumer>>
+    folder Truststore {
+        file "CA Certificate" as CACert
+    }
+
+    Driver -d- Truststore
+    Browser -u- Truststore
+}
+
+Browser -> EXAoperation : TLS Connection
+Driver -> Database : TLS Connection
+SCert -> CACert : signed by
+@enduml
+
+PlantUML version 1.2022.12(Sun Oct 23 20:12:26 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

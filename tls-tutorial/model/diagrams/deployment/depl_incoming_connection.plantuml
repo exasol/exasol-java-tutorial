@@ -1,0 +1,31 @@
+@startuml
+!include ../clean.skin
+skinparam linetype ortho
+
+title "Incoming TLS Connections"
+
+node "Exasol Cluster Node" {
+    component EXAoperation <<service>>
+    component Database <<service>>
+    folder Keystore {
+        file "Server Certificate" as SCert
+    }
+
+    Database -d- Keystore
+    EXAoperation -u- Keystore
+}
+node "Client Machine" {
+    component "Web Browser" as Browser <<consumer>>
+    component "JDBC Driver" as Driver <<consumer>>
+    folder Truststore {
+        file "CA Certificate" as CACert
+    }
+
+    Driver -d- Truststore
+    Browser -u- Truststore
+}
+
+Browser -> EXAoperation : TLS Connection
+Driver -> Database : TLS Connection
+SCert -> CACert : signed by
+@enduml

@@ -13,9 +13,12 @@ In a later article in this series we will take a close look at [using TLS inside
 
 [EXAOperation](https://docs.exasol.com/db/latest/administration/on-premise/admin_interface/exaoperation.htm) and [BucketFS](https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm) are probably the first touchpoints users have with Exasol. EXAOperation runs on HTTPS (i.e. HTTP + TLS) by default and BucketFS supports both HTTP and HTTPS. And, of course, HTTPS is the only suitable choice unless you’re running development tests.
 
-This diagram shows an incoming TLS connection with EXAOperation as the service and the user’s web browser as the consumer.
+This diagram shows two incoming TLS connections:
 
-TODO: add incoming TLS diagram
+1. JDBC connection 
+2. Web browser connecting to EXAOperation   
+
+![Incoming TLS Connection](images/depl_incoming_connection.svg)
 
 ### The Default TLS Certificate and why you Should Replace it
 
@@ -26,11 +29,11 @@ In order to allow incoming connections from the start, Exasol comes preloaded wi
 
 ### The Chicken-or-the-egg Problem of Secure Connections
 
-For a truly secure connection, you need to put in place a custom certificate immediately after installing EXAOperation. Until then, you’re facing a classic chicken-or-the-egg problem. On the one hand, you need to install your own certificate to establish a trusted TLS connection. On the other, you need to connect to Exasol first in order to do this.
+For a truly secure connection, you need to put in place a custom server certificate immediately after installing EXAOperation. Until then, you’re facing a classic chicken-or-the-egg problem. On the one hand, you need to install your own certificate to establish a trusted TLS connection. On the other, you need to connect to Exasol first in order to do this.
 
 This graphic shows an example of a simple on-premise installation in a single network. The organization’s CA issues a root certificate. IT administrators then place this certificate on all users’ machines in that organization. The same administrators also install the server certificate via EXAOperation.
 
-TODO: add certificate installation diagram 
+![Installing a server certificate](images/seq_installing_a_server_certificate.svg)
 
 ### Exasol TLS Certificate Installation (On-premise)
 

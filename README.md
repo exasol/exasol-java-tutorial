@@ -30,9 +30,22 @@ Topics we are touching in the tutorials:
 
 ## Tutorials
 
+### Hello World!
+
 Start your journey with the obligatory [hello world](hello-world-tutorial/doc/hello_world.md) tutorial to learn the basics of defining an inline Java extension that can be called from SQL.
 
+## Markdown Statistics as User Defined Function
+
 Up your game with a full-blown automated integration test that exercises a more complex Java extension that gets [statistics from Markdown](markdown-statistics-tutorial/doc/mdstats.md) text stored in an Exasol table. Learn to package the installation in a JAR archive in the course of this tutorial.
+
+## TLS Tutorial
+
+Setting up TLS is all but trivial in some scenarios, so a series of articles and some software examples guide you through the process.
+
+1. [Introduction to TLS](tls-tutorial/doc/tls_introduction.md)
+2. [TLS with Exsaol (theoretical part)](tls-tutorial/doc/tls_with_exasol.md)
+3. Using `IMPORT` with your own TLS certificate (to be done in #14)
+4. [TLS in User Defined Functions (UDFs)](tls-tutorial/doc/tls_in_udfs.md)
 
 ## Additional Information
 

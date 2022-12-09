@@ -30,20 +30,20 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 #### Test Dependency Updates
 
-* Added `com.exasol:exasol-testcontainers:6.3.1`
+* Added `com.exasol:exasol-testcontainers:6.4.0`
 * Added `com.exasol:hamcrest-resultset-matcher:1.5.2`
 * Added `com.exasol:test-db-builder-java:3.4.1`
 * Added `org.hamcrest:hamcrest:2.2`
 * Added `org.junit.jupiter:junit-jupiter-engine:5.9.1`
 * Added `org.junit.jupiter:junit-jupiter-params:5.9.1`
-* Added `org.mockito:mockito-junit-jupiter:4.8.1`
-* Added `org.testcontainers:junit-jupiter:1.17.5`
+* Added `org.mockito:mockito-junit-jupiter:4.9.0`
+* Added `org.testcontainers:junit-jupiter:1.17.6`
 
 #### Plugin Dependency Updates
 
 * Added `com.exasol:artifact-reference-checker-maven-plugin:0.4.2`
 * Added `com.exasol:error-code-crawler-maven-plugin:1.2.1`
-* Added `com.exasol:project-keeper-maven-plugin:2.9.0`
+* Added `com.exasol:project-keeper-maven-plugin:2.9.1`
 * Added `io.github.zlika:reproducible-build-maven-plugin:0.16`
 * Added `org.apache.maven.plugins:maven-assembly-plugin:3.4.2`
 * Added `org.apache.maven.plugins:maven-clean-plugin:2.5`
@@ -70,20 +70,20 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 #### Test Dependency Updates
 
-* Added `com.exasol:exasol-testcontainers:6.3.1`
+* Added `com.exasol:exasol-testcontainers:6.4.0`
 * Added `com.exasol:hamcrest-resultset-matcher:1.5.2`
 * Added `com.exasol:test-db-builder-java:3.4.1`
 * Added `org.hamcrest:hamcrest:2.2`
 * Added `org.junit.jupiter:junit-jupiter-engine:5.9.1`
 * Added `org.junit.jupiter:junit-jupiter-params:5.9.1`
-* Added `org.mockito:mockito-junit-jupiter:4.8.1`
-* Added `org.testcontainers:junit-jupiter:1.17.5`
+* Added `org.mockito:mockito-junit-jupiter:4.9.0`
+* Added `org.testcontainers:junit-jupiter:1.17.6`
 
 #### Plugin Dependency Updates
 
 * Added `com.exasol:artifact-reference-checker-maven-plugin:0.4.2`
 * Added `com.exasol:error-code-crawler-maven-plugin:1.2.1`
-* Added `com.exasol:project-keeper-maven-plugin:2.9.0`
+* Added `com.exasol:project-keeper-maven-plugin:2.9.1`
 * Added `io.github.zlika:reproducible-build-maven-plugin:0.16`
 * Added `org.apache.maven.plugins:maven-assembly-plugin:3.4.2`
 * Added `org.apache.maven.plugins:maven-clean-plugin:2.5`

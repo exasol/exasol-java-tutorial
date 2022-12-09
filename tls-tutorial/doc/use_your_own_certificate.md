@@ -146,6 +146,8 @@ The output tells us that we are locking at an X.509 certificate in version 3. Th
 
 If you are wondering why issuer and subject are the same, then remember, we are talking about a **root** CA certificate here, so that is a valid combination.
 
+The validity is a year as we defined. It is represented here by a start and end date. The start date is the date and time we created the certificate.
+
 The public key part is the most interesting part of the certificate, since that is what clients will use to validate certificates that *claim* to be signed by this CA. We are talking about asymmetric cryptography here and only the actual CA holds the private signing key. That means if the client is able to validate a given signature with the CAs known and trusted public key, that signature is authentic.
 
 [Subject key identifier](https://www.rfc-editor.org/rfc/rfc3280#section-4.2.1.2) and authority key identifier are unique identifiers that are used in certificate chaining. Note that in our root CA example they are identical.

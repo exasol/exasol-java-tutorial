@@ -570,43 +570,82 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
 
 ## Run the Import
 
-1. Install the usql commandline SQL client on the Ubuntu machine. Current versions come with the Exasol Go driver preinstalled.
+In this last part of the tutorial, we import the data from the `shapes` database and `shapes` table in MySQl into Exasol.
+
+One last piece of preparation is that you get the IP address of the Docker host (i.e. the Ubuntu machine you run the tutorial on).
+
+```shell
+ip address show docker0 | grep inet
+```
+
+Please, note down the IP address. You will need it for the `IMPORT` command.
+
+We need a why to talk to Exasol, so please install the [usql](https://github.com/xo/usql) commandline SQL client on the Ubuntu machine. Current versions come with the [Exasol Go driver preinstalled](https://github.com/xo/usql#supported-database-schemes-and-aliases).
+
    ```shell
    wget https://github.com/xo/usql/releases/download/v0.13.5/usql_static-0.13.5-linux-amd64.tar.bz2
    tar --bzip2 -xvf usql_static-0.13.5-linux-amd64.tar.bz2
    ```
-2. Connect to the Exasol server
-   ```shell
-   ./usql_static exa://sys:exasol@localhost?validateservercertificate=0
-   ```
-   Since we forwarded the default port, we can directly connect to `localhost`, even if the Exasol database is running in a Docker container. 
-   You are probably asking yourself why we skip certificate validation here. The reason is that we otherwise would have to outfit Exasol with a server certificate too and that is beyond the scope of this particular tutorial for now (later versions might add this).
-3. Prepare the target table:
-   ```sql
-   CREATE SCHEMA target_schema;
-   CREATE TABLE target_schema.shapes_target(name VARCHAR(40), corners INT);
-   ```
-4. Run the `IMPORT`:
-   ```shell
-   IMPORT INTO target_schema.shapes_target
-   FROM JDBC AT 'jdbc:mysql://10.0.2.15:3306/shapes?sslMode=REQUIRED'
-   USER 'tutorial_user' IDENTIFIED BY 'tutorial'
-   STATEMENT 'SELECT * FROM shapes';
-   ```
-   As you probably guessed, the option `sslMode=REQUIRED` enforces TLS 
-5. Check the results in the target table:
-   ```shell
-   select * from target_schema.shapes_target;
-   ```
-   This must yield the following result
-   ```
-      name    | corners 
-   -----------+---------
-    point     |       1
-    line      |       2
-    triangle  |       3
-    rectangle |       4
-   (4 rows)
+
+Next, connect to the Exasol server
+
+```shell
+./usql_static exa://sys:exasol@localhost?validateservercertificate=0
+```
+
+Since we forwarded the default port, we can directly connect to `localhost`, even if the Exasol database is running in a Docker container.
+
+You are probably asking yourself why we skip certificate validation here. The reason is that we otherwise would have to outfit Exasol with a server certificate too and that is beyond the scope of this particular tutorial for now (later versions might add this).
+
+In order to run the import, we need a target table on Exasol, so let's prepare it.
+
+```sql
+CREATE SCHEMA target_schema;
+CREATE TABLE target_schema.shapes_target(name VARCHAR(40), corners INT);
+```
+
+You are now set up and ready to run the import.
+
+```shell
+IMPORT INTO target_schema.shapes_target
+FROM JDBC AT 'jdbc:mysql://<ip-address-of-docker-host>/shapes?sslMode=REQUIRED'
+USER 'tutorial_user' IDENTIFIED BY 'tutorial'
+STATEMENT 'SELECT * FROM shapes';
+```
+
+Let's look at the individual parts of this SQL statement.
+
+`IMPORT INTO <target-schema>.<target-table>`
+: Tells Exasol to run an import into an existing schema and table.
+
+`FROM <source> AT <url>`
+: Defines from which datasource the data should be copied. Here a JDBC URL with server IP address and a configuration parameter.
+
+: As you probably guessed, the option `sslMode=REQUIRED` [enforces a TLS connection](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-security.html#idm45913412865616) from the MySQL JDBC driver to the MySQL server.
+
+`USER <username> IDENTIFIED BY <password>`
+: Contains the credentials that are used to connect to the source. In our case the database user and password on MySQL.
+
+`STATEMENT '<sql-statement-to-run-on-source>'`
+
+: Defines which statement should be executed on the data source. The result set of this statement is what gets imported.
+
+Now, check the results in the target table:
+
+```shell
+SELECT * FROM target_schema.shapes_target;
+```
+
+This must yield the following result
+
+```
+   name    | corners 
+-----------+---------
+ point     |       1
+ line      |       2
+ triangle  |       3
+ rectangle |       4
+(4 rows)
 
    ```
    
@@ -632,7 +671,7 @@ Version 1.7](https://www.rfc-editor.org/rfc/rfc2986), M. Nystrom, B. Kalinski, N
 [Textual Encodings of PKIX, PKCS, and CMS Structures](https://www.rfc-editor.org/rfc/rfc7468), S. Josefsson, S. Leonard, April 2015
 
 
-##### RFC5077
+###### RFC5077
 
 [Transport Layer Security (TLS) Session Resumption without
 Server-Side State](https://www.rfc-editor.org/rfc/rfc5077), J. Salowey, H. Zhou, P. Eronen, H. Tschofenig, January 2008

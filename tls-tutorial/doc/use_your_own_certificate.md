@@ -407,6 +407,12 @@ ssl-cert=/etc/mysql/certs/server.crt
 ssl-key=/etc/mysql/certs/server_key.pem
 ```
 
+Also, we need to enable Exasol later to access the MySQL server. Since that will not be access from `localhost` you need to accept all interfaces.
+
+```
+bind-address = 0.0.0.0
+```
+
 Restart the MySQL server daemon so that the changed configuration takes effect.
 
 ```shell
@@ -496,9 +502,119 @@ For the next steps we need a Docker setup
    groups
     ```
 
-### No Docker Network
+## Installing Exasol via Docker
 
-We could set up a docker network for our experiments, but teaching Docker is not the point of this tutorial. So we take the easiest route and just use port forwarding. After all what we really want to train is TLS.
+Exasol's [docker-db](https://github.com/exasol/docker-db) provides a Docker container that is quite convenient for experiments like our tutorial.
+
+The following docker command downloads the container's layers and afterwards starts the container. Expect a couple of minutes until the download and database start are done.
+
+```shell
+docker run --name exasoldb -p 8563:8563 -p 2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.17
+```
+
+There are two ports forwarded to the host:
+
+- 8563: database port
+- 2580: [BucketFS] port
+
+### Installing the MySQL JDBC driver in Exasol
+
+[Import](https://docs.exasol.com/db/latest/sql/import.htm) into Exasol requires that the database driver of the source database (MySQl in our case) is installed in Exasol.
+
+Installation in the Docker variant requires uploading the driver to a [BucketFS] bucket and updating a configuration file.
+
+1. Download the [MySQL Connector] (JDBC driver)
+   ```shell
+   wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz
+   ```
+2. Get the ID of the Exasol Docker container
+   ```shell
+   container_id=$(docker ps -a | grep exasol | sed -e's/ .*//')
+   ```
+3. Get the write-password of the default Bucket in BucketFS
+   ```shell
+   write_pwd=$(docker exec -it "$container_id" cat /exa/etc/EXAConf | grep WritePasswd | sed -e's/^.* = //' -e's/[\n\r]//g' | base64 --decode)
+   ```
+4. Copy the driver to the default Bucket
+   ```shell
+   curl -vX PUT -T mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/mysql-connector-j-8.0.31.jar"
+   ```
+5. Create a driver configuration (`settings.cfg`)
+   ```shell
+   echo 'DRIVERNAME=MYSQL_JDBC
+   JAR=mysql-connector-j-8.0.31.jar
+   DRIVERMAIN=com.mysql.cj.jdbc.Driver
+   PREFIX=jdbc:mysql:
+   NOSECURITY=YES
+   FETCHSIZE=100000
+   INSERTSIZE=-1' > settings.cfg
+   ```
+6. Upload the configuration to `drivers/jdbc` in the default bucket:
+   ```shell
+   curl -vX PUT -T settings.cfg "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/settings.cfg"
+   ```
+7. Verify this installation:
+   ```shell
+   curl http://localhost:2580/default
+   ```
+   Must produce a listing that looks similar to this:
+   ```
+   EXAClusterOS/ScriptLanguages-standard-EXASOL-7.1.0-slc-v4.0.0-CM4RWW6R.tar.gz
+   drivers/jdbc/mysql-connector-j-8.0.31.jar
+   drivers/jdbc/settings.cfg
+   ```
+   
+### Copying the Certificate to Exasol
+
+**Information:** this part will be added in a separate pull request.
+
+## Run the Import
+
+1. Install the usql commandline SQL client on the Ubuntu machine. Current versions come with the Exasol Go driver preinstalled.
+   ```shell
+   wget https://github.com/xo/usql/releases/download/v0.13.5/usql_static-0.13.5-linux-amd64.tar.bz2
+   tar --bzip2 -xvf usql_static-0.13.5-linux-amd64.tar.bz2
+   ```
+2. Connect to the Exasol server
+   ```shell
+   ./usql_static exa://sys:exasol@localhost?validateservercertificate=0
+   ```
+   Since we forwarded the default port, we can directly connect to `localhost`, even if the Exasol database is running in a Docker container. 
+   You are probably asking yourself why we skip certificate validation here. The reason is that we otherwise would have to outfit Exasol with a server certificate too and that is beyond the scope of this particular tutorial for now (later versions might add this).
+3. Prepare the target table:
+   ```sql
+   CREATE SCHEMA target_schema;
+   CREATE TABLE target_schema.shapes_target(name VARCHAR(40), corners INT);
+   ```
+4. Run the `IMPORT`:
+   ```shell
+   IMPORT INTO target_schema.shapes_target
+   FROM JDBC AT 'jdbc:mysql://10.0.2.15:3306/shapes?sslMode=REQUIRED'
+   USER 'tutorial_user' IDENTIFIED BY 'tutorial'
+   STATEMENT 'SELECT * FROM shapes';
+   ```
+   As you probably guessed, the option `sslMode=REQUIRED` enforces TLS 
+5. Check the results in the target table:
+   ```shell
+   select * from target_schema.shapes_target;
+   ```
+   This must yield the following result
+   ```
+      name    | corners 
+   -----------+---------
+    point     |       1
+    line      |       2
+    triangle  |       3
+    rectangle |       4
+   (4 rows)
+
+   ```
+   
+Congratulations, you just imported data from MySQL via a TLS connection.
+
+## Conclusion
+
+In this tutorial you learned how to create, read and debug TLS certificates for a Certification Agency (CA) and for a server. You installed the server certificate machines to allow certificate chain validation. You installed the server certificate on the source server and used `s_client` to look at the TLS connection. Finally, you ran an import that transferred data from a source database via TLS to Exasol.
 
 ## References
 
@@ -524,3 +640,7 @@ Server-Side State](https://www.rfc-editor.org/rfc/rfc5077), J. Salowey, H. Zhou,
 ###### x509v3_config
 
 [X509 V3 certificate extension configuration format](https://www.openssl.org/docs/manmaster/man5/x509v3_config.html), OpenSSL Project
+
+
+[BucketFS]: https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm
+[MySQL Connector]: (https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz)

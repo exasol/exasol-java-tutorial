@@ -77,7 +77,7 @@ Do this to create a CA certificate:
 Let's talk about what the individual parameters of the `openssl` mean:
 
 `req`
-: This subcommand takes care of everything that has to do with a certificate signing request. We will talk about [Singing Requests](#creating-a-singing-request-for-a-server-certificate) later in detail.
+: This subcommand takes care of everything that has to do with a certificate signing request. We will talk about [Signing Requests](#creating-a-signing-request-for-a-server-certificate) later in detail.
 
 `-x509`
 : This switch tells OpenSSL to immediately execute the signing request, so that the result will be a self-signed certificate. It's a shortcut.
@@ -163,11 +163,11 @@ The `CA:TRUE` entry is pretty self-explaining. You are looking at a CA certifica
 
 Finally, there is a block that contains the signature of the certificate, which in this case is not particularly useful, since it is self-signed. Since that is the beginning of the chain, and it contains the public key that is required to validate the signature, you have the dreaded chicken-of-the-egg problem of all IT security here. That means the *root* CA certificates must be installed on a client by means of a trusted channel. 
 
-### Creating a Singing Request for a Server Certificate
+### Creating a Signing Request for a Server Certificate
 
 Services that are offered via TLS present a server certificate to the client. The client reads the certificate contents and uses CA certificates that are installed locally to verify the signature in the server certificate.
 
-Note this in this step you will create a certificate singing request (CSR) (see [RFC2986](#rfc2986)) instead of an actual certificate. Think of the signing request a precursor of a signed certificate.
+Note this in this step you will create a certificate signing request (CSR) (see [RFC2986](#rfc2986)) instead of an actual certificate. Think of the signing request a precursor of a signed certificate.
 
 1. Create a key pair _without_ passphrase for the server:
     ```shell
@@ -175,7 +175,7 @@ Note this in this step you will create a certificate singing request (CSR) (see 
     ```
 2. You will be prompted for a password. Use `tutorial` for this demonstration.
    In a real world scenario you would obviously choose a secure, non-guessable password.
-3. Create a singing request
+3. Create a signing request
    ```shell
    openssl req -new -nodes -key server.key -sha256 -out server.csr -subj '/CN=TLS Tutorial MySQL Server/C=DE/L=Bavaria/O=Tutorial Organization'
     ```
@@ -184,9 +184,9 @@ Note how the `-x509` switch is gone from the command. This time we really want a
 
 If you look real close, you might wonder why there is no `-days` switch here. The reason is simple: the CA decides how long a certificate it creates is valid. Not the requester.
 
-### Reading a Singing Request
+### Reading a Signing Request
 
-Let's take a look at the generated singing request to get a better understanding of its contents.
+Let's take a look at the generated signing request to get a better understanding of its contents.
 
 ```shell
 openssl x509 -in ca.crt -text -noout
@@ -244,7 +244,7 @@ If you compare it to the public key contained in the server key pair, you will f
 openssl rsa -in server.key -pubout
 ```
 
-### Singing the Server Certificate
+### Signing the Server Certificate
 
 That is something that the organization owning the server would normally send to the certification agency. The request contains everything the CA needs to create a signed certificate.
 
@@ -273,7 +273,7 @@ Let's look at the component of the configuration options.
 `basicConstraints`
 : We explicitly add a constraint here that this configuration is not CA certificates. You could drop that option if you wanted, because this is the default for certificates. 
 
-The following command creates a certificate from the singing request and signs it with the private key of the CA.
+The following command creates a certificate from the signing request and signs it with the private key of the CA.
 
 ```shell
 openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 90 -sha256 -extfile server_cert_extensions.cfg -extensions extensions
@@ -399,9 +399,22 @@ This should list two files:
 -rw------- 1 mysql mysql 3326 Jan 12 11:56 server.key
 ```
 
-Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysql.conf.d/mysqld.cnf `as `root` user:
+Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysql.conf.d/mysqld.cnf `as `root` user and add:
 
-Add
+```
+[mysqld]
+ssl
+ssl-ca=/etc/ssl/certs/exasol_tutorial_ca.pem
+ssl-cert=/etc/mysql/certs/server.crt
+ssl-key=/etc/mysql/certs/server_key.pem
+```
+
+Also, we need to enable Exasol later to access the MySQL server. Since that will not be access from `localhost` you need to accept all interfaces.
+
+Change the line for the bind address so that it looks as follows and is not commented out:
+
+```
+bind-address = 0.0.0.0
 ```
 
 Restart the MySQL server daemon so that the changed configuration takes effect.
@@ -498,7 +511,7 @@ For the next steps we need a Docker setup
    ```
 6. Start the docker daemon without restaring the machine:
    ```shell
-   sudo systemctl enable docker.service
+   sudo systemctl start docker.service
    ```
 
 ## Installing Exasol via Docker

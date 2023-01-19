@@ -60,7 +60,7 @@ To get that right out of the way, yes, in a normal organization, you already hav
 
 That means we will create our own, and that in turn gives us the opportunity to create the server certificates we are going to use quickly.
 
-The script below takes you through the following steps:
+Do this to create a CA certificate:
 
 1. Create a key pair for the CA
     ```shell
@@ -250,7 +250,7 @@ That is something that the organization owning the server would normally send to
 
 Since in our tutorial you own both the server and the CA, you can play both parts.
 
-We earlier briefly already touched the topic of certificate extensions. To define which extensions you want on the server certificate signed by the CA, you need to create a small [configuration file](#x509v3config).
+We earlier briefly already touched the topic of certificate extensions.To define which extensions you want on the server certificate signed by the CA, this creates a small [configuration file](#x509v3config).
 
 ```shell
 echo '[extensions]
@@ -356,7 +356,9 @@ As you can tell we won't win any price for most original database usage here, bu
 
 ### Installing Certificates in MySQL
 
-By default, the MySQL server on Ubuntu comes with a self-signed certificate. Our next job will be to use the certificates we previously created.
+By default, the MySQL server on Ubuntu comes with a self-signed certificate. Since self-signed certificates don't originate from a CA the client knows, clients will be prompted to trust them.
+
+This is a bad practice, and since we already went through the trouble of creating our own certificates, our next job will be to use them with MySQL.
 
 1. Install the CA certificate centrally:
    ```shell
@@ -382,7 +384,7 @@ By default, the MySQL server on Ubuntu comes with a self-signed certificate. Our
 
 Note that we need `sudo` privileges here, since we need to install the certificates in a central locations that belong to the `root` user.
 
-Additionally, we give the private key to the MySQL user. We don't want anyone else to be able to read it, so weakening permissions on that file is not an option.
+Additionally, we give the private key to the MySQL user on OS level. This user is aptly called `mysql`, belongs to a group of the same name and is created automatically when you install MySQL on Ubuntu. We don't want anyone else to be able to read it, so weakening permissions on that file is not an option.
 
 You can check ownership and permissions like this:
 
@@ -397,20 +399,9 @@ This should list two files:
 -rw------- 1 mysql mysql 3326 Jan 12 11:56 server.key
 ```
 
-Now edit the `[mysqld]` section of the MySQL configuration file and *add* the following lines as `root` user:
+Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysql.conf.d/mysqld.cnf `as `root` user:
 
-```
-[mysqld]
-ssl
-ssl-ca=/etc/ssl/certs/exasol_tutorial_ca.pem
-ssl-cert=/etc/mysql/certs/server.crt
-ssl-key=/etc/mysql/certs/server_key.pem
-```
-
-Also, we need to enable Exasol later to access the MySQL server. Since that will not be access from `localhost` you need to accept all interfaces.
-
-```
-bind-address = 0.0.0.0
+Add
 ```
 
 Restart the MySQL server daemon so that the changed configuration takes effect.
@@ -489,18 +480,26 @@ The source side of our import via TLS is now set up and ready to use.
 For the next steps we need a Docker setup
 
 1. Install Docker
-    ```shell
-    sudo apt install docker.io
-    ```
+   ```shell
+   sudo apt install docker.io
+   ```
 2. Add your current user to the `docker` group
-    ```shell
-    sudo usermod -aG docker "$USER"
-    ```
+   ```shell
+   sudo usermod -aG docker "$USER"
+   ```
 3. Log out and back in to apply the group change
 4. Verify that your current user is in the `docker` group
-    ```shell
+   ```shell
    groups
-    ```
+   ```
+5. Tell the system control to auto-start the docker daemon:
+   ```shell
+   sudo systemctl enable docker.service
+   ```
+6. Start the docker daemon without restaring the machine:
+   ```shell
+   sudo systemctl enable docker.service
+   ```
 
 ## Installing Exasol via Docker
 
@@ -517,6 +516,35 @@ There are two ports forwarded to the host:
 - 8563: database port
 - 2580: [BucketFS] port
 
+### Docker 101 - Some Useful Tips for Newcomers to Docker 
+
+You can check the status of your docker containers with `docker ps`. The `-a` switch also shows containers that are not running at the moment.
+
+```shell
+docker ps -a
+```
+
+A typical result looks like this (shortened):
+
+```
+CONTAINER ID   IMAGE                     COMMAND                  CREATED       STATUS       PORTS                   [...]
+d0bbc7ef331f   exasol/docker-db:7.1.17   "/usr/opt/EXASuite-7…"   4 hours ago   Up 4 hours   0.0.0.0:49156->443/tcp, [...]
+```
+
+The ID is important since that is a unique number that you can use to control a container. The exposed port numbers are also listed here, which comes in handy in case you forgot to expose one.
+
+Here are a couple of useful docker commands
+
+| Command                       | Meaning                               |
+|-------------------------------|---------------------------------------|
+| `docker run ...`              | Start a new container from an image   |
+| `docker start <container-id>` | Start the container with the given ID |
+| `docker stop <container-id>`  | Stop the container                    |
+| `docker ps [-a]`              | List running / all containers         |
+| `docker image ls`             | Show all cached docker images         |
+
+For more information check the [Docker Commandline Reference](#docker-cli)
+
 ### Installing the MySQL JDBC driver in Exasol
 
 [Import](https://docs.exasol.com/db/latest/sql/import.htm) into Exasol requires that the database driver of the source database (MySQl in our case) is installed in Exasol.
@@ -529,8 +557,9 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
    ```
 2. Get the ID of the Exasol Docker container
    ```shell
-   container_id=$(docker ps -a | grep exasol | sed -e's/ .*//')
+   container_id=$(docker ps -a | grep exasol | sed -e's/ .*//') && echo "$container_id"
    ```
+   This sets the variable `container_id` and outputs the result.
 3. Get the write-password of the default Bucket in BucketFS
    ```shell
    write_pwd=$(docker exec -it "$container_id" cat /exa/etc/EXAConf | grep WritePasswd | sed -e's/^.* = //' -e's/[\n\r]//g' | base64 --decode)
@@ -549,6 +578,7 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
    FETCHSIZE=100000
    INSERTSIZE=-1' > settings.cfg
    ```
+   Please make sure to copy this from the rendered version (not the Markdown source) of this tutorial. You want **no leading spaces** in the configuration file.
 6. Upload the configuration to `drivers/jdbc` in the default bucket:
    ```shell
    curl -vX PUT -T settings.cfg "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/settings.cfg"
@@ -606,11 +636,10 @@ CREATE TABLE target_schema.shapes_target(name VARCHAR(40), corners INT);
 
 You are now set up and ready to run the import.
 
-```shell
 IMPORT INTO target_schema.shapes_target
 FROM JDBC AT 'jdbc:mysql://<ip-address-of-docker-host>/shapes?sslMode=REQUIRED'
 USER 'tutorial_user' IDENTIFIED BY 'tutorial'
-STATEMENT 'SELECT * FROM shapes';
+STATEMENT 'SELECT * FROM shapes.shapes';
 ```
 
 Let's look at the individual parts of this SQL statement.
@@ -656,6 +685,10 @@ Congratulations, you just imported data from MySQL via a TLS connection.
 In this tutorial you learned how to create, read and debug TLS certificates for a Certification Agency (CA) and for a server. You installed the server certificate machines to allow certificate chain validation. You installed the server certificate on the source server and used `s_client` to look at the TLS connection. Finally, you ran an import that transferred data from a source database via TLS to Exasol.
 
 ## References
+
+###### Docker CLI
+
+[Docker Commandline Reference](https://docs.docker.com/engine/reference/commandline/cli/), Docker.com
 
 ###### Non-Repudiation
 

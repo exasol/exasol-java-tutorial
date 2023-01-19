@@ -14,7 +14,7 @@ This will take you through tasks usually performed by network admins and databas
 
 ## Before You Start 
 
-If you haven't already we highly recommend you familiarize yourself with the general TLS topic by reading the [TLS ntroduction](tls_introduction.md).
+If you haven't already we highly recommend you familiarize yourself with the general TLS topic by reading the [TLS Introduction](tls_introduction.md).
 
 ## What you Will Need
 

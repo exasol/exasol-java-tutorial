@@ -67,13 +67,13 @@ Do this to create a CA certificate:
     ```shell
     openssl genrsa -aes256 -out ca.key 4096
     ```
-2. You will be prompted for a passphrase. Use `tutorial` for this demonstration.
+   You will be prompted for a passphrase. Use `tutorial` for this demonstration.
     In a real world scenario you would obviously choose a secure, non-guessable passphrase.
-3. Create a CA certificate
+2. Create a CA certificate
    ```shell
     openssl req -x509 -new -nodes -key ca.key -sha256 -days 365 -out ca.crt -subj '/CN=TLS Tutorial CA/C=DE/L=Bavaria/O=Tutorial Organization'
     ```
-4. Since the last step requires reading the CA key, you will need to enter the passphrase again here
+3. Since the last step requires reading the CA key, you will need to enter the passphrase again here
 
 Let's talk about what the individual parameters of the `openssl` mean:
 
@@ -174,9 +174,9 @@ Note this in this step you will create a certificate signing request (CSR) (see 
     ```shell
     openssl genrsa -out server.key 4096
     ```
-2. You will be prompted for a password. Use `tutorial` for this demonstration.
+   You will be prompted for a password. Use `tutorial` for this demonstration.
    In a real world scenario you would obviously choose a secure, non-guessable password.
-3. Create a signing request
+2. Create a signing request
    ```shell
    openssl req -new -nodes -key server.key -sha256 -out server.csr -subj '/CN=TLS Tutorial MySQL Server/C=DE/L=Bavaria/O=Tutorial Organization'
     ```
@@ -566,9 +566,11 @@ For more information check the [Docker Commandline Reference](#docker-cli)
 Installation in the Docker variant requires uploading the driver to a [BucketFS] bucket and updating a configuration file.
 
 1. Download the [MySQL Connector] (JDBC driver)
+   <!-- markdown-link-check-disable -->
    ```shell
    wget https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz
    ```
+   <!-- markdown-link-check-enable -->
 2. Get the ID of the Exasol Docker container
    ```shell
    container_id=$(docker ps -a | grep exasol | sed -e's/ .*//') && echo "$container_id"
@@ -729,4 +731,6 @@ Server-Side State](https://www.rfc-editor.org/rfc/rfc5077), J. Salowey, H. Zhou,
 
 
 [BucketFS]: https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm
+<!-- markdown-link-check-disable -->
 [MySQL Connector]: (https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz)
+<!-- markdown-link-check-enable -->

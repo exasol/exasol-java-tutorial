@@ -73,19 +73,21 @@ SELECT JAVA_TUTORIAL.CERTIFICATES() ORDER BY NAME;
 
 Here are the first few rows of an example output.
 
-| CN                             | O                          | OU       | C        |
-|--------------------------------|----------------------------|----------|----------|
-| AAA Certificate Services       | Comodo CA Limited          |          | GB       |
-| ACCVRAIZ1                      | ACCV                       | PKIACCV  | ES       |
-| Actalis Authentication Root CA | Actalis S.p.A./03358520967 |          | IT       |
-| AffirmTrust Commercial         | AffirmTrust                |          | US       |
-| &hellip;                       | &hellip;                   | &hellip; | &hellip; |
+| CN                             | O                          | OU       | C        | VALID_AFTER                    | VALID_BEFORE                  |
+|--------------------------------|----------------------------|----------|----------|--------------------------------|-------------------------------|
+| AAA Certificate Services       | Comodo CA Limited          |          | GB       | Thu Jan 01 01:00:00 CET 2004   | Mon Jan 01 00:59:59 CET 2029  |
+| ACCVRAIZ1                      | ACCV                       | PKIACCV  | ES       | Thu May 05 11:37:37 CEST 2011  | Tue Dec 31 10:37:37 CET 2030  |
+| Actalis Authentication Root CA | Actalis S.p.A./03358520967 |          | IT       | Thu Sep 22 13:22:02 CEST 2011  | Sun Sep 22 13:22:02 CEST 2030 |
+| AffirmTrust Commercial         | AffirmTrust                |          | US       | Fri Jan 29 15:06:06 CET 2010   | Tue Dec 31 15:06:06 CET 2030  |
+| &hellip;                       | &hellip;                   | &hellip; | &hellip; | &hellip;                       | &hellip;                      |
 
 This script is especially helpful if you want to find out, which CA certificates are available in your UDF.
 
 It goes without saying that if a certificate is missing, trust chains based on it cannot be verified and access to corresponding services will fail.
 
-Each column corresponds to a path element for the so-called "distinguished name" (DN) of the certificate. Think of that name as a unique identifier. The elements are "common name" (CN), "organization" (O), "organizational unit" (OU), and "country" (C). 
+Each of the first four columns corresponds to a path element for the so-called "distinguished name" (DN) of the certificate. Think of that name as a unique identifier. The elements are "common name" (CN), "organization" (O), "organizational unit" (OU), and "country" (C).
+
+You can see in which time frame the certificate is valid in the columns `VALID_AFTER` and `VALID_BEFORE`.
 
 ### Self-issued Certificates and UDFs
 

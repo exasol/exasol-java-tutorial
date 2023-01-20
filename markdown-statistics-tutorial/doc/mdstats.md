@@ -370,7 +370,7 @@ Now use your web client to upload the JAR file to the default bucket under the f
 Here is an example with `curl`:
 
 ```bash
-curl -X PUT -T target/markdown-statistics-tutorial.jar "http://w:$WPASSWD@localhost:2580/default/exasol-java-turorial.jar"
+curl -X PUT -T target/markdown-statistics-tutorial.jar "http://w:$WPASSWD@localhost:2580/default/markdown-statistics-tutorial.jar"
 ```
 
 Finally, run `CREATE JAVA SCALAR SCRIPT` to register the Function.

@@ -13,10 +13,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -24,7 +21,7 @@ import java.util.concurrent.TimeoutException;
 import static com.exasol.javatutorial.tls.test.TlsTestConstants.LETS_ENCRYPT_ROOT_CA_1;
 import static java.util.Objects.requireNonNullElse;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.*;
 
 @Testcontainers
 class CertificatesIT {
@@ -53,7 +50,14 @@ class CertificatesIT {
         final String fullyQualifiedScriptName = "\"" + schema.getName() + "\".\"CERTIFICATES\"";
         installCertificatesScript(fullyQualifiedScriptName);
         final List<List<String>> rows = execute("SELECT " + fullyQualifiedScriptName + "()");
-        assertThat(rows, hasItem(List.of(LETS_ENCRYPT_ROOT_CA_1, "Internet Security Research Group", "", "US")));
+        assertThat(rows, hasItem(List.of( //
+                LETS_ENCRYPT_ROOT_CA_1, //
+                "Internet Security Research Group", //
+                "", //
+                "US", //
+                "Thu Jun 04 13:04:38 CEST 2015", //
+                "Mon Jun 04 13:04:38 CEST 2035"
+        )));
     }
 
     private void installCertificatesScript(String fullyQualifiedScriptName) throws AssertionError {
@@ -67,7 +71,8 @@ class CertificatesIT {
             throw new RuntimeException(exception);
         }
         final String createScalarScriptSql = "CREATE JAVA SCALAR SCRIPT " + fullyQualifiedScriptName + "()"
-                + " EMITS (CN VARCHAR(2000), O VARCHAR(2000), OU VARCHAR(2000), C VARCHAR(2)) AS\n" //
+                + " EMITS (CN VARCHAR(2000), O VARCHAR(2000), OU VARCHAR(2000), C VARCHAR(2), " //
+                + " VALID_AFTER VARCHAR(40), VALID_BEFORE VARCHAR(40)) AS\n" //
                 + "    %scriptclass " + Certificates.class.getName() + ";\n" //
                 + "    %jar /buckets/" + bucket.getFullyQualifiedBucketName() + "/" + JAR_FILE_NAME + ";\n" //
                 + "/";
@@ -90,10 +95,13 @@ class CertificatesIT {
         final List<List<String>> rows = new ArrayList<>();
         try (final ResultSet result = statement.getResultSet()) {
             while (result.next()) {
-                rows.add(List.of(requireNonNullElse(result.getString(1), ""),
-                        requireNonNullElse(result.getString(2), ""),
-                        requireNonNullElse(result.getString(3), ""),
-                        requireNonNullElse(result.getString(4), "")));
+                final int columns = result.getMetaData().getColumnCount();
+                final List<String> row = new ArrayList<>();
+                for(int column = 1; column <= columns; ++column)
+                {
+                    row.add(requireNonNullElse(result.getString(column), ""));
+                }
+                rows.add(row);
             }
             return rows;
         }

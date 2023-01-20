@@ -4,6 +4,7 @@ import com.exasol.ExaIterator;
 import com.exasol.ExaMetadata;
 
 import java.security.cert.X509Certificate;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Objects.requireNonNullElse;
@@ -40,8 +41,20 @@ public class Certificates {
         final List<X509Certificate> certificates = manager.listCertificates();
         for (final X509Certificate certificate : certificates) {
             final CertificateName name = CertificateName.of(certificate.getSubjectDN().getName());
-            context.emit(requireNonNullElse(name.getCommonName(), ""), requireNonNullElse(name.getOrganization(), ""),
-                    requireNonNullElse(name.getOrganizationalUnit(), ""), requireNonNullElse(name.getCountry(), ""));
+            final Date validAfter = certificate.getNotBefore();
+            final Date validBefore = certificate.getNotAfter();
+            context.emit( //
+                    allowEmpty(name.getCommonName()), //
+                    allowEmpty(name.getOrganization()), //
+                    allowEmpty(name.getOrganizationalUnit()), //
+                    allowEmpty(name.getCountry()), //
+                    validAfter.toString(), //
+                    validBefore.toString() //
+            );
         }
+    }
+
+    public static String allowEmpty(final String input) {
+        return requireNonNullElse(input, "");
     }
 }

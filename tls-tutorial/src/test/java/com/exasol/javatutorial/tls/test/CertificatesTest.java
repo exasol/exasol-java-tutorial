@@ -23,6 +23,13 @@ class CertificatesTest {
         Certificates.run(metadataMock, contextStub);
         final List<List<Object>> emittedRows = contextStub.getEmittedRows();
         assertThat(emittedRows,
-                hasItem(List.of(LETS_ENCRYPT_ROOT_CA_1, "Internet Security Research Group", "", "US")));
+                hasItem(List.of( //
+                        LETS_ENCRYPT_ROOT_CA_1, //
+                        "Internet Security Research Group", //
+                        "", //
+                        "US", //
+                        "Thu Jun 04 13:04:38 CEST 2015", //
+                        "Mon Jun 04 13:04:38 CEST 2035" //
+                )));
     }
 }

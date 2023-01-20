@@ -580,12 +580,12 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
    ```
 4. Copy the driver to the default Bucket
    ```shell
-   curl -vX PUT -T mysql-connector-j-8.0.31/mysql-connector-j-8.0.31.jar "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/mysql-connector-j-8.0.31.jar"
+   curl -vX PUT -T mysql-connector-j-8.0.31/tls-tutorial.jar "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/tls-tutorial.jar"
    ```
 5. Create a driver configuration (`settings.cfg`)
    ```shell
    echo 'DRIVERNAME=MYSQL_JDBC
-   JAR=mysql-connector-j-8.0.31.jar
+   JAR=tls-tutorial.jar
    DRIVERMAIN=com.mysql.cj.jdbc.Driver
    PREFIX=jdbc:mysql:
    NOSECURITY=YES
@@ -604,7 +604,7 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
    Must produce a listing that looks similar to this:
    ```
    EXAClusterOS/ScriptLanguages-standard-EXASOL-7.1.0-slc-v4.0.0-CM4RWW6R.tar.gz
-   drivers/jdbc/mysql-connector-j-8.0.31.jar
+   drivers/jdbc/tls-tutorial.jar
    drivers/jdbc/settings.cfg
    ```
    
@@ -729,4 +729,4 @@ Server-Side State](https://www.rfc-editor.org/rfc/rfc5077), J. Salowey, H. Zhou,
 
 
 [BucketFS]: https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm
-[MySQL Connector]: (https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz)
+[MySQL Connector]: (https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz)

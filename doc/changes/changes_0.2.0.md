@@ -8,6 +8,8 @@ In this release we added a tutorial that explains how to use TLS in combination 
 
 The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_introduction.md) to TLS to establish the base know-how for the tutorial.
 
+And we added a part that teaches you [how to deal with TLS certificates](../../tls-tutorial/doc/use_your_own_certificate.md).
+
 ## Features
 
 * #7: Added TLS UDF Tutorial
@@ -25,18 +27,18 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 #### Compile Dependency Updates
 
-* Added `com.exasol:udf-api-java:1.0.1`
-* Added `org.commonmark:commonmark:0.20.0`
+* Added `com.exasol:udf-api-java:1.0.2`
+* Added `org.commonmark:commonmark:0.21.0`
 
 #### Test Dependency Updates
 
-* Added `com.exasol:exasol-testcontainers:6.4.0`
+* Added `com.exasol:exasol-testcontainers:6.5.0`
 * Added `com.exasol:hamcrest-resultset-matcher:1.5.2`
-* Added `com.exasol:test-db-builder-java:3.4.1`
+* Added `com.exasol:test-db-builder-java:3.4.2`
 * Added `org.hamcrest:hamcrest:2.2`
 * Added `org.junit.jupiter:junit-jupiter-engine:5.9.1`
 * Added `org.junit.jupiter:junit-jupiter-params:5.9.1`
-* Added `org.mockito:mockito-junit-jupiter:4.9.0`
+* Added `org.mockito:mockito-junit-jupiter:5.0.0`
 * Added `org.testcontainers:junit-jupiter:1.17.6`
 
 #### Plugin Dependency Updates
@@ -66,17 +68,17 @@ The tutorial also contains a general [introduction](../../tls-tutorial/doc/tls_i
 
 #### Compile Dependency Updates
 
-* Added `com.exasol:udf-api-java:1.0.1`
+* Added `com.exasol:udf-api-java:1.0.2`
 
 #### Test Dependency Updates
 
-* Added `com.exasol:exasol-testcontainers:6.4.0`
+* Added `com.exasol:exasol-testcontainers:6.5.0`
 * Added `com.exasol:hamcrest-resultset-matcher:1.5.2`
-* Added `com.exasol:test-db-builder-java:3.4.1`
+* Added `com.exasol:test-db-builder-java:3.4.2`
 * Added `org.hamcrest:hamcrest:2.2`
 * Added `org.junit.jupiter:junit-jupiter-engine:5.9.1`
 * Added `org.junit.jupiter:junit-jupiter-params:5.9.1`
-* Added `org.mockito:mockito-junit-jupiter:4.9.0`
+* Added `org.mockito:mockito-junit-jupiter:5.0.0`
 * Added `org.testcontainers:junit-jupiter:1.17.6`
 
 #### Plugin Dependency Updates

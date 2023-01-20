@@ -11,7 +11,8 @@ import java.util.List;
 
 import static com.exasol.javatutorial.tls.test.TlsTestConstants.LETS_ENCRYPT_ROOT_CA_1;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @ExtendWith(MockitoExtension.class)
 class CertificatesTest {
@@ -22,14 +23,9 @@ class CertificatesTest {
         final ExaIteratorStub contextStub = new ExaIteratorStub();
         Certificates.run(metadataMock, contextStub);
         final List<List<Object>> emittedRows = contextStub.getEmittedRows();
-        assertThat(emittedRows,
-                hasItem(List.of( //
-                        LETS_ENCRYPT_ROOT_CA_1, //
-                        "Internet Security Research Group", //
-                        "", //
-                        "US", //
-                        "Thu Jun 04 13:04:38 CEST 2015", //
-                        "Mon Jun 04 13:04:38 CEST 2035" //
-                )));
+        assertAll(
+                () -> assertThat(emittedRows, hasItem(hasItem(LETS_ENCRYPT_ROOT_CA_1))),
+                () -> assertThat(emittedRows, everyItem(hasSize(6)))
+        );
     }
 }

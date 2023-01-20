@@ -406,7 +406,7 @@ Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysq
 ssl
 ssl-ca=/etc/ssl/certs/exasol_tutorial_ca.pem
 ssl-cert=/etc/mysql/certs/server.crt
-ssl-key=/etc/mysql/certs/server_key.pem
+ssl-key=/etc/mysql/certs/server.key
 ```
 
 Also, we need to enable Exasol later to access the MySQL server. Since that will not be access from `localhost` you need to accept all interfaces.

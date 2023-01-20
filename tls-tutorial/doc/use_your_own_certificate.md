@@ -624,7 +624,7 @@ ip address show docker0 | grep inet
 
 Please, note down the IP address. You will need it for the `IMPORT` command.
 
-We need a why to talk to Exasol, so please install the [usql](https://github.com/xo/usql) commandline SQL client on the Ubuntu machine. Current versions come with the [Exasol Go driver preinstalled](https://github.com/xo/usql#supported-database-schemes-and-aliases).
+We need a way to talk to Exasol, so please install the [usql](https://github.com/xo/usql) commandline SQL client on the Ubuntu machine. Current versions come with the [Exasol Go driver preinstalled](https://github.com/xo/usql#supported-database-schemes-and-aliases).
 
    ```shell
    wget https://github.com/xo/usql/releases/download/v0.13.5/usql_static-0.13.5-linux-amd64.tar.bz2

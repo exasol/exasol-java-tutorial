@@ -410,7 +410,7 @@ ssl-cert=/etc/mysql/certs/server.crt
 ssl-key=/etc/mysql/certs/server.key
 ```
 
-Also, we need to enable Exasol later to access the MySQL server. Since that will not be access from `localhost` you need to accept all interfaces.
+Also, we need to enable Exasol later to access the MySQL server. Since that access will not be from `localhost`, you need to accept all interfaces.
 
 Change the line for the bind address so that it looks as follows and is not commented out:
 

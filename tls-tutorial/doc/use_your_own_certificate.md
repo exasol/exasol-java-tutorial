@@ -566,7 +566,7 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
 
 1. Download the [MySQL Connector] (JDBC driver)
    ```shell
-   wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz
+   wget https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz
    ```
 2. Get the ID of the Exasol Docker container
    ```shell

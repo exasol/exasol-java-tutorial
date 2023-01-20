@@ -21,11 +21,12 @@ If you haven't already we highly recommend you familiarize yourself with the gen
 To follow this tutorial, you need 
 
 * at least 10 GiB free space on your filesystem
-* [Ubuntu](https://ubuntu.com/) machine or VM
-* [OpenSSL](https://www.openssl.org/)
-* [Docker](https://www.docker.com/)
-* Exasol's [docker-db](https://github.com/exasol/docker-db)
-* [MySQL docker image](https://hub.docker.com/_/mysql/)
+* A computer running [Ubuntu](https://ubuntu.com/) or an Ubuntu Virtual Machine.
+  **Inside** that Ubuntu you will need to install:
+  * [OpenSSL](https://www.openssl.org/)
+  * [Docker](https://www.docker.com/)
+  * Exasol's [docker-db](https://github.com/exasol/docker-db)
+  * MySQL server installed via package
 
 ## Installing the Software
 

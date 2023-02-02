@@ -63,7 +63,7 @@ This is where you need to work a bit harder to get TLS running. There are multip
 
 To complicate things further, different clients tend to have their own truststores.
 
-A Linux machine has a central truststore in the `/etc` directory, typically in form of text files. Java has its own truststore and file format. So does Python. At least web browsers now use the truststore that comes with the operating system.
+A Linux machine has a central truststore in the `/etc` directory, typically in form of text files. Java has its own truststore and file format. At least web browsers now use the truststore that comes with the operating system.
 
 ### The Use-case Dictates the Installation
 

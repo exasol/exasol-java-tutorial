@@ -36,7 +36,7 @@ Eve on the other hand was chosen because it sounds sufficiently similar to eaves
 
 ## Transport Layer Security and the OSI Model
 
-TLS works on top of  TCP/IP. As the name suggests, it sits on top of the transport layer of the OSI communication stack.
+TLS sits on top of the transport layer of the [OSI communication stack](https://en.wikipedia.org/wiki/OSI_model).
 
 The OSI model classifies the typical building blocks of technical communication systems into seven layers.
 

@@ -190,7 +190,7 @@ If you look real close, you might wonder why there is no `-days` switch here. Th
 Let's take a look at the generated signing request to get a better understanding of its contents.
 
 ```shell
-openssl x509 -in ca.crt -text -noout
+openssl req -text -noout -verify -in server.csr
 ```
 
 Produces an output that looks like this (again we shortened the hex dumps):

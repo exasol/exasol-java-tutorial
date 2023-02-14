@@ -102,7 +102,7 @@ In a scenario where you need both &mdash; let's say you want to use a Virtual Sc
 
 Remember that if UDF and EXALoader only need to connect to servers that use a TLS certificate signed by a CA that is in the default trust stores, you don't have to do anything.
 
-If on the other hand you want to use your own CA, we recommend that you install the certificates twice. In the host filesystem of each data note, so that the EXALoader can see it as described in section ["Data Import Using the EXALoader"](#data-import-using-the-exaloader). And additionally in BucketFS as described in ["TLS with UDFs"](tls_in_udfs.md).
+If on the other hand you want to use your own CA, we recommend that you install the certificates twice. In the host filesystem of each data node, so that the EXALoader can see it as described in section ["Data Import Using the EXALoader"](#data-import-using-the-exaloader). And additionally in BucketFS as described in ["TLS with UDFs"](tls_in_udfs.md).
 
 There are other options like using symlinks from Buckets to the host file system to avoid duplication. But this has other side effects, so the cost-benefit ratio of installing the certificates twice is better.
 

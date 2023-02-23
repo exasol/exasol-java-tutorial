@@ -267,8 +267,8 @@ Let's look at the component of the configuration options.
 `keyUsge`
 : Defines what a client should accept the certificate for. If something is not listed here, the client _must_ (enforced by the `critical` modifier) refuse any attempts to use the key for it. Case in point, this server key may not sign certificates.
 
-: [Non-repudiation](#non-repudiation) in this context means a cryptographic method to make sure that neither sender nor recipient of information can deny to have processed that information.
-
+[Non-repudiation](#non-repudiation) 
+: in this context means a cryptographic method to make sure that neither sender nor recipient of information can deny to have processed that information.
 : The key can also be used for creating a digital signature and encipher other keys as well as key agreement. If you are asking yourself why payload data encryption is not mentioned, remember that TLS uses asymmetric cryptography only until the symmetric session key is exchanged. Actual data payload is encrypted symmetrically.
 
 `basicConstraints`

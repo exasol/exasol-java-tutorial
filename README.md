@@ -43,7 +43,7 @@ Up your game with a full-blown automated integration test that exercises a more 
 Setting up TLS is all but trivial in some scenarios, so a series of articles and some software examples guide you through the process.
 
 1. [Introduction to TLS](tls-tutorial/doc/tls_introduction.md)
-2. [TLS with Exasol] (theoretical part)](tls-tutorial/doc/tls_with_exasol.md)
+2. [TLS with Exasol (theoretical part)](tls-tutorial/doc/tls_with_exasol.md)
 3. [Using Your Own Certificates](tls-tutorial/doc/use_your_own_certificate.md)
 4. [TLS in User Defined Functions (UDFs)](tls-tutorial/doc/tls_in_udfs.md)
 

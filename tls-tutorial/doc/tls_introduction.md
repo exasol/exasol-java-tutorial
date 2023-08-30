@@ -30,7 +30,7 @@ Availability highlights that users should have access to a secure connection. Th
 
 ![Alice, Bob and Eve](images/cl_alice_bob_and_eve.svg)
 
-It is almost impossible to read about security and not come across these three people. They are [personas](https://en.wikipedia.org/wiki/Persona) meant to serve as a graphical example of the challenges involved in information security. Alice and Bob are two regular communication partners. The names were picked because of their initials A and B [see Rivest, Shamir, Adleman, 1978, p. 3](https://dl.acm.org/doi/10.1145/359340.359342).
+It is almost impossible to read about security and not come across these three people. They are [personas](https://en.wikipedia.org/wiki/Persona) meant to serve as a graphical example of the challenges involved in information security. Alice and Bob are two regular communication partners. The names were picked because of their initials A and B [see Rivest, Shamir, Adleman, 1978, p. 3](https://dspace.mit.edu/handle/1721.1/148910).
 
 Eve on the other hand was chosen because it sounds sufficiently similar to eavesdropping and reminds readers that this persona wants get her hands on information that isn’t intended for her. We’re going to use those three established personas in our examples.
 

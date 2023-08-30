@@ -130,7 +130,9 @@ Digital signatures like their analog counterparts are meant to verify the authen
 
 In real life you sign a letter so that your handwriting can serve as proof you wrote it. If you additionally want to make sure that tampering with the text in the letter is detectable, you write the whole letter by hand.
 
-If Bob wants to digitally sign data, he first calculates a tamper-proof representation of that data that is smaller. That proof is a large number calculated from the contents of the data payload. The chosen algorithm does not allow reversing the process with any realistic effort. That means while Alice will be able to calculate the same number from the payload, Eve can’t create any meaningful data out of the number. This so called 'one-way hash function' is the foundation of digital signatures. Bob then uses his private key to encrypt the one-way hash and puts it alongside the payload data.
+If Bob wants to digitally sign data, he first calculates a tamper-proof representation of that data. That proof is calculated from the contents of the data payload. The chosen algorithm does not allow reversing the process with any realistic effort. That means while Alice will be able to calculate representation from the payload, Eve can’t create any meaningful data out of the number. This so called 'one-way hash function' is the foundation of digital signatures. Bob then uses his private key to encrypt the one-way hash and puts it alongside the payload data.
+
+For practical reasons, the representation is of course small compared to the original data. It's communication overhead after all.
 
 Alice, after receiving the payload and signature, can now calculate the hash on her own based on the payload data. She then uses Bob’s public key to decrypt the hash in the signature. If the hashes Alice and Bob calculated match, the payload data is accurate and consistent.
 

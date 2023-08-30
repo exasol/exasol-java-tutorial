@@ -21,6 +21,10 @@ And we added a part that teaches you [how to deal with TLS certificates](../../t
 * #3: Upgraded dependencies to fix security issue.
 * #5: Fixed issues reported by broken links checker
 
+# Documentation
+
+* #23: Improved explanation about signature calculation
+
 ## Dependency Updates
 
 ### Markdown-statistics-tutorial

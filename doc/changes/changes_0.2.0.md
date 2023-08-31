@@ -23,6 +23,7 @@ And we added a part that teaches you [how to deal with TLS certificates](../../t
 
 # Documentation
 
+* #17: Removed duplicate mention of Docker installation.
 * #20: Made clearer which link leads to `IMPORT` TLS example
 * #21: Mentioned that the TLS tutorial is not tested on WSL
 * #23: Improved explanation about signature calculation

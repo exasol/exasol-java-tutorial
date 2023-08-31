@@ -1,4 +1,4 @@
-# exasol-java-tutorial 0.2.0, released 2022-12-??
+# exasol-java-tutorial 0.2.0, released 2023-08-31
 
 Code name: TLS tutorial
 
@@ -24,6 +24,7 @@ And we added a part that teaches you [how to deal with TLS certificates](../../t
 # Documentation
 
 * #23: Improved explanation about signature calculation
+* #28: Explained relationship between host authentication and TLS certificate in more detail
 
 ## Dependency Updates
 

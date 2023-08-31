@@ -67,7 +67,7 @@ While the standard states that the so called 'Common Name' (CN) from the certifi
 
 For you that means you need to know the hostname before you create the certificate.
 
-If you have a host that is intended to be reachable under multiple hostnames, please read about the concept of the "Subject Alternative Name" (see [RFC5280, 4.2.1.6](https://www.rfc-editor.org/rfc/rfc5280.html#page-35)). SAN is outside the scope of this tutorial. 
+If you have a host that is intended to be reachable under multiple hostnames, please read about the concept of the "Subject Alternative Name" (SAN, see [RFC5280, 4.2.1.6](https://www.rfc-editor.org/rfc/rfc5280.html#page-35)). SAN is outside the scope of this tutorial. 
 
 ### Creating Your own Certification Agency (CA)
 
@@ -85,7 +85,7 @@ Do this to create a CA certificate:
     In a real world scenario you would obviously choose a secure, non-guessable passphrase.
 2. Create a CA certificate
    ```shell
-    CERT_HOSTNAME='<fully-qualified-hostname>'
+    CERT_HOSTNAME='host.example.com'
     openssl req -x509 -new -nodes -key ca.key -sha256 -days 365 -out ca.crt -subj "/CN=$CERT_HOSTNAME/C=DE/L=Bavaria/O=Tutorial Organization"
     ```
    See ["Understanding the Relationship of Host Authentication and Server Certificate"](#understanding-the-relationship-of-host-authentication-and-server-certificate) for details on why the hostname plays a role here.

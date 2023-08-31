@@ -513,12 +513,8 @@ The source side of our import via TLS is now set up and ready to use.
 
 ## Setting up Docker
 
-For the next steps we need a Docker setup
+For the next steps we need a Docker setup. We already [installed the Docker package via APT before](#what-you-will-need), so we can dive right into the configuration. 
 
-1. Install Docker
-   ```shell
-   sudo apt install docker.io
-   ```
 2. Add your current user to the `docker` group
    ```shell
    sudo usermod -aG docker "$USER"

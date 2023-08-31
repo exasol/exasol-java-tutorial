@@ -55,6 +55,20 @@ To follow this tutorial, you need
 
 In this part of the tutorial we will create the required TLS certificates and install them on Exasol and MySQL.
 
+### Understanding the Relationship of Host Authentication and Server Certificate
+
+When you create a TLS certificate that is intended to work in the real world, you need to make sure that the server's hostname is correctly specified in the certificate. Remember that the server certificate's whole purpose is to prove that the server is who it claims to be.
+
+Once you access the server, the client will work down a list of matching criteria to determine whether the certificate matches the server (see [RFC6125, 6.3](https://www.rfc-editor.org/rfc/rfc6125.html#page-21)). The whole process is non-trivial, so we encourage you at this point to take a look into the specification. It is well-written and contains relevant examples.
+
+In a nutshell, the client holds client-local information about the server against data presented in the server certificate. If they match, the server and certificate are considered authentic.
+
+While the standard states that the so called 'Common Name' (CN) from the certificate's subject is only the last way to match the hostname, it is still the most widely used variant. So for the sake of simplicity we are going to use this mechanism in this tutorial too.
+
+For you that means you need to know the hostname before you create the certificate.
+
+If you have a host that is intended to be reachable under multiple hostnames, please read about the concept of the "Subject Alternative Name" (SAN, see [RFC5280, 4.2.1.6](https://www.rfc-editor.org/rfc/rfc5280.html#page-35)). SAN is outside the scope of this tutorial. 
+
 ### Creating Your own Certification Agency (CA)
 
 To get that right out of the way, yes, in a normal organization, you already have a Certification Agency (CA). But for the purpose of this tutorial, let's pretend you don't.
@@ -71,8 +85,10 @@ Do this to create a CA certificate:
     In a real world scenario you would obviously choose a secure, non-guessable passphrase.
 2. Create a CA certificate
    ```shell
-    openssl req -x509 -new -nodes -key ca.key -sha256 -days 365 -out ca.crt -subj '/CN=TLS Tutorial CA/C=DE/L=Bavaria/O=Tutorial Organization'
+    CERT_HOSTNAME='host.example.com'
+    openssl req -x509 -new -nodes -key ca.key -sha256 -days 365 -out ca.crt -subj "/CN=$CERT_HOSTNAME/C=DE/L=Bavaria/O=Tutorial Organization"
     ```
+   See ["Understanding the Relationship of Host Authentication and Server Certificate"](#understanding-the-relationship-of-host-authentication-and-server-certificate) for details on why the hostname plays a role here.
 3. Since the last step requires reading the CA key, you will need to enter the passphrase again here
 
 Let's talk about what the individual parameters of the `openssl` mean:
@@ -724,6 +740,16 @@ Version 1.7](https://www.rfc-editor.org/rfc/rfc2986), M. Nystrom, B. Kalinski, N
 
 [Transport Layer Security (TLS) Session Resumption without
 Server-Side State](https://www.rfc-editor.org/rfc/rfc5077), J. Salowey, H. Zhou, P. Eronen, H. Tschofenig, January 2008
+
+###### RFC5280
+
+[Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile](https://www.rfc-editor.org/rfc/rfc5280.html#page-35), D. Cooper, S. Santesson, S. Farrell, S. Boeyen, R. Housley, W. Polk, May 2008
+
+###### RFC6121
+
+[Representation and Verification of Domain-Based Application Service
+Identity within Internet Public Key Infrastructure Using X.509 (PKIX)
+Certificates in the Context of Transport Layer Security (TLS)](https://www.rfc-editor.org/rfc/rfc6125.html), P. Saint-Andre, J. Hodges, March 2011
 
 ###### x509v3_config
 

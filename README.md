@@ -44,7 +44,7 @@ Setting up TLS is all but trivial in some scenarios, so a series of articles and
 
 1. [Introduction to TLS](tls-tutorial/doc/tls_introduction.md)
 2. [TLS with Exasol (theoretical part)](tls-tutorial/doc/tls_with_exasol.md)
-3. [Using Your Own Certificates](tls-tutorial/doc/use_your_own_certificate.md)
+3. [Using Your Own Certificates](tls-tutorial/doc/use_your_own_certificate.md) to run `IMPORT` from MySQL into Exasol
 4. [TLS in User Defined Functions (UDFs)](tls-tutorial/doc/tls_in_udfs.md)
 
 ## Additional Information

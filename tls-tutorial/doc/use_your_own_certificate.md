@@ -28,6 +28,12 @@ To follow this tutorial, you need
   * Exasol's [docker-db](https://github.com/exasol/docker-db)
   * MySQL server installed via package
 
+### Note for Windows Users
+
+Please note that this tutorial is _not_ tested on the Windows Subsystem for Linux (WSL).
+
+We recommend using a Ubuntu VM when working with Windows. E.g. powered by [Virtualbox](https://www.virtualbox.org/).  
+
 ## Installing the Software
 
 1. Update the machine you are using

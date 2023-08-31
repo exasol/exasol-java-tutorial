@@ -23,6 +23,7 @@ And we added a part that teaches you [how to deal with TLS certificates](../../t
 
 # Documentation
 
+* #21: Mentioned that the TLS tutorial is not tested on WSL
 * #23: Improved explanation about signature calculation
 * #28: Explained relationship between host authentication and TLS certificate in more detail
 

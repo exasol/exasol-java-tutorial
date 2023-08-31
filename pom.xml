@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
     <properties>
-        <revision>0.2.0</revision>
+        <revision>0.2.1</revision>
     </properties>
     <modules>
         <module>markdown-statistics-tutorial</module>

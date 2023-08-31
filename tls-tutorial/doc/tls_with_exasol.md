@@ -11,12 +11,12 @@ In a later article in this series we will take a close look at [using TLS inside
 
 ## Incoming TLS Connections
 
-[EXAOperation](https://docs.exasol.com/db/latest/administration/on-premise/admin_interface/exaoperation.htm) and [BucketFS](https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm) are probably the first touchpoints users have with Exasol. EXAOperation runs on HTTPS (i.e. HTTP + TLS) by default and BucketFS supports both HTTP and HTTPS. And, of course, HTTPS is the only suitable choice unless you’re running development tests.
+[EXAOperation](https://docs.exasol.com/db/7.1/administration/aws/admin_interface/exaoperation.htm) and [BucketFS](https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm) are probably the first touch-points users have with Exasol. EXAOperation runs on HTTPS (i.e. HTTP + TLS) by default and BucketFS supports both HTTP and HTTPS. And, of course, HTTPS is the only suitable choice unless you’re running development tests.
 
 This diagram shows two incoming TLS connections:
 
-1. JDBC connection 
-2. Web browser connecting to EXAOperation   
+1. JDBC connection
+2. Web browser connecting to EXAOperation
 
 ![Incoming TLS Connection](images/depl_incoming_connection.svg)
 

@@ -515,20 +515,20 @@ The source side of our import via TLS is now set up and ready to use.
 
 For the next steps we need a Docker setup. We already [installed the Docker package via APT before](#what-you-will-need), so we can dive right into the configuration. 
 
-2. Add your current user to the `docker` group
+1. Add your current user to the `docker` group
    ```shell
    sudo usermod -aG docker "$USER"
    ```
-3. Log out and back in to apply the group change
-4. Verify that your current user is in the `docker` group
+2. Log out and back in to apply the group change
+3. Verify that your current user is in the `docker` group
    ```shell
    groups
    ```
-5. Tell the system control to auto-start the docker daemon:
+4. Tell the system control to auto-start the docker daemon:
    ```shell
    sudo systemctl enable docker.service
    ```
-6. Start the docker daemon without restaring the machine:
+5. Start the docker daemon without restaring the machine:
    ```shell
    sudo systemctl start docker.service
    ```

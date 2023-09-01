@@ -9,7 +9,6 @@ local
 venv/
 .idea
 *.iml
-target
 .cache
 dependency-reduced-pom.xml
 .project

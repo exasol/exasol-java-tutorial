@@ -81,7 +81,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.1.2</version>
                 <configuration>
                     <!-- Required to prevent: [ERROR] TestEngine with ID 'junit-jupiter' failed to discover tests -->
                     <useModulePath>false</useModulePath>

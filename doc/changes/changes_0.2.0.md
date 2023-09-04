@@ -1,4 +1,4 @@
-# exasol-java-tutorial 0.2.0, released 2023-09-01
+# exasol-java-tutorial 0.2.0, released 2023-09-04
 
 Code name: TLS tutorial
 

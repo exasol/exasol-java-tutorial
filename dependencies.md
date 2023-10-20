@@ -94,6 +94,53 @@
 | [Maven Deploy Plugin][45]                               | [The Apache Software License, Version 2.0][27] |
 | [Maven Site Plugin 3][46]                               | [The Apache Software License, Version 2.0][27] |
 
+## Testing-tutorial
+
+### Compile Dependencies
+
+| Dependency                   | License          |
+| ---------------------------- | ---------------- |
+| [Exasol UDF API for Java][2] | [MIT License][3] |
+
+### Test Dependencies
+
+| Dependency                                     | License                           |
+| ---------------------------------------------- | --------------------------------- |
+| [Hamcrest All][47]                             | [New BSD License][48]             |
+| [Test containers for Exasol on Docker][4]      | [MIT License][5]                  |
+| [Testcontainers :: JUnit Jupiter Extension][6] | [MIT][7]                          |
+| [Test Database Builder for Java][8]            | [MIT License][9]                  |
+| [Matcher for SQL Result Sets][10]              | [MIT License][11]                 |
+| [JUnit Jupiter (Aggregator)][12]               | [Eclipse Public License v2.0][13] |
+| [Hamcrest][14]                                 | [BSD License 3][15]               |
+| [mockito-junit-jupiter][16]                    | [The MIT License][17]             |
+
+### Plugin Dependencies
+
+| Dependency                                              | License                                        |
+| ------------------------------------------------------- | ---------------------------------------------- |
+| [Project keeper maven plugin][18]                       | [The MIT License][19]                          |
+| [SonarQube Scanner for Maven][20]                       | [GNU LGPL 3][21]                               |
+| [Apache Maven Compiler Plugin][22]                      | [Apache-2.0][23]                               |
+| [Apache Maven Enforcer Plugin][24]                      | [Apache-2.0][23]                               |
+| [Maven Flatten Plugin][25]                              | [Apache Software Licenese][23]                 |
+| [org.sonatype.ossindex.maven:ossindex-maven-plugin][26] | [ASL2][27]                                     |
+| [Maven Surefire Plugin][28]                             | [Apache-2.0][23]                               |
+| [Versions Maven Plugin][29]                             | [Apache License, Version 2.0][23]              |
+| [duplicate-finder-maven-plugin Maven Mojo][30]          | [Apache License 2.0][31]                       |
+| [Apache Maven Assembly Plugin][32]                      | [Apache-2.0][23]                               |
+| [Apache Maven JAR Plugin][33]                           | [Apache License, Version 2.0][23]              |
+| [Artifact reference checker and unifier][34]            | [MIT License][35]                              |
+| [Maven Failsafe Plugin][36]                             | [Apache-2.0][23]                               |
+| [JaCoCo :: Maven Plugin][37]                            | [Eclipse Public License 2.0][38]               |
+| [error-code-crawler-maven-plugin][39]                   | [MIT License][40]                              |
+| [Reproducible Build Maven Plugin][41]                   | [Apache 2.0][27]                               |
+| [Maven Clean Plugin][42]                                | [The Apache Software License, Version 2.0][27] |
+| [Maven Resources Plugin][43]                            | [The Apache Software License, Version 2.0][27] |
+| [Maven Install Plugin][44]                              | [The Apache Software License, Version 2.0][27] |
+| [Maven Deploy Plugin][45]                               | [The Apache Software License, Version 2.0][27] |
+| [Maven Site Plugin 3][46]                               | [The Apache Software License, Version 2.0][27] |
+
 [0]: https://github.com/commonmark/commonmark-java
 [1]: https://opensource.org/licenses/BSD-2-Clause
 [2]: https://github.com/exasol/udf-api-java/
@@ -141,3 +188,5 @@
 [44]: http://maven.apache.org/plugins/maven-install-plugin/
 [45]: http://maven.apache.org/plugins/maven-deploy-plugin/
 [46]: http://maven.apache.org/plugins/maven-site-plugin/
+[47]: https://github.com/hamcrest/JavaHamcrest/hamcrest-all
+[48]: http://www.opensource.org/licenses/bsd-license.php

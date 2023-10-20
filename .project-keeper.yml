@@ -21,6 +21,16 @@ sources:
       artifactId: "exasol-java-tutorial"
       version: "${revision}"
       relativePath: "../pom.xml"
+  - type: "maven"
+    path: "testing-tutorial/pom.xml"
+    modules:
+      - jar_artifact
+      - integration_tests
+    parentPom:
+      groupId: "com.exasol"
+      artifactId: "exasol-java-tutorial"
+      version: "${revision}"
+      relativePath: "../pom.xml"
 
 linkReplacements:
   - "LICENSE-exasol-script-api.txt|https://mit-license.org/"

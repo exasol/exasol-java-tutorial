@@ -7,6 +7,8 @@
     <version>${revision}</version>
     <properties>
         <revision>0.2.1</revision>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     <modules>
         <module>markdown-statistics-tutorial</module>

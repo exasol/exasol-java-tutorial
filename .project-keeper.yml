@@ -1,6 +1,11 @@
-version: 0.2.0
+version:
+  fromSource: pom.xml
 
 sources:
+  - type: "maven"
+    path: "pom.xml"
+    modules:
+      - integration_tests
   - type: "maven"
     path: "markdown-statistics-tutorial/pom.xml"
     modules:

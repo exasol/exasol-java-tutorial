@@ -1,6 +1,6 @@
 |![ariane 501 explosion](https://www.esa.int/var/esa/storage/images/esa_multimedia/images/1998/01/ariane_501_explosion/9088578-6-eng-GB/Ariane_501_explosion_pillars.jpg)|
 |:--:|
-| Image: Ariane 501 explosion 4 June 1996, courtesy of European Space Agency (ESA)
+| Image: Ariane 501 explosion 4 June 1996, courtesy of European Space Agency (ESA) |
 
 
 # Why Testing Matters

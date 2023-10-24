@@ -20,7 +20,7 @@
 | [Matcher for SQL Result Sets][10]              | [MIT License][11]                 |
 | [JUnit Jupiter (Aggregator)][12]               | [Eclipse Public License v2.0][13] |
 | [Hamcrest][14]                                 | [BSD License 3][15]               |
-| [mockito-junit-jupiter][16]                    | [The MIT License][17]             |
+| [mockito-junit-jupiter][16]                    | [MIT][17]                         |
 
 ### Plugin Dependencies
 
@@ -66,7 +66,7 @@
 | [Matcher for SQL Result Sets][10]              | [MIT License][11]                 |
 | [JUnit Jupiter (Aggregator)][12]               | [Eclipse Public License v2.0][13] |
 | [Hamcrest][14]                                 | [BSD License 3][15]               |
-| [mockito-junit-jupiter][16]                    | [The MIT License][17]             |
+| [mockito-junit-jupiter][16]                    | [MIT][17]                         |
 
 ### Plugin Dependencies
 

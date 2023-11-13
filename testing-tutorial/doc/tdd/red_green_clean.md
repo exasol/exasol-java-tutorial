@@ -235,6 +235,94 @@ In sum:
 
 For a more elaborate discussion on DRY and DAMP please check out [[1]](#1).
 
+## Keep Test Preparation In the Test Where Possible
+
+A common pattern that makes test hard to read and even harder to debug is if tests preparation is detached from the actual test.
+
+You all too often see this absolute _anti-pattern_ in applications that use a database backend. The motivation is often misunderstanding the [DRY principle](#dont-repeat-yourself-dry) or premature optimization.
+
+```java
+import java.sql.ResultSet;
+
+class DataImportTest {
+    @BeforeAll
+    static void beforeAll() {
+        // ... long list of instructions to set up a test database
+        // ... worst case loading data from an external file
+    }
+
+    // ... many lines of code
+
+    static void testSomeAspect() {
+        // process data
+        final ResultSet result = query("SELECT C1, C3, C6 FROM TABLE T34 WHERE C2 = 'Monday'");
+        assertAll(
+                ()-> assertThat(resultset.size = 7)
+                // ... more assertions
+        );
+    }
+}
+```
+
+There is so much wrong with this style of test that we could discuss it for hours. Let's just focus on the worst issues though:
+
+Reading this test is a nightmare. You might be able to understand what it is doing when you write it. You definitely won't remember anymore three months later when you have to fix a bug.
+
+Reviewers will have very real problems deciding if this test is factually correct. Good reviewers will curse you under their breath and then politely ask you to completely rewrite the code. Bad reviewers will shrug their shoulders and ignore the test, because it is way too much effort to try to comprehend what this test is supposed to do.
+
+Disconnecting test and preparation will have you scrolling back and forth. If you load data from external files, reviewers even have to keep multiple editors open.
+
+The tests are fragile. If you modify the global setup, many tests break.
+
+Global setup makes test depending on each other. Unless none of the tests causes a modification, your tests can break each other. Test order becomes relevant.
+
+### Make Test Setup Compact, not Global
+
+Resist the urge to make the setup global wherever you can. You might be worried about your test cases getting too large, but there are ways to make the setup both compact and readable.
+
+Have a look at the [Test Database Builder Java](https://github.com/exasol/test-db-builder-java/) which was written with the explicit goal of compact test preparation in mind.
+
+Note that this library is strictly optimized for readable tests and therefore not suitable for use in production code.
+
+
+```java
+class DataImportTest {
+    private static DatabaseObjectFactory factory;
+    private static Schema schema;
+    
+    @BeforeAll
+    static void beforeAll() {
+        factory=new ExasolObjectFactory(connection);
+    }
+    
+    @BeforeEach
+    void beforeEach() {
+        if(schema != null) {
+            schema.drop();
+        }
+        final Schema schema = factory.createSchema("ONLINESHOP");
+    }
+    
+    static void testImportShopItems() {
+        final Table table=schema.createTable("ITEMS", "PRODUCT_ID", "DECIMAL(18,0)", "NAME", "VARCHAR(40)")
+                .insert("1", "Cat food")
+                .insert("2", "Toy mouse");
+        final User user=factory.createUser("KIMIKO")
+                .grant(CREATE_SESSION)
+                .grant(table,SELECT,UDPATE);
+        // process data
+        // assertion
+    }
+}
+```
+
+The refactoring above addresses the issues we talked about before. The relevant part of the setup is inside the test case. The test schema is dropped and rebuilt with each test case to ensure that the tests start with a clean slate. Thanks to pulling the setup into the test, we can use concrete database object names.
+
+### But Speed...!
+
+We will discuss how performance constraints play into our test strategy in ["Red, Green, Clean, Fast"](red_green_clean_fast.md)
+
 ## References
 
-<a id="1">[1]</a> ["DRY vs DAMP in Unit Tests"](https://enterprisecraftsmanship.com/posts/dry-damp-unit-tests/), Valdimir Khoirkov, Enterprise Craftsmanship, June 8 2020
+###### 1
+["DRY vs DAMP in Unit Tests"](https://enterprisecraftsmanship.com/posts/dry-damp-unit-tests/), Valdimir Khoirkov, Enterprise Craftsmanship, June 8 2020

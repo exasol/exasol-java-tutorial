@@ -1,64 +1,17 @@
-# Software Testing
+# Software Testing Todo List
 
 > The exmaple throughout the document
 > 
 > * Right / role management
 > * Persist in a database (to force integration testing)
 
+All sections that have a ✅ checkmark are done. Notes can be removed.
+
 ## Automatic vs. Manual
 
-### Speed is Quality
+### Speed is Quality ✅
 
-```plantuml
-title: In an ideal world
-test -> implement
-implement -> test
-```
-
-```plantuml
-title: In reality ideal world
-test -> get angry : wait
-get-angry -> implement : try to remember\nwhat you wanted to do
-implement -> test
-```
-
-Tests need to be fast. If they are not, people don't execute them. If they are not executed, the software accumulates regressions.
-
-Tests used in TDD and BDD need to be so fast that you can afford to run them after each small modification you made. That can be a couple of times per minute.
-
-As a rule of thumb individual unit tests should be tiny fractions of a second, tests for a single unit not longer than a second, a unit test suite should ideally run in under a minute.
-
-To judge how long integration tests should run, ask youself: how long am I willing to wait for feedback of a continuos integration build (CI) after I pushed a commit? An hour? Probably not. Half an hour? Not really. 15 minutes? Maybe, but that's the limit.
-
-## Testing Pyramid
-
-Software tests can be done on different levels. In this chapter we are going to discuss why each type has its merits and short-comings and why the question "which kind is most important" will always depend on the _target audience_ of a test.
-
-```
-^ Relevance for end user  /\                        |
-| Complexity             /  \                       |
-| Effort                /Perf\                      |
-| Costs                /------\                     |
-|                     / System \                    |
-|                    /----------\                   | 
-|                   /Integration \  Maintainability |
-|                  /--------------\    Localization |
-|                 /     Unit       \      Stability |
-|                /__________________\         Speed v
-```
-
-You need a solid fundament of unit tests because unit tests:
-
-1. &hellip; very fast
-2. &hellip; pinpoint error locations
-3. &hellip; are robust to local changes (best case a single change makes one test red)
-4. &hellip; have low maintenance effort
-
-So your goal should be to test everything that you can with unit tests.
-
-Unfortunately, unit tests are not enough. At some point you need to validate the interaction of your units with other units. And at some point you also want to make sure that everything works end-to-end.
-
-The higher up you climb on the test pyramid, the more expensive, slow and the more fragile your tests get. "Fragile" means that a small change in the production code can flip a lot of integration tests and even more end-to-end tests. Expensive and fragile is also a really unpleasant combination. All of this goes to say that you should intentionally limit all tests to an as low level as is sufficient to prove correct operation. 
+## Testing Pyramid ✅
 
 ## Handling Dependencies
 
@@ -139,11 +92,11 @@ Exception: to trigger exception handling
 - Fuzzy test can help alleviate the pain points
 - Example: fuzzy date / time matching
 
-## Test First
+## ✅ Test First
 
-### TDD and BDD
+### ✅ TDD and BDD
 
-#### Red - Green - Clean
+#### ✅  Red - Green - Clean
 
 #### Red - Green - Clean - Fast
 
@@ -151,9 +104,6 @@ Exception: to trigger exception handling
 
 ## Dry vs. Damp
 
-- Avoid duplication where you can
-- Parameterized tests
-- When deduplication makes test hard to read, prioritize clearness
 - When test setup is too far detached from the test case
 
 ## Making Your Live Easier with Dedicated Matchers
@@ -201,3 +151,8 @@ Exception: to trigger exception handling
 ### Performance Tests
 
 - Adding performance expectations: the cheapest way to detect performance regressions
+
+
+TODOs:
+
+

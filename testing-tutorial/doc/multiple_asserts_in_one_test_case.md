@@ -42,7 +42,7 @@ class RoleTest {
 }
 ```
 
-Wrapping the assertions in a list of lambdas inside `assert_all` makes sure the test case runs all of them regardless of whether they succeed.
+Wrapping the assertions in a list of lambdas inside `assertAll()` makes sure the test case runs all of them regardless of whether they succeed.
 
 ### Assertions With Dependencies
 
@@ -61,10 +61,18 @@ class PluginFactoryTest {
 }
 ```
 
-It is pretty obvious that checking the exception message requires that an exception is caught first. There is no point here in using `assertAll`.
+It is pretty obvious that checking the exception message requires that an exception is caught first. There is no point here in using `assertAll()`.
 
 ### Expensive Assertions
 
 Another situation in which forcing all assertions to be executed is not a good idea is if they are very expensive. This situation usually only happens in integration tests, end-to-end-tests or performance test. Sure if the assertions are independent, you will lose debugging information. But if that can save you valuable CI server minutes it might be worth cutting your losses on failing tests.
 
 The good news is that this is usually a rare case.
+
+### Expensive Setup
+
+The closer to the user a test is the more expensive it gets in terms of runtime. It is not uncommon for say an end-to-end test to be so expensive that you will want to avoid repeating the test setup. This is one of the _rare exceptions_ where instead of always starting with a clean slate it can be overall beneficial to have a shared setup for your tests and squeeze as many tests cases (read "assertions") out of the now ready-to-test system as possible.
+
+Remember though that this approach can quickly backfire if any of your test cases changes the state of the system under test. In that case you pay the price of the optimization with tests that depend on each other and therefore are fragile.
+
+As always, _measure first_ before you decide to sacrifice reliability for speed!

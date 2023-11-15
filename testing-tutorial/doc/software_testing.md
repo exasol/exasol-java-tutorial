@@ -1,13 +1,13 @@
 # Software Testing Todo List
 
-> The exmaple throughout the document
+> The example throughout the document
 > 
 > * Right / role management
 > * Persist in a database (to force integration testing)
 
 All sections that have a ✅ checkmark are done. Notes can be removed.
 
-## Automatic vs. Manual
+## Automatic vs. Manual  ✅
 
 ### Speed is Quality ✅
 

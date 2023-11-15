@@ -4,7 +4,7 @@ Enough explanation, let's get our hands dirty. Your task in this section and the
 
 ### The Right Tool for the job
 
-We highly recommend you follow the example with a modern IDE like [IntelliJ](https://www.jetbrains.com/idea/) or [Eclipse](https://www.eclipse.org/).
+We highly recommend you follow the example with a modern IDE like [IntelliJ](https://www.jetbrains.com/idea/), [Eclipse](https://www.eclipse.org/) or [Visual Studio Code](https://code.visualstudio.com/).
 
 Some people argue that TDD is more work than writing the tests after the implementation. This myth can quickly be debunked, given that you use an IDE that has a smart code generator, which will make building the implementation a breeze.
 
@@ -18,10 +18,11 @@ Unlike in a real project, where you start with the highest business value, we wi
 
 Let's create a `User` class that allows us to get the username.
 
-1. Create an empty Maven project called `projectmanagement` in your IDE.
-2. Make sure that the IDE recognizes the typical path `src/main/java` as implementation root directory and `src/test/java` as tests root
-3. Create a package `com.exasol.javatutorial.projectmanagement` in both your implementation and test sources
-4. Create a test class `ProjectTest` in the package `com.exasol.javatutorial.projectmanagement` below the `src/test/java` directory
+1. Create an empty Maven project called `projectmanagement` in your IDE. Please consult the IDEs documentation on details.
+2. Add [JUnit Jupiter (aka. JUnit 5)](https://central.sonatype.com/artifact/org.junit.jupiter/junit-jupiter) and [Hamcrest](https://central.sonatype.com/artifact/org.hamcrest/hamcrest-all) dependencies
+3. Make sure that the IDE recognizes the typical path `src/main/java` as implementation root directory and `src/test/java` as tests root
+4. Create a package `com.exasol.javatutorial.projectmanagement` in both your implementation and test sources
+5. Create a test class `ProjectTest` in the package `com.exasol.javatutorial.projectmanagement` below the `src/test/java` directory
 
 ```java
 package com.exasol.javatutorial.projectmanagement;
@@ -108,7 +109,7 @@ Expected: "ACME"
 
 If your test succeeds while the implementation does not compile, your test is obviously worthless. I read from some TDD proponents that non-compiling implementation is good enough for the required failing test though. I disagree on this point. Vehemently.
 
-1. If you write a test first, you come from a place where the production code compiled. You can get the test to not compile, but that does not prove anything except that either test is broken or the dependencies to the production code are incomplete (like missing APIs).
+1. If you write a test first, you come from a place where the production code compiled. You can get the test to not compile, but that does not prove anything except that either the test is broken or the dependencies to the production code are incomplete (like missing APIs).
 2. There is a significant chance that simply fixing the compiler findings will get the test green _before_ you actually wrote the implementation. This is a classical example of a dangerous test. And that kind of test is _worse_ than no test, because it gives you a false sense of safety.
 
 ### The Minimal Implementation

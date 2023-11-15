@@ -52,7 +52,7 @@ The reality unfortunately often looks different.
 ```
 
 It doesn't help that with long-running tests you try to make good use of the waiting time by switching to a different task.
-This only adds to the mental burden that eas away at your productivity. Task switches take time, and they cost our brain a lot of energy.
+This only adds to the mental burden that eats away at your productivity. Task switches take time, and they cost our brain a lot of energy.
 
 You need to design your tests for speed in order to get the best out of the automation.
 
@@ -70,7 +70,7 @@ Software tests can be done on different levels. In this chapter we are going to 
 
 You need a solid fundament of unit tests because unit tests:
 
-1. &hellip; very fast
+1. &hellip; are very fast
 2. &hellip; pinpoint error locations
 3. &hellip; are robust to local changes (best case a single change makes one test red)
 4. &hellip; have low maintenance effort

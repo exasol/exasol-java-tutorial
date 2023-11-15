@@ -38,5 +38,4 @@ sources:
       relativePath: "../pom.xml"
 
 linkReplacements:
-  - "LICENSE-exasol-script-api.txt|https://mit-license.org/"
   - "https://github.com/commonmark/commonmark-java/commonmark|https://github.com/commonmark/commonmark-java"

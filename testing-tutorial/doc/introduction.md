@@ -4,15 +4,15 @@
 
 There are a number of reasons why tests are necessary in professional software development:
 
-1. Developer make mistakes, tests help uncovering them
-2. Test help avoiding regressions
-3. Tests are an executable form or specification &mdash; if you can't formulate a test, your specification has holes
+1. Developers make mistakes, tests help uncovering them
+2. Tests help avoiding regressions
+3. Tests are an executable form of specification &mdash; if you can't formulate a test, your specification has holes
 
 ## The Numeric Conversion Error That Cost ESA a Rocket
 
-On 4 June 1996 the first Ariane 5 launcher veer of course and self-destructed due to a software bug [[LIONS1996]](#lions1996).
+On 4 June 1996 the first Ariane 5 launcher veered off course and self-destructed due to a software bug [[LIONS1996]](#lions1996).
 
-It was a on overflow in a conversion from a 64-bit floating point number to a 16-bit integer that caused both Inertial Reference Systems (SRI) to enter and report a failure state. The root cause was a combination of reusing software from a previous launch vehicle on the newer Ariane 5 model and a downward conversion that did not fail safely in case of overflow. The overflow itself was due considerably higher horizontal velocity of Ariane 5 compared to its predecessor. Since the On-Board Computer (OBC)misinterpreted the error bit pattern as an actual measurement, engaged in drastic course correction causing the solid state thrusters to break loose due to mechanical stress. This in turn triggered self-destruction of the launcher.
+It was a on overflow in a conversion from a 64-bit floating point number to a 16-bit integer that caused both Inertial Reference Systems (SRI) to enter and report a failure state. The root cause was a combination of reusing software from a previous launch vehicle on the newer Ariane 5 model and a downward conversion that did not fail safely in case of overflow. The overflow itself was due considerably higher horizontal velocity of Ariane 5 compared to its predecessor. Since the On-Board Computer (OBC) misinterpreted the error bit pattern as an actual measurement, engaged in drastic course correction causing the solid state thrusters to break loose due to mechanical stress. This in turn triggered self-destruction of the launcher.
 
 ### The Missing Test, &hellip;
 

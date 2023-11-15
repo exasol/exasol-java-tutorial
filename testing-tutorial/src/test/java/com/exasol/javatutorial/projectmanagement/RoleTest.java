@@ -1,11 +1,10 @@
 package com.exasol.javatutorial.projectmanagement;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.security.Permissions;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +40,7 @@ class RoleTest {
         for(int mutation = 0; mutation < numberOfPermutations; ++mutation)
         {
             final Set<Permission> permissionSet = generatePermutation(mutation, numberOfPermissions);
-            final Role role = new Role(permissionSet.toArray(new Permission[permissionSet.size()]));
+            final Role role = new Role(permissionSet.toArray(new Permission[]{}));
             for(int permission = 0; permission < numberOfPermissions; ++permission)
             {
                 assertThat(role.toString(), role.hasPermission(Permission.values()[permission]),
@@ -59,6 +58,27 @@ class RoleTest {
             }
         }
         return permissions;
+    }
+
+    // And another variant using a test matrix. While test matrices are in general a good idea, in this particular case
+    // the readability suffers compared to simple one-liner test methods.
+    @CsvSource({
+            "'', false, false",
+            "READ, true, false",
+            "WRITE, false, true",
+            "READ:WRITE, true, true"
+    })
+    @ParameterizedTest
+    void shouldReportPermissionsTheRoleWasGiven(final String grantedPermissionString, final boolean mayRead,
+                                                final boolean mayWrite) {
+        final Permission[] grantedPermissions = Arrays.stream(grantedPermissionString
+                        .split(":"))
+                .filter(str -> !str.isBlank())
+                .map(Permission::valueOf)
+                .toArray(Permission[]::new);
+        final Role role = new Role(grantedPermissions);
+        assertThat(role.hasPermission(READ), equalTo(mayRead));
+        assertThat(role.hasPermission(WRITE), equalTo(mayWrite));
     }
 
     @Test

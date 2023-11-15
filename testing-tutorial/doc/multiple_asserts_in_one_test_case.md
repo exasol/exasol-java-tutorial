@@ -76,3 +76,5 @@ The closer to the user a test is the more expensive it gets in terms of runtime.
 Remember though that this approach can quickly backfire if any of your test cases changes the state of the system under test. In that case you pay the price of the optimization with tests that depend on each other and therefore are fragile.
 
 As always, _measure first_ before you decide to sacrifice reliability for speed!
+
+[TDD and BDD](tdd/tdd_and_bdd.md) &larr; | &uarr; [Introduction](introduction.md) |  &rarr; [Dealing with Randomness](dealing_with_randomness.md)

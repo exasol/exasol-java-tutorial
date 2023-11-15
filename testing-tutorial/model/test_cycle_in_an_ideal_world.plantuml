@@ -1,5 +1,0 @@
-@startuml
-title: In an ideal world
-[*] --> implement
-implement --> test
-@enduml

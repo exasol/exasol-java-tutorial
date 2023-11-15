@@ -24,7 +24,7 @@ Ultimately what kept the bug hidden until the actual first launch was the fact t
 
 ### &hellip; the Code That Should not Have run,  &hellip;
 
-The irony was that the fault happened in a part of the software that was responsible for _pre-launch_ alignment, which would be active to around 40 seconds after launch. The reason this code was still active, was that this allowed _previous_ versions of Ariane to recover faster from halted a countdown. That use case did not exist anymore for Ariane 5 though due to changed launch preparation sequence.
+The irony was that the fault happened in a part of the software that was responsible for _pre-launch_ alignment, which would be active to around 40 seconds after launch. The reason this code was still active, was that this allowed _previous_ versions of Ariane to recover faster from a halted countdown. That use case did not exist anymore for Ariane 5 though due to changed launch preparation sequence.
 
 So what was tried-and-true code for Ariane 4 had now become a liability for Ariane 5.
 
@@ -50,4 +50,4 @@ Consequently, the report argues that hard failure of a mission-critical componen
 ###### LIONS1996
 ["ARIANE 5, Flight 501 Failure, Report by the Inquiry Board"](https://esamultimedia.esa.int/docs/esa-x-1819eng.pdf), Prof. J. L. LIONS, Paris, 19 July 1996
 
-Next: [Automatic Testing](automatic_testing.md)
+&rarr; [Tests are an Executable Specification](test_are_an_executable_specification.md)

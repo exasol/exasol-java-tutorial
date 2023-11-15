@@ -47,14 +47,14 @@ public class Role {
 
 This is just enough to make the first test pass again and the second fail (which is what we want in step 3).
 
-Please assign the constructor vararg parameter to an instance variable `permissions` of type `List<String> permissions`. And use a `contains` check in `hasPermission`.
+Please convert the constructor vararg parameter from `Permission[]` to `Set<Permission>` and assign it to an instance variable `permissions`. Then use a `contains()` check in `hasPermission()`.
 
 ```java
 public class Role {
-private final List<Permission> permissions;
+    private final Set<Permission> permissions;
 
     public Role(final Permission... permissions) {
-        this.permissions = List.of(permissions);
+        this.permissions = Set.of(permissions);
     }
 
     public boolean hasPermission(final Permission permission) {
@@ -86,7 +86,7 @@ class RoleTest {
                         .split(":"))
                 .filter(str -> !str.isBlank())
                 .map(Permission::valueOf)
-                .toArray(size -> new Permission[size]);
+                .toArray(Permission[]::new);
         final Role role = new Role(grantedPermissions);
         assertThat(role.hasPermission(READ), equalTo(mayRead));
         assertThat(role.hasPermission(WRITE), equalTo(mayWrite));
@@ -150,7 +150,7 @@ So wherever possible, please use constant and explicit setup data and expectatio
 
 When developers realised that the DRY principle does not always lend itself best to unit tests, of course someone had to come up with a concept that had an opposing acronym. The DAMP principle focuses on readability over the last bit of eliminating duplication. The concepts are _not mutually exclusive_ though.
 
-Let's go back to our role and permission example. With only permissions two you have four permutations in the role and the code is more expressive when spelled out. If you have ten different permissions, you have 1024 permutations, and it is pretty clear that spelling them all out is neither efficient nor useful.
+Let's go back to our role and permission example. With only tow permissions you have four permutations in the role and the code is more expressive when spelled out. If you have ten different permissions, you have 1024 permutations, and it is pretty clear that spelling them all out is neither efficient nor useful.
 
 On the other hand we saw that the programmatic approach of generating the permutations has its own problems rooted in complexity and potential waste.
 
@@ -162,7 +162,7 @@ To pick meaningful examples, let's use a boundary checking approach and make a l
 * one permission
 * all permissions
 
-If you apply this, you get a small set of tests for `toString`.
+If you apply this, you get a small set of tests for `toString()`.
 
 ```java
 class RoleTest {
@@ -191,10 +191,10 @@ Let's check a couple of criteria:
 
 | Criteria                            | Applies | Details                                                                                             |
 |-------------------------------------|---------|-----------------------------------------------------------------------------------------------------|
-| Did we avoid all duplication?       | ❌       | There is still a small amount of duplication. The pattern repeats.                                  |
-| Do we avoid coupling between tests? | ✅       | Each tests a distinct aspect. Setup is separate. Changing one test does not affect the others.      |
-| Are the tests descriptive?          | ✅       | They have proper names that will show up in the test log. The tests themselves are trivial to read. |
-| Are they meaningful?                | ✅       | Thanks to limiting ourselves to boundary cases each of them adds value.                             |
+| Did we avoid all duplication?       | ❌      | There is still a small amount of duplication. The pattern repeats.                                  |
+| Do we avoid coupling between tests? | ✅      | Each tests a distinct aspect. Setup is separate. Changing one test does not affect the others.      |
+| Are the tests descriptive?          | ✅      | They have proper names that will show up in the test log. The tests themselves are trivial to read. |
+| Are they meaningful?                | ✅      | Thanks to limiting ourselves to boundary cases each of them adds value.                             |
 
 ⓘ The test case `shouldProduceHumanReadableStringWithAllPermissions` needs extra consideration that is covered in section ["Dealing With Randomness"](../dealing_with_randomness.md).
 
@@ -253,11 +253,12 @@ class DataImportTest {
 
     // ... many lines of code
 
+    @Test
     static void testSomeAspect() {
         // process data
         final ResultSet result = query("SELECT C1, C3, C6 FROM TABLE T34 WHERE C2 = 'Monday'");
         assertAll(
-                ()-> assertThat(resultset.size = 7)
+                ()-> assertThat(resultset.size, equalTo(7))
                 // ... more assertions
         );
     }
@@ -292,7 +293,7 @@ class DataImportTest {
     
     @BeforeAll
     static void beforeAll() {
-        factory=new ExasolObjectFactory(connection);
+        factory = new ExasolObjectFactory(connection);
     }
     
     @BeforeEach
@@ -303,13 +304,14 @@ class DataImportTest {
         final Schema schema = factory.createSchema("ONLINESHOP");
     }
     
-    static void testImportShopItems() {
-        final Table table=schema.createTable("ITEMS", "PRODUCT_ID", "DECIMAL(18,0)", "NAME", "VARCHAR(40)")
+    @Test
+    void testImportShopItems() {
+        final Table table = schema.createTable("ITEMS", "PRODUCT_ID", "DECIMAL(18,0)", "NAME", "VARCHAR(40)")
                 .insert("1", "Cat food")
                 .insert("2", "Toy mouse");
-        final User user=factory.createUser("KIMIKO")
+        final User user = factory.createUser("KIMIKO")
                 .grant(CREATE_SESSION)
-                .grant(table,SELECT,UDPATE);
+                .grant(table, SELECT, UDPATE);
         // process data
         // assertion
     }
@@ -326,3 +328,5 @@ We will discuss how performance constraints play into our test strategy in ["Red
 
 ###### 1
 ["DRY vs DAMP in Unit Tests"](https://enterprisecraftsmanship.com/posts/dry-damp-unit-tests/), Valdimir Khoirkov, Enterprise Craftsmanship, June 8 2020
+
+[First Steps Into TDD](first_steps_into_tdd.md) &larr; | &uarr; [TDD and BDD](tdd_and_bdd.md) |  &rarr; [Red, Green, Clean, Fast](red_green_clean_fast.md)

@@ -10,7 +10,7 @@ Some people argue that TDD is more work than writing the tests after the impleme
 
 ### Required Prior Knowledge
 
-If you haven't done so already, please also familiarize yourself with [Apache Maven](https://maven.apache.org/) and [Hamcrest matchers](../matchers/hamcrest_matchers.md). We will use both throughout the tutorial.
+If you haven't done so already, please also familiarize yourself with [Apache Maven](https://maven.apache.org/) and [Hamcrest matchers](https://hamcrest.org/). We will use both throughout the tutorial.
 
 ### The Simplest Possible Thing
 
@@ -288,6 +288,4 @@ Okay, now the test fails properly.
 
 It should come as no surprise that the actual fix is restoring the constant return value `false` since that worked earlier already and is just enough implementation for the existing test.
 
-### Towards Clean Code
-
-In the [next part of this tutorial](red_green_clean.md) we will look take a look at improving the test quality in TDD.
+[TDD and BDD](tdd_and_bdd.md) &larr; | &uarr; [TDD and BDD](tdd_and_bdd.md) |  &rarr; [Red, green Clean](red_green_clean.md) (improving the test quality in TDD)

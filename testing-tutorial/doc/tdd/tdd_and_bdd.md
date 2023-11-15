@@ -5,7 +5,7 @@ Test-driven Development (TDD) is a software development strategy that starts wit
 Let's look at the benefits of starting from the tests:
 
 1. Your software is guaranteed to be testable
-2. The design will be cleaner TDD fosters separating concerns better, in order to test units in isolation
+2. The design will be cleaner because TDD fosters separating concerns better, in order to test units in isolation
 3. The solution will be less complex, since you only implement what is needed to make the tests succeed
 4. Less complex software is also more reliable and in most cases faster
 5. Locating issues in your code goes quicker
@@ -97,4 +97,4 @@ Think of your product as a creature subjected to evolution. Each test or behavio
 
 If you take this approach you will always get the simplest solution that satisfies the tests. And striving for simplicity is one of the key traits of a professional software developer.
 
-Let's start with your [first steps into TDD](first_steps_into_tdd.md).
+Up &uarr; [Introduction to Java testing](../introduction.md) | Next &rarr; [First steps into TDD](first_steps_into_tdd.md).

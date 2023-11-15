@@ -45,7 +45,7 @@ We also don't need to worry much about losing performance here, since the list w
 
 Imagine you have to do a full data export into CSV files, so that the files can later be imported into a database. The primary key is a date. Should you order the entries?
 
-No. If the users need ordering, they can sort on the target database. The import process should not care about ordering. First of all ordering is inherently expensive, second if the import can cope with any order, that make parallel import possible.
+No. If the users need ordering, they can sort on the target database. The import process should not care about ordering. First of all ordering is inherently expensive, second if the import can cope with any order, that makes parallel import possible.
 
 In short, don't waste effort on ordering if it is not an explicit requirement.
 
@@ -88,7 +88,7 @@ Everyone who ever wrote a test against any kind of asynchronous interface knows 
 
 #### Sleeping is Dangerous
 
-The lazy approach is to throw in the odd `sleep` and hope for the best. This is a recipe for unreliable tests, since there is nothing that guarantees that just because your wait was long enough when you wrote the test and executed it once, it will be long enough at any given other time.
+The lazy approach is to throw in the odd `sleep` and hope for the best. This is a recipe for unreliable tests and wasting time, since there is nothing that guarantees that just because your wait was long enough when you wrote the test and executed it once, it will be long enough at any given other time.
 
 It depends on factors like hardware, implementation and load how long an asynchronous operation takes. If you plot a distribution you will always see that there is a time limit that with any given system you will not be below. Unfortunately, you can't exactly say where that is. Then you will see some kind of distorted normal distribution. The tail towards the higher execution times is the source of many flaky tests. 
 
@@ -113,3 +113,5 @@ If you are less lucky, you need to observe derived information to determine the 
 The fact that this is necessary tells you that the feature in question was not written with testability in mind. Had it been written with a [test-first approach](tdd/first_steps_into_tdd.md), there would likely be an API to directly query synchronization state.
 
 Beware of race conditions though! If you are using an unofficial interface as a last resort for determining operation state, better make sure that it does not race ahead of the actual operation's completion.
+
+[Multiple Asserts in one Test Case](multiple_asserts_in_one_test_case.md) &larr; | &uarr; [Introduction](introduction.md)

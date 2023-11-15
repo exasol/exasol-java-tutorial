@@ -26,30 +26,11 @@ Penetration testing is a form of exploratory testing too. With the focus on gett
 
 In an ideal world an implementation round-trip looks like this:
 
-```
-      ,-----------------.
-      |                 v
-.-----------.     .-----------.
-| Implement |     |   Test    |
-`-----------´     `-----------´
-      ^                 |
-      `-----------------´
-```
+![Ideal development round-trip](tdd/images/ideal_development_round-trip.png)
 
 The reality unfortunately often looks different.
 
-```
-                .-----------.           wait for
-      ,-------->|   Test    |--------.  tests to finish
-      |         `-----------´        v   
-.-----------.                  .-----------.
-| Implement |                  | Get angry |
-`-----------´                  `-----------´
-      ^   .----------------------.   |  
-      |   | Try to remember what |   |  waste more
-      `---| you wanted to do     |<--´  time
-          `----------------------´
-```
+![Round-trip with long waiting times](tdd/images/round-trip_with_long_waiting_times.png)
 
 It doesn't help that with long-running tests you try to make good use of the waiting time by switching to a different task.
 This only adds to the mental burden that eats away at your productivity. Task switches take time, and they cost our brain a lot of energy.
@@ -79,4 +60,6 @@ So your goal should be to test everything that you can with unit tests.
 
 Unfortunately, unit tests are not enough. At some point you need to validate the interaction of your units with other units. And of course, you also want to make sure that everything works end-to-end.
 
-The higher up you climb on the test pyramid, the more expensive, slow and fragile your tests get. "Fragile" means that a small change in the production code can flip a lot of integration tests and even more end-to-end tests. Expensive and fragile is also a really unpleasant combination. All of this goes to say that you should intentionally limit all tests to an as low level as is sufficient to prove correct operation. 
+The higher up you climb on the test pyramid, the more expensive, slow and fragile your tests get. "Fragile" means that a small change in the production code can flip a lot of integration tests and even more end-to-end tests. Expensive and fragile is also a really unpleasant combination. All of this goes to say that you should intentionally limit all tests to an as low level as is sufficient to prove correct operation.
+
+[Test are an Executable Specification](test_are_an_executable_specification.md) &larr; | &uarr; [Introduction](introduction.md) |  &rarr; [TDD and BDD](tdd/tdd_and_bdd.md)

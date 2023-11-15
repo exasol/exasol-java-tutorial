@@ -102,9 +102,7 @@ Exception: to trigger exception handling
 
 #### When "Fast" and "Clean" are in Conflict
 
-## Dry vs. Damp
-
-- When test setup is too far detached from the test case
+## ✅ Dry vs. Damp
 
 ## Making Your Live Easier with Dedicated Matchers
 
@@ -114,7 +112,7 @@ Exception: to trigger exception handling
 
 ### Writing Your own Matcher
 
-## How and What Much Should I Test?
+## What and how Much Should I Test?
 
 - Where's your specification?
 - Can I reduce complexity to reduce the number of tests?
@@ -146,13 +144,10 @@ Exception: to trigger exception handling
 - Version Matrices
 - Variant Matrices
 
+### Mutation Testing
+
 <!-- Java only -->
 
 ### Performance Tests
 
 - Adding performance expectations: the cheapest way to detect performance regressions
-
-
-TODOs:
-
-

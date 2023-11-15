@@ -20,7 +20,7 @@ Where exactly the root cause sits is of little to no consequence for user accept
 
 If you want your software to be a success, there is no way around knowing your users expectations and verifying by means of automated tests that they are met.
 
-Unfortunately, acceptance tests sit at the very top of the [testing pyramid](../testing_pyramid.md), meaning they are both expensive and fragile.
+Unfortunately, acceptance tests sit at the very top of the [testing pyramid](automatic_testing.md#the-testing-pyramid), meaning they are both expensive and fragile.
 
 ### Tests That Specify Developer Expectations
 
@@ -34,4 +34,6 @@ Lets for example say your product is implemented as a set of network services th
 
 Go down another level, and you might provide a software library that encodes and decodes JSON. There is again a shift in target audience requiring you to formulate your tests in a way that they express the expectations of the users of your library's API.
 
-As a rule of thumb, design each layer of your software as if you planned to sell it as a product. With this mindset the users of each layer's interface become your customers, and you give them the best experience on each level. 
+As a rule of thumb, design each layer of your software as if you planned to sell it as a product. With this mindset the users of each layer's interface become your customers, and you give them the best experience on each level.
+
+[Introduction](introduction.md) &larr; | &uarr; [Introduction](introduction.md) |  &rarr; [Automatic testing](automatic_testing.md)

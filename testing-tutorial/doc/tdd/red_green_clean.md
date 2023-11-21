@@ -258,7 +258,7 @@ class DataImportTest {
         // process data
         final ResultSet result = query("SELECT C1, C3, C6 FROM TABLE T34 WHERE C2 = 'Monday'");
         assertAll(
-                ()-> assertThat(resultset.size, equalTo(7))
+                ()-> assertThat(resultset.size(), equalTo(7))
                 // ... more assertions
         );
     }

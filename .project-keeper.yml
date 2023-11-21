@@ -1,5 +1,4 @@
-version:
-  fromSource: pom.xml
+version: 0.3.0
 
 sources:
   - type: "maven"

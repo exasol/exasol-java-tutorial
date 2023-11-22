@@ -32,7 +32,7 @@ To follow this tutorial, you need
 
 Please note that this tutorial is _not_ tested on the Windows Subsystem for Linux (WSL).
 
-We recommend using a Ubuntu VM when working with Windows. E.g. powered by [Virtualbox](https://www.virtualbox.org/).  
+We recommend using an Ubuntu VM when working with Windows. E.g. powered by [Virtualbox](https://www.virtualbox.org/).  
 
 ## Installing the Software
 
@@ -41,16 +41,16 @@ We recommend using a Ubuntu VM when working with Windows. E.g. powered by [Virtu
     sudo apt update
     sudo apt upgrade
     ```
-1. Install Docker
+2. Install Docker
    ```shell
    sudo apt install docker.io
    ```
-1. Install Open SSL.
+3. Install OpenSSL.
     Note that on Ubuntu OpenSSL should be preinstalled. If not run:
     ```shell
     sudo apt install openssl
     ```
-2. Create a directory where we will keep the files that we are creating in the course of this project.
+4. Create a directory where we will keep the files that we are creating in the course of this project.
     ```shell
     tutorial_dir="$HOME/tutorials/tls_with_exasol/import"
     mkdir -p "$tutorial_dir"
@@ -121,7 +121,7 @@ Let's talk about what the individual parameters of the `openssl` mean:
 : Path to the file that will contain the newly created certificate.
 
 `-subj <key=value[/key=value]*>`
-: Subject name of the certificate. Usually in form of a LDAP-style [distinguished name](https://www.rfc-editor.org/rfc/rfc4514). You can find an attribute list in [RFC4519](https://www.rfc-editor.org/rfc/rfc4519#page-2).
+: Subject name of the certificate. Usually in form of an LDAP-style [distinguished name](https://www.rfc-editor.org/rfc/rfc4514). You can find an attribute list in [RFC4519](https://www.rfc-editor.org/rfc/rfc4519#page-2).
 
 #### Reading the Certificate
 
@@ -273,7 +273,7 @@ That is something that the organization owning the server would normally send to
 
 Since in our tutorial you own both the server and the CA, you can play both parts.
 
-We earlier briefly already touched the topic of certificate extensions.To define which extensions you want on the server certificate signed by the CA, this creates a small [configuration file](#x509v3config).
+We earlier briefly already touched the topic of certificate extensions. To define which extensions you want on the server certificate signed by the CA, this creates a small [configuration file](#x509v3config).
 
 ```shell
 echo '[extensions]
@@ -284,7 +284,7 @@ basicConstraints = CA:false' > server_cert_extensions.cfg
 Let's look at the component of the configuration options.
 
 `[extensions]`
-: Is a section header. This header can be used for find a set of options in the configuration file.
+: Is a section header. This header can be used for finding a set of options in the configuration file.
 
 `keyUsage`
 : Defines what a client should accept the certificate for. If something is not listed here, the client _must_ (enforced by the `critical` modifier) refuse any attempts to use the key for it. Case in point, this server key may not sign certificates.
@@ -294,7 +294,7 @@ Let's look at the component of the configuration options.
 : The key can also be used for creating a digital signature and encipher other keys as well as key agreement. If you are asking yourself why payload data encryption is not mentioned, remember that TLS uses asymmetric cryptography only until the symmetric session key is exchanged. Actual data payload is encrypted symmetrically.
 
 `basicConstraints`
-: We explicitly add a constraint here that this configuration is not for CA certificates. You could drop that option if you wanted, because this is the default for certificates. 
+: We explicitly add a constraint here that this configuration is not for CA certificates. You could drop that option if you want, because this is the default for certificates.
 
 The following command creates a certificate from the signing request and signs it with the private key of the CA.
 
@@ -339,7 +339,7 @@ Certificate:
          75:41:37:[...]
 ```
 
-No we are all set to install the certificates.
+Now, we are all set to install the certificates.
 
 ### Certificate Chains
 
@@ -375,7 +375,7 @@ We keep things simple here though, since this is just a tutorial meant to convey
    exit
    ```
 
-As you can tell we won't win any price for most original database usage here, but that is not the point of the tutorial.
+As you can tell we won't win any prize for most original database usage here, but that is not the point of the tutorial.
 
 ### Installing Certificates in MySQL
 
@@ -422,12 +422,13 @@ This should list two files:
 -rw------- 1 mysql mysql 3326 Jan 12 11:56 server.key
 ```
 
-Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysql.conf.d/mysqld.cnf `as `root` user and add:
+Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysql.conf.d/mysqld.cnf` as `root` user and add:
 
 ```
 [mysqld]
 ssl
 ssl-ca=/etc/ssl/certs/exasol_tutorial_ca.pem
+ssl-cert=/etc/mysql/certs/server.crt
 ssl-cert=/etc/mysql/certs/server.crt
 ssl-key=/etc/mysql/certs/server.key
 ```
@@ -448,7 +449,7 @@ sudo service mysql restart
 
 ### Examining the TLS Connection to the MySQL Server
 
-At this point you should be able to use OpenSSL's `sclient` to look at the TLS connection:
+At this point you should be able to use OpenSSL's `s_client` to look at the TLS connection:
 
 ```shell
 openssl s_client -starttls mysql -connect localhost:3306
@@ -537,7 +538,7 @@ For the next steps we need a Docker setup. We already [installed the Docker pack
 
 Exasol's [docker-db](https://github.com/exasol/docker-db) provides a Docker container that is quite convenient for experiments like our tutorial.
 
-The following docker command downloads the container's layers and afterwards starts the container. Expect a couple of minutes until the download and database start are done.
+The following docker command downloads the container's layers and afterward starts the container. Expect a couple of minutes until the download and database start are done.
 
 ```shell
 docker run --name exasoldb -p 8563:8563 -p 2580:2580 --detach --privileged --stop-timeout 120  exasol/docker-db:7.1.17
@@ -579,33 +580,37 @@ For more information check the [Docker Commandline Reference](#docker-cli)
 
 ### Installing the MySQL JDBC driver in Exasol
 
-[Import](https://docs.exasol.com/db/latest/sql/import.htm) into Exasol requires that the database driver of the source database (MySQl in our case) is installed in Exasol.
+[Import](https://docs.exasol.com/db/latest/sql/import.htm) into Exasol requires that the database driver of the source database (MySQL in our case) is installed in Exasol.
 
 Installation in the Docker variant requires uploading the driver to a [BucketFS] bucket and updating a configuration file.
 
 1. Download the [MySQL Connector] (JDBC driver)
    <!-- markdown-link-check-disable -->
    ```shell
-   wget https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz
+   wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.2.0.tar.gz
    ```
    <!-- markdown-link-check-enable -->
-2. Get the ID of the Exasol Docker container
+2. Unpack the connector
+   ```shell
+   tar xzvf mysql-connector-j-8.2.0.tar.gz
+   ```
+3. Get the ID of the Exasol Docker container
    ```shell
    container_id=$(docker ps -a | grep exasol | sed -e's/ .*//') && echo "$container_id"
    ```
    This sets the variable `container_id` and outputs the result.
-3. Get the write-password of the default Bucket in BucketFS
+4. Get the write-password of the default Bucket in BucketFS
    ```shell
    write_pwd=$(docker exec -it "$container_id" cat /exa/etc/EXAConf | grep WritePasswd | sed -e's/^.* = //' -e's/[\n\r]//g' | base64 --decode)
    ```
-4. Copy the driver to the default Bucket
+5. Copy the driver to the default Bucket
    ```shell
-   curl -vX PUT -T mysql-connector-j-8.0.31/tls-tutorial.jar "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/tls-tutorial.jar"
+   curl -vX PUT -T mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/mysql-connector-j-8.2.0.jar"
    ```
-5. Create a driver configuration (`settings.cfg`)
+6. Create a driver configuration (`settings.cfg`)
    ```shell
    echo 'DRIVERNAME=MYSQL_JDBC
-   JAR=tls-tutorial.jar
+   JAR=mysql-connector-j-8.2.0.jar
    DRIVERMAIN=com.mysql.cj.jdbc.Driver
    PREFIX=jdbc:mysql:
    NOSECURITY=YES
@@ -613,18 +618,18 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
    INSERTSIZE=-1' > settings.cfg
    ```
    Please make sure to copy this from the rendered version (not the Markdown source) of this tutorial. You want **no leading spaces** in the configuration file.
-6. Upload the configuration to `drivers/jdbc` in the default bucket:
+7. Upload the configuration to `drivers/jdbc` in the default bucket:
    ```shell
    curl -vX PUT -T settings.cfg "http://w:$write_pwd@localhost:2580/default/drivers/jdbc/settings.cfg"
    ```
-7. Verify this installation:
+8. Verify this installation:
    ```shell
    curl http://localhost:2580/default
    ```
    Must produce a listing that looks similar to this:
    ```
    EXAClusterOS/ScriptLanguages-standard-EXASOL-7.1.0-slc-v4.0.0-CM4RWW6R.tar.gz
-   drivers/jdbc/tls-tutorial.jar
+   drivers/jdbc/mysql-connector-j-8.2.0.jar
    drivers/jdbc/settings.cfg
    ```
    
@@ -634,7 +639,7 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
 
 ## Run the Import
 
-In this last part of the tutorial, we import the data from the `shapes` database and `shapes` table in MySQl into Exasol.
+In this last part of the tutorial, we import the data from the `shapes` database and `shapes` table in MySQL into Exasol.
 
 One last piece of preparation is that you get the IP address of the Docker host (i.e. the Ubuntu machine you run the tutorial on).
 
@@ -670,6 +675,7 @@ CREATE TABLE target_schema.shapes_target(name VARCHAR(40), corners INT);
 
 You are now set up and ready to run the import.
 
+```sql
 IMPORT INTO target_schema.shapes_target
 FROM JDBC AT 'jdbc:mysql://<ip-address-of-docker-host>/shapes?sslMode=REQUIRED'
 USER 'tutorial_user' IDENTIFIED BY 'tutorial'
@@ -709,8 +715,7 @@ This must yield the following result
  triangle  |       3
  rectangle |       4
 (4 rows)
-
-   ```
+```
    
 Congratulations, you just imported data from MySQL via a TLS connection.
 

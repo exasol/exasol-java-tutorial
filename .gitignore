@@ -9,8 +9,8 @@ local
 venv/
 .idea
 *.iml
-.cache
 target
+.cache
 dependency-reduced-pom.xml
 .project
 .classpath
@@ -22,3 +22,6 @@ pom.xml.versionsBackup
 *.old
 *.md.html
 *.flattened-pom.xml
+
+.settings/org.eclipse.jdt.resource.prefs
+.settings/org.eclipse.m2.core.prefs

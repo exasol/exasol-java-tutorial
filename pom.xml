@@ -6,7 +6,9 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
     <properties>
-        <revision>0.2.1</revision>
+        <revision>0.3.0</revision>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     <modules>
         <module>markdown-statistics-tutorial</module>
@@ -24,13 +26,13 @@
         <dependency>
             <groupId>com.exasol</groupId>
             <artifactId>exasol-testcontainers</artifactId>
-            <version>6.6.2</version>
+            <version>6.6.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.19.1</version>
+            <version>1.19.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -42,13 +44,13 @@
         <dependency>
             <groupId>com.exasol</groupId>
             <artifactId>hamcrest-resultset-matcher</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.10.0</version>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -60,7 +62,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.6.0</version>
+            <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -69,7 +71,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>2.9.11</version>
+                <version>2.9.16</version>
                 <executions>
                     <execution>
                         <goals>
@@ -88,4 +90,10 @@
             </plugin>
         </plugins>
     </build>
+    <parent>
+        <artifactId>exasol-java-tutorial-generated-parent</artifactId>
+        <groupId>com.exasol</groupId>
+        <version>${revision}</version>
+        <relativePath>pk_generated_parent.pom</relativePath>
+    </parent>
 </project>

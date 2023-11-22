@@ -1,4 +1,4 @@
-# Exasol Java Tutorial 0.3.0, released 2023-11-21
+# Exasol Java Tutorial 0.3.0, released 2023-11-22
 
 Code name: Testing Tutorial
 

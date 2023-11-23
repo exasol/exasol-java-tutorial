@@ -583,12 +583,11 @@ For more information check the [Docker Commandline Reference](#docker-cli)
 
 Installation in the Docker variant requires uploading the driver to a [BucketFS] bucket and updating a configuration file.
 
-1. Download the [MySQL Connector] (JDBC driver)
-   <!-- markdown-link-check-disable -->
+<!-- markdown-link-check-disable -->
+1. Download the [MySQL Connector](https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.2.0.tar.gz) (JDBC driver)
    ```shell
    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.2.0.tar.gz
    ```
-   <!-- markdown-link-check-enable -->
 2. Unpack the connector
    ```shell
    tar xzvf mysql-connector-j-8.2.0.tar.gz
@@ -631,6 +630,7 @@ Installation in the Docker variant requires uploading the driver to a [BucketFS]
    drivers/jdbc/mysql-connector-j-8.2.0.jar
    drivers/jdbc/settings.cfg
    ```
+<!-- markdown-link-check-enable -->
    
 ### Copying the Certificate to Exasol
 
@@ -761,8 +761,4 @@ Certificates in the Context of Transport Layer Security (TLS)](https://www.rfc-e
 
 [X509 V3 certificate extension configuration format](https://www.openssl.org/docs/manmaster/man5/x509v3_config.html), OpenSSL Project
 
-
 [BucketFS]: https://docs.exasol.com/db/latest/database_concepts/bucketfs/bucketfs.htm
-<!-- markdown-link-check-disable -->
-[MySQL Connector]: (https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz)
-<!-- markdown-link-check-enable -->

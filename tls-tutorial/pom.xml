@@ -25,6 +25,16 @@
                 <artifactId>project-keeper-maven-plugin</artifactId>
                 <version>2.9.16</version>
             </plugin>
+            <plugin>
+                <groupId>com.exasol</groupId>
+                <artifactId>artifact-reference-checker-maven-plugin</artifactId>
+                <configuration>
+                    <!-- File contains references to a MySQL JDBC driver that should not be updated. -->
+                    <excludes>
+                        <exclude>doc/use_your_own_certificate.md</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <parent>

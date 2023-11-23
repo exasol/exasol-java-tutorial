@@ -24,12 +24,12 @@ This diagram shows two incoming TLS connections:
 
 In order to allow incoming connections from the start, Exasol comes preloaded with a default server certificate. Once you open a browser connection to that machine, your browser will display a warning that the connection isn’t secure. There are two reasons for this:
 
-1. The certificate is signed by an Exasol Certification Agency (CA) and your machine does not have that CA’s certificate pre-installed 
+1. The certificate is self-signed so your machine does not recognize it 
 2. Exasol can’t predict where the certificate is going to be hosted, so the hostname is left blank in the certificate
 
 ### The Chicken-or-the-egg Problem of Secure Connections
 
-For a truly secure connection, you need to put in place a custom server certificate immediately after installing EXAOperation. Until then, you’re facing a classic chicken-or-the-egg problem. On the one hand, you need to install your own certificate to establish a trusted TLS connection. On the other, you need to connect to Exasol first in order to do this.
+For a truly secure connection, you need to put in place a custom server certificate immediately after installing the cluster. Until then, you’re facing a classic chicken-or-the-egg problem. On the one hand, you need to install your own certificate to establish a trusted TLS connection. On the other, you need to connect to Exasol first in order to do this.
 
 This graphic shows an example of a simple on-premise installation in a single network. The organization’s CA issues a root certificate. IT administrators then place this certificate on all users’ machines in that organization. The same administrators also install the server certificate via EXAOperation.
 

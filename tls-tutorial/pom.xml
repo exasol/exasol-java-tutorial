@@ -29,7 +29,7 @@
                 <groupId>com.exasol</groupId>
                 <artifactId>artifact-reference-checker-maven-plugin</artifactId>
                 <configuration>
-                    <!-- File contains links to MySQL artifacts that are not reachable from GitHub CI -->
+                    <!-- File contains references to a MySQL JDBC driver that should not be updated. -->
                     <excludes>
                         <exclude>doc/use_your_own_certificate.md</exclude>
                     </excludes>

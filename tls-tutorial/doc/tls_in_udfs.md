@@ -143,7 +143,7 @@ Congratulations, you just created your very own Java truststore. Now, let's use 
 
 ### Uploading the Truststore to BucketFS
 
-We are going to use [`curl` to upload the truststore](https://docs.exasol.com/db/latest/database_concepts/bucketfs/file_access.htm#cURL) file to the default bucket.
+We are going to use [`curl` to upload the truststore](https://docs.exasol.com/db/latest/database_concepts/bucketfs/file_access.htm#curl) file to the default bucket.
 
 ```shell
 curl -v -X PUT "http://w:<write-password>@<host>:2580/default/$truststore_file" -T "$truststore_file"
@@ -187,7 +187,7 @@ EMITS (CN VARCHAR(2000), O VARCHAR(2000), OU VARCHAR(2000), C VARCHAR(2)) AS
 SELECT JAVA_TUTORIAL.CUSTOM_CERTIFICATES();
 ```
 
-At this point you should see only the one entry that we added to our new trusstore earlier.
+At this point you should see only the one entry that we added to our new truststore earlier.
 
 | CN           | O                                | OU  | C   |
 |--------------|----------------------------------|-----|-----|

@@ -429,7 +429,6 @@ Now edit the `[mysqld]` section of the MySQL configuration file `/etc/mysql/mysq
 ssl
 ssl-ca=/etc/ssl/certs/exasol_tutorial_ca.pem
 ssl-cert=/etc/mysql/certs/server.crt
-ssl-cert=/etc/mysql/certs/server.crt
 ssl-key=/etc/mysql/certs/server.key
 ```
 

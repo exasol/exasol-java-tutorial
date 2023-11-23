@@ -31,7 +31,7 @@
                 <configuration>
                     <!-- File contains links to MySQL artifacts that are not reachable from GitHub CI -->
                     <excludes>
-                        <exclude>doc/use_your_own_certificate</exclude>
+                        <exclude>doc/use_your_own_certificate.md</exclude>
                     </excludes>
                 </configuration>
             </plugin>

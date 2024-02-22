@@ -47,7 +47,7 @@ Setting up TLS is all but trivial in some scenarios, so a series of articles and
 3. [Using Your Own Certificates](tls-tutorial/doc/use_your_own_certificate.md) to run `IMPORT` from MySQL into Exasol
 4. [TLS in User Defined Functions (UDFs)](tls-tutorial/doc/tls_in_udfs.md)
 
-### Java Testing Tutorial
+## Java Testing Tutorial
 
 * [Introduction](testing-tutorial/doc/introduction.md)
 * [Tests are an Executable Specification](testing-tutorial/doc/test_are_an_executable_specification.md)

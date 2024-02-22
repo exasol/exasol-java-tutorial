@@ -25,3 +25,5 @@ pom.xml.versionsBackup
 
 .settings/org.eclipse.jdt.resource.prefs
 .settings/org.eclipse.m2.core.prefs
+.settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.jdt.apt.core.prefs

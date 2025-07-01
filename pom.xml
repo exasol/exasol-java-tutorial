@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
     <properties>
-        <revision>0.3.1</revision>
+        <revision>0.3.2</revision>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
@@ -70,7 +70,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>5.2.2</version>
                 <executions>
                     <execution>
                         <goals>

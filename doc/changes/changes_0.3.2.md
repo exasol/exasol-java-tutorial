@@ -28,7 +28,7 @@ Code name:
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.11.0` to `3.14.0`
 * Updated `org.apache.maven.plugins:maven-enforcer-plugin:3.4.1` to `3.5.0`
 * Updated `org.apache.maven.plugins:maven-failsafe-plugin:3.2.3` to `3.5.3`
-* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.1` to `3.1.4`
+* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.2` to `3.1.4`
 * Added `org.apache.maven.plugins:maven-resources-plugin:3.3.1`
 * Updated `org.apache.maven.plugins:maven-site-plugin:3.12.1` to `3.21.0`
 * Updated `org.apache.maven.plugins:maven-surefire-plugin:3.2.3` to `3.5.3`
@@ -58,7 +58,7 @@ Code name:
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.11.0` to `3.14.0`
 * Updated `org.apache.maven.plugins:maven-enforcer-plugin:3.4.1` to `3.5.0`
 * Updated `org.apache.maven.plugins:maven-failsafe-plugin:3.2.3` to `3.5.3`
-* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.1` to `3.1.4`
+* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.2` to `3.1.4`
 * Updated `org.apache.maven.plugins:maven-jar-plugin:3.3.0` to `3.4.2`
 * Updated `org.apache.maven.plugins:maven-site-plugin:3.12.1` to `3.21.0`
 * Updated `org.apache.maven.plugins:maven-surefire-plugin:3.2.3` to `3.5.3`
@@ -88,7 +88,7 @@ Code name:
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.11.0` to `3.14.0`
 * Updated `org.apache.maven.plugins:maven-enforcer-plugin:3.4.1` to `3.5.0`
 * Updated `org.apache.maven.plugins:maven-failsafe-plugin:3.2.3` to `3.5.3`
-* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.1` to `3.1.4`
+* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.2` to `3.1.4`
 * Updated `org.apache.maven.plugins:maven-jar-plugin:3.3.0` to `3.4.2`
 * Updated `org.apache.maven.plugins:maven-site-plugin:3.12.1` to `3.21.0`
 * Updated `org.apache.maven.plugins:maven-surefire-plugin:3.2.3` to `3.5.3`
@@ -118,7 +118,7 @@ Code name:
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.11.0` to `3.14.0`
 * Updated `org.apache.maven.plugins:maven-enforcer-plugin:3.4.1` to `3.5.0`
 * Updated `org.apache.maven.plugins:maven-failsafe-plugin:3.2.3` to `3.5.3`
-* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.1` to `3.1.4`
+* Updated `org.apache.maven.plugins:maven-install-plugin:3.1.2` to `3.1.4`
 * Updated `org.apache.maven.plugins:maven-jar-plugin:3.3.0` to `3.4.2`
 * Updated `org.apache.maven.plugins:maven-site-plugin:3.12.1` to `3.21.0`
 * Updated `org.apache.maven.plugins:maven-surefire-plugin:3.2.3` to `3.5.3`

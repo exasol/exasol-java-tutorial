@@ -97,7 +97,7 @@ jobs:
 
           print_message "### Release Artifacts"
 
-          IFS=$'\n' read -rd '' -a artifacts_array <<<"$ARTIFACTS"
+          IFS=$'\n' read -r -a artifacts_array <<<"$ARTIFACTS"
           missing_files=()
           allowed_missing_patterns=(
             "testing-tutorial/target"  # Add patterns you want to exempt here

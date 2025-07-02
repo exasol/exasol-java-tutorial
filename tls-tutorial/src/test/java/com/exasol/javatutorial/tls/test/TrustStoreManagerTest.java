@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class TrustStoreManagerTest {
     private static String getDistinguishedName(X509Certificate certificate) {
-        return certificate.getSubjectDN().getName();
+        return certificate.getSubjectX500Principal().getName();
     }
 
     @Test

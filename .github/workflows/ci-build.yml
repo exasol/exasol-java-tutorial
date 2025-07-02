@@ -14,24 +14,31 @@ on:
       ready_for_review
     ]
     
-  workflow_dispatch: null
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+  matrix-build:
+    runs-on: ubuntu-24.04
     defaults:
       run: {
         shell: bash
       }
     permissions: {
-      contents: read,
-      issues: read
+      contents: read
     }
     concurrency: {
-      group: '${{ github.workflow }}-build-and-test-${{ github.ref }}',
+      group: '${{ github.workflow }}-${{ github.ref }}-${{ matrix.exasol_db_version }}',
       cancel-in-progress: true
     }
-    outputs: {
-      release-required: '${{ steps.check-release.outputs.release-required }}'
+    strategy:
+      fail-fast: false
+      matrix:
+        exasol_db_version: [
+          8.34.0,
+          8.29.9,
+          7.1.30
+        ]
+        
+    env: {
+      DEFAULT_EXASOL_DB_VERSION: 8.34.0
     }
     steps:
       - name: Free Disk Space
@@ -73,10 +80,14 @@ jobs:
         run: |
           mvn --batch-mode clean verify \
               -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-              -DtrimStackTrace=false
+              -DtrimStackTrace=false \
+              -Dcom.exasol.dockerdb.image=${{ matrix.exasol_db_version }}
+        env: {
+          EXASOL_DB_VERSION: '${{ matrix.exasol_db_version }}'
+        }
       - name: Sonar analysis
         id: sonar-analysis
-        if: ${{ env.SONAR_TOKEN != null }}
+        if: ${{ env.SONAR_TOKEN != null && matrix.exasol_db_version == env.DEFAULT_EXASOL_DB_VERSION }}
         run: |
           mvn --batch-mode org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
               -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
@@ -142,11 +153,11 @@ jobs:
         id: upload-artifacts
         uses: actions/upload-artifact@v4
         with: {
-          name: artifacts,
+          name: 'artifacts-exasol-${{ matrix.exasol_db_version }}',
           path: '${{ steps.build-pk-verify.outputs.release-artifacts }}',
           retention-days: 5
         }
-      - name: Configure link check
+      - name: Configure broken links checker
         id: configure-link-check
         run: |
           mkdir -p ./target
@@ -198,7 +209,7 @@ jobs:
       }
   build:
     needs: [
-      build-and-test,
+      matrix-build,
       next-java-compatibility
     ]
     runs-on: ubuntu-latest

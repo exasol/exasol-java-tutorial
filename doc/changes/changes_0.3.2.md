@@ -12,6 +12,10 @@ Code name:
 
 ### Exasol Java Tutorial
 
+#### Test Dependency Updates
+
+* Updated `com.exasol:exasol-testcontainers:7.0.1` to `7.1.6`
+
 #### Plugin Dependency Updates
 
 * Updated `com.exasol:error-code-crawler-maven-plugin:1.3.1` to `2.0.3`
@@ -35,6 +39,10 @@ Code name:
 * Updated `org.sonarsource.scanner.maven:sonar-maven-plugin:3.10.0.2594` to `5.1.0.4751`
 
 ### Markdown-statistics-tutorial
+
+#### Test Dependency Updates
+
+* Updated `com.exasol:exasol-testcontainers:7.0.1` to `7.1.6`
 
 #### Plugin Dependency Updates
 
@@ -62,6 +70,10 @@ Code name:
 
 ### Tls-tutorial
 
+#### Test Dependency Updates
+
+* Updated `com.exasol:exasol-testcontainers:7.0.1` to `7.1.6`
+
 #### Plugin Dependency Updates
 
 * Updated `com.exasol:artifact-reference-checker-maven-plugin:0.4.2` to `0.4.3`
@@ -87,6 +99,10 @@ Code name:
 * Updated `org.sonarsource.scanner.maven:sonar-maven-plugin:3.10.0.2594` to `5.1.0.4751`
 
 ### Testing-tutorial
+
+#### Test Dependency Updates
+
+* Updated `com.exasol:exasol-testcontainers:7.0.1` to `7.1.6`
 
 #### Plugin Dependency Updates
 

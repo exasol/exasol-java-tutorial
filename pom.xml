@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.exasol</groupId>
             <artifactId>exasol-testcontainers</artifactId>
-            <version>7.0.1</version>
+            <version>7.1.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -85,6 +85,17 @@
                 <configuration>
                     <!-- Required to prevent: [ERROR] TestEngine with ID 'junit-jupiter' failed to discover tests -->
                     <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.ossindex.maven</groupId>
+                <artifactId>ossindex-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${ossindex.skip}</skip>
+                    <excludeVulnerabilityIds>
+                        <!-- com.exasol:exasol-jdbc:jar:24.2.1:test -->
+                        <exclude>CVE-2024-55551</exclude>
+                    </excludeVulnerabilityIds>
                 </configuration>
             </plugin>
         </plugins>

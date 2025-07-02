@@ -103,7 +103,16 @@ build:
               fi
             env:
               ARTIFACTS: '${{ steps.build-pk-verify.outputs.release-artifacts }}'
-      
+    - name: ci-build.yml
+      stepCustomizations:
+        - action: INSERT_AFTER
+          job: matrix-build
+          stepId: enable-testcontainer-reuse
+          content:
+            name: Fix "VM Crashed" error by allowing unprivileged user namespaces
+            id: fix-vm-crashed
+            run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
 
 
 linkReplacements:

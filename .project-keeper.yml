@@ -103,8 +103,6 @@ build:
               fi
             env:
               ARTIFACTS: '${{ steps.build-pk-verify.outputs.release-artifacts }}'
-    - name: ci-build.yml
-      stepCustomizations:
         - action: INSERT_AFTER
           job: matrix-build
           stepId: enable-testcontainer-reuse

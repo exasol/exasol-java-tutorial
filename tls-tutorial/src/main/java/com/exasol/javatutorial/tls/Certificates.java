@@ -40,7 +40,7 @@ public class Certificates {
         final TrustStoreManager manager = new TrustStoreManager();
         final List<X509Certificate> certificates = manager.listCertificates();
         for (final X509Certificate certificate : certificates) {
-            final CertificateName name = CertificateName.of(certificate.getSubjectDN().getName());
+            final CertificateName name = CertificateName.of(certificate.getSubjectX500Principal().getName());
             final Date validAfter = certificate.getNotBefore();
             final Date validBefore = certificate.getNotAfter();
             context.emit( //

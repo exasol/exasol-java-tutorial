@@ -16,7 +16,7 @@ An issue was discovered in Exasol jdbc driver 24.2.0. Attackers can inject malic
 
 ## Security
 
-* #124: Fixed vulnerability CVE-2024-55551 in dependency `com.exasol:exasol-jdbc:jar:25.2.3:test`
+* #55: Fixed vulnerability CVE-2024-55551 in dependency `com.exasol:exasol-jdbc:jar:25.2.3:test`
 
 ## Dependency Updates
 

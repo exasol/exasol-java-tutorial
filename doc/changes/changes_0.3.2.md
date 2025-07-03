@@ -1,4 +1,4 @@
-# Exasol Java Tutorial 0.3.2, released 2025-07-02
+# Exasol Java Tutorial 0.3.2, released 2025-07-03
 
 Code name: Security update, project-keeper update
 

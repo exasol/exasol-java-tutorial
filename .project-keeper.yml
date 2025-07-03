@@ -109,6 +109,65 @@ build:
             name: Fix "VM Crashed" error by allowing unprivileged user namespaces
             id: fix-vm-crashed
             run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+    - name: "release.yml"
+      stepCustomizations:
+        - action: REPLACE
+          job: release
+          stepId: artifact-checksum
+          content:
+            name: Calculate Artifact Checksums
+            id: artifact-checksum
+            if: ${{ ! inputs.skip-github-release }}
+            run: |
+              echo "Calculating sha256 checksum for artifact files"
+              echo "artifacts<<EOF" >> "$GITHUB_OUTPUT"
+
+              IFS=$'\n' read -r -a artifacts_array <<<"$ARTIFACTS"
+              allowed_missing_patterns=(
+                "testing-tutorial/target/testing-tutorial.jar"
+              )
+
+              is_allowed_missing() {
+                  local file="$1"
+                  for pattern in "${allowed_missing_patterns[@]}"; do
+                      if [[ "$file" == *"$pattern"* ]]; then
+                          return 0
+                      fi
+                  done
+                  return 1
+              }
+
+              for file in "${artifacts_array[@]}"; do
+                  if [[ ! -f "$file" ]]; then
+                      if is_allowed_missing "$file"; then
+                          echo "⚠️ Skipping missing but allowed artifact: $file"
+                          continue
+                      else
+                          echo "❌ Artifact file not found: $file"
+                          exit 1
+                      fi
+                  fi
+
+                  full_path=$(realpath "$file")
+                  echo "Calculate sha256sum for file '$full_path'"
+                  file_dir="$(dirname "$full_path")"
+                  file_name=$(basename "$full_path")
+
+                  pushd "$file_dir" > /dev/null
+                  checksum_file_name="${file_name}.sha256"
+                  sha256sum "$file_name" > "$checksum_file_name"
+
+                  echo "$full_path" >> "$GITHUB_OUTPUT"
+                  echo "${file_dir}/$checksum_file_name" >> "$GITHUB_OUTPUT"
+                  popd > /dev/null
+              done
+
+              echo "EOF" >> "$GITHUB_OUTPUT"
+              echo "Full artifact file list:"
+              cat "$GITHUB_OUTPUT"
+            env:
+              ARTIFACTS: '${{ steps.verify-release.outputs.release-artifacts }}'
+
 
 
 

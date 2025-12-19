@@ -11,6 +11,7 @@ sources:
     modules:
       - jar_artifact
       - integration_tests
+      - mockito_agent
     parentPom:
       groupId: "com.exasol"
       artifactId: "exasol-java-tutorial"
@@ -21,6 +22,7 @@ sources:
     modules:
       - jar_artifact
       - integration_tests
+      - mockito_agent
     parentPom:
       groupId: "com.exasol"
       artifactId: "exasol-java-tutorial"
@@ -31,6 +33,7 @@ sources:
     modules:
       - jar_artifact
       - integration_tests
+      - mockito_agent
     parentPom:
       groupId: "com.exasol"
       artifactId: "exasol-java-tutorial"
@@ -42,8 +45,7 @@ build:
   runnerOs: ubuntu-24.04
   freeDiskSpace: false
   exasolDbVersions:
-    - "8.34.0"
-    - "7.1.30"
+    - "2025.1.8" # Allow using Java 17 in UDFs
   workflows:
     - name: "ci-build.yml"
       stepCustomizations:
@@ -59,15 +61,15 @@ build:
                   echo "$message"
                   echo "$message" >> "$GITHUB_STEP_SUMMARY"
               }
-          
+
               print_message "### Release Artifacts"
-          
+
               IFS=$'\n' read -r -a artifacts_array <<<"$ARTIFACTS"
               missing_files=()
               allowed_missing_patterns=(
                 "testing-tutorial/target"  # Add patterns you want to exempt here
               )
-          
+
               is_allowed_missing() {
                   local file="$1"
                   for pattern in "${allowed_missing_patterns[@]}"; do
@@ -77,7 +79,7 @@ build:
                   done
                   return 1
               }
-          
+
               for file in "${artifacts_array[@]}"; do
                   echo "Checking if file $file exists..."
                   if [[ ! -f "$file" ]]; then
@@ -93,7 +95,7 @@ build:
                       print_message "* \`$file\` ✅"
                   fi
               done
-          
+
               print_message ""
               number_of_missing_files=${#missing_files[@]}
               if [[ $number_of_missing_files -gt 0 ]]; then
@@ -101,7 +103,7 @@ build:
                   exit 1
               fi
             env:
-              ARTIFACTS: '${{ steps.build-pk-verify.outputs.release-artifacts }}'
+              ARTIFACTS: "${{ steps.build-pk-verify.outputs.release-artifacts }}"
         - action: INSERT_AFTER
           job: matrix-build
           stepId: enable-testcontainer-reuse
@@ -166,10 +168,7 @@ build:
               echo "Full artifact file list:"
               cat "$GITHUB_OUTPUT"
             env:
-              ARTIFACTS: '${{ steps.verify-release.outputs.release-artifacts }}'
-
-
-
+              ARTIFACTS: "${{ steps.verify-release.outputs.release-artifacts }}"
 
 linkReplacements:
   - "https://github.com/commonmark/commonmark-java/commonmark|https://github.com/commonmark/commonmark-java"

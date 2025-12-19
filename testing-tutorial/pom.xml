@@ -30,7 +30,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>5.2.2</version>
+                <version>5.4.4</version>
             </plugin>
         </plugins>
     </build>

@@ -1,12 +1,14 @@
-# Exasol Java Tutorial 0.3.3, released 2025-??-??
+# Exasol Java Tutorial 0.3.3, released 2025-12-19
 
-Code name:
+Code name: Fix CVE-2025-48924 in org.apache.commons:commons-lang3:jar:3.16.0:test
 
 ## Summary
 
-## Features
+This release fixes vulnerability CVE-2025-48924 in test dependency `org.apache.commons:commons-lang3:jar:3.16.0:test`.
 
-* ISSUE_NUMBER: description
+## Security
+
+* #59: Fixed CVE-2025-48924 in `org.apache.commons:commons-lang3:jar:3.16.0:test`
 
 ## Dependency Updates
 

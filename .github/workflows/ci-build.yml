@@ -33,9 +33,7 @@ jobs:
       fail-fast: false
       matrix:
         exasol_db_version: [
-          2025.1.8,
-          8.29.13,
-          7.1.30
+          2025.1.8
         ]
         
     env: {

@@ -17,8 +17,9 @@
 | [Testcontainers :: JUnit Jupiter Extension][4] | [MIT][5]                          |
 | [Test Database Builder for Java][6]            | [MIT License][7]                  |
 | [Matcher for SQL Result Sets][8]               | [MIT License][9]                  |
-| [JUnit Jupiter (Aggregator)][10]               | [Eclipse Public License v2.0][11] |
-| [Hamcrest][12]                                 | [BSD License 3][13]               |
+| [JUnit Jupiter API][10]                        | [Eclipse Public License v2.0][11] |
+| [JUnit Jupiter Params][10]                     | [Eclipse Public License v2.0][11] |
+| [Hamcrest][12]                                 | [BSD-3-Clause][13]                |
 | [mockito-junit-jupiter][14]                    | [MIT][15]                         |
 
 ### Plugin Dependencies
@@ -33,7 +34,7 @@
 | [Apache Maven Toolchains Plugin][23]                    | [Apache-2.0][17]                            |
 | [Apache Maven Compiler Plugin][24]                      | [Apache-2.0][17]                            |
 | [Apache Maven Enforcer Plugin][25]                      | [Apache-2.0][17]                            |
-| [Maven Flatten Plugin][26]                              | [Apache Software Licenese][17]              |
+| [Maven Flatten Plugin][26]                              | [Apache Software License][17]               |
 | [org.sonatype.ossindex.maven:ossindex-maven-plugin][27] | [ASL2][28]                                  |
 | [Maven Surefire Plugin][29]                             | [Apache-2.0][17]                            |
 | [Versions Maven Plugin][30]                             | [Apache License, Version 2.0][17]           |
@@ -50,11 +51,11 @@
 
 ### Compile Dependencies
 
-| Dependency                   | License                    |
-| ---------------------------- | -------------------------- |
-| [commonmark-java core][45]   | [BSD 2-Clause License][46] |
-| [SLF4J JDK14 Provider][47]   | [MIT License][48]          |
-| [Exasol UDF API for Java][0] | [MIT License][1]           |
+| Dependency                   | License            |
+| ---------------------------- | ------------------ |
+| [commonmark-java core][45]   | [BSD-2-Clause][46] |
+| [SLF4J JDK14 Provider][47]   | [MIT][48]          |
+| [Exasol UDF API for Java][0] | [MIT License][1]   |
 
 ### Test Dependencies
 
@@ -64,8 +65,9 @@
 | [Testcontainers :: JUnit Jupiter Extension][4] | [MIT][5]                          |
 | [Test Database Builder for Java][6]            | [MIT License][7]                  |
 | [Matcher for SQL Result Sets][8]               | [MIT License][9]                  |
-| [JUnit Jupiter (Aggregator)][10]               | [Eclipse Public License v2.0][11] |
-| [Hamcrest][12]                                 | [BSD License 3][13]               |
+| [JUnit Jupiter API][10]                        | [Eclipse Public License v2.0][11] |
+| [JUnit Jupiter Params][10]                     | [Eclipse Public License v2.0][11] |
+| [Hamcrest][12]                                 | [BSD-3-Clause][13]                |
 | [mockito-junit-jupiter][14]                    | [MIT][15]                         |
 
 ### Plugin Dependencies
@@ -80,7 +82,7 @@
 | [Apache Maven Toolchains Plugin][23]                    | [Apache-2.0][17]                            |
 | [Apache Maven Compiler Plugin][24]                      | [Apache-2.0][17]                            |
 | [Apache Maven Enforcer Plugin][25]                      | [Apache-2.0][17]                            |
-| [Maven Flatten Plugin][26]                              | [Apache Software Licenese][17]              |
+| [Maven Flatten Plugin][26]                              | [Apache Software License][17]               |
 | [org.sonatype.ossindex.maven:ossindex-maven-plugin][27] | [ASL2][28]                                  |
 | [Maven Surefire Plugin][29]                             | [Apache-2.0][17]                            |
 | [Versions Maven Plugin][30]                             | [Apache License, Version 2.0][17]           |
@@ -90,6 +92,7 @@
 | [Apache Maven Assembly Plugin][49]                      | [Apache-2.0][17]                            |
 | [Apache Maven JAR Plugin][50]                           | [Apache-2.0][17]                            |
 | [Artifact reference checker and unifier][51]            | [MIT License][52]                           |
+| [Apache Maven Dependency Plugin][53]                    | [Apache-2.0][17]                            |
 | [Maven Failsafe Plugin][36]                             | [Apache-2.0][17]                            |
 | [JaCoCo :: Maven Plugin][37]                            | [EPL-2.0][38]                               |
 | [Quality Summarizer Maven Plugin][39]                   | [MIT License][40]                           |
@@ -112,8 +115,9 @@
 | [Testcontainers :: JUnit Jupiter Extension][4] | [MIT][5]                          |
 | [Test Database Builder for Java][6]            | [MIT License][7]                  |
 | [Matcher for SQL Result Sets][8]               | [MIT License][9]                  |
-| [JUnit Jupiter (Aggregator)][10]               | [Eclipse Public License v2.0][11] |
-| [Hamcrest][12]                                 | [BSD License 3][13]               |
+| [JUnit Jupiter API][10]                        | [Eclipse Public License v2.0][11] |
+| [JUnit Jupiter Params][10]                     | [Eclipse Public License v2.0][11] |
+| [Hamcrest][12]                                 | [BSD-3-Clause][13]                |
 | [mockito-junit-jupiter][14]                    | [MIT][15]                         |
 
 ### Plugin Dependencies
@@ -128,7 +132,7 @@
 | [Apache Maven Toolchains Plugin][23]                    | [Apache-2.0][17]                            |
 | [Apache Maven Compiler Plugin][24]                      | [Apache-2.0][17]                            |
 | [Apache Maven Enforcer Plugin][25]                      | [Apache-2.0][17]                            |
-| [Maven Flatten Plugin][26]                              | [Apache Software Licenese][17]              |
+| [Maven Flatten Plugin][26]                              | [Apache Software License][17]               |
 | [org.sonatype.ossindex.maven:ossindex-maven-plugin][27] | [ASL2][28]                                  |
 | [Maven Surefire Plugin][29]                             | [Apache-2.0][17]                            |
 | [Versions Maven Plugin][30]                             | [Apache License, Version 2.0][17]           |
@@ -138,6 +142,7 @@
 | [Apache Maven Assembly Plugin][49]                      | [Apache-2.0][17]                            |
 | [Apache Maven JAR Plugin][50]                           | [Apache-2.0][17]                            |
 | [Artifact reference checker and unifier][51]            | [MIT License][52]                           |
+| [Apache Maven Dependency Plugin][53]                    | [Apache-2.0][17]                            |
 | [Maven Failsafe Plugin][36]                             | [Apache-2.0][17]                            |
 | [JaCoCo :: Maven Plugin][37]                            | [EPL-2.0][38]                               |
 | [Quality Summarizer Maven Plugin][39]                   | [MIT License][40]                           |
@@ -160,8 +165,9 @@
 | [Testcontainers :: JUnit Jupiter Extension][4] | [MIT][5]                          |
 | [Test Database Builder for Java][6]            | [MIT License][7]                  |
 | [Matcher for SQL Result Sets][8]               | [MIT License][9]                  |
-| [JUnit Jupiter (Aggregator)][10]               | [Eclipse Public License v2.0][11] |
-| [Hamcrest][12]                                 | [BSD License 3][13]               |
+| [JUnit Jupiter API][10]                        | [Eclipse Public License v2.0][11] |
+| [JUnit Jupiter Params][10]                     | [Eclipse Public License v2.0][11] |
+| [Hamcrest][12]                                 | [BSD-3-Clause][13]                |
 | [mockito-junit-jupiter][14]                    | [MIT][15]                         |
 
 ### Plugin Dependencies
@@ -176,7 +182,7 @@
 | [Apache Maven Toolchains Plugin][23]                    | [Apache-2.0][17]                            |
 | [Apache Maven Compiler Plugin][24]                      | [Apache-2.0][17]                            |
 | [Apache Maven Enforcer Plugin][25]                      | [Apache-2.0][17]                            |
-| [Maven Flatten Plugin][26]                              | [Apache Software Licenese][17]              |
+| [Maven Flatten Plugin][26]                              | [Apache Software License][17]               |
 | [org.sonatype.ossindex.maven:ossindex-maven-plugin][27] | [ASL2][28]                                  |
 | [Maven Surefire Plugin][29]                             | [Apache-2.0][17]                            |
 | [Versions Maven Plugin][30]                             | [Apache License, Version 2.0][17]           |
@@ -186,6 +192,7 @@
 | [Apache Maven Assembly Plugin][49]                      | [Apache-2.0][17]                            |
 | [Apache Maven JAR Plugin][50]                           | [Apache-2.0][17]                            |
 | [Artifact reference checker and unifier][51]            | [MIT License][52]                           |
+| [Apache Maven Dependency Plugin][53]                    | [Apache-2.0][17]                            |
 | [Maven Failsafe Plugin][36]                             | [Apache-2.0][17]                            |
 | [JaCoCo :: Maven Plugin][37]                            | [EPL-2.0][38]                               |
 | [Quality Summarizer Maven Plugin][39]                   | [MIT License][40]                           |
@@ -202,10 +209,10 @@
 [7]: https://github.com/exasol/test-db-builder-java/blob/main/LICENSE
 [8]: https://github.com/exasol/hamcrest-resultset-matcher/
 [9]: https://github.com/exasol/hamcrest-resultset-matcher/blob/main/LICENSE
-[10]: https://junit.org/junit5/
+[10]: https://junit.org/
 [11]: https://www.eclipse.org/legal/epl-v20.html
 [12]: http://hamcrest.org/JavaHamcrest/
-[13]: http://opensource.org/licenses/BSD-3-Clause
+[13]: https://raw.githubusercontent.com/hamcrest/JavaHamcrest/master/LICENSE
 [14]: https://github.com/mockito/mockito
 [15]: https://opensource.org/licenses/MIT
 [16]: https://maven.apache.org/plugins/maven-clean-plugin/
@@ -213,7 +220,7 @@
 [18]: https://maven.apache.org/plugins/maven-install-plugin/
 [19]: https://maven.apache.org/plugins/maven-resources-plugin/
 [20]: https://maven.apache.org/plugins/maven-site-plugin/
-[21]: http://docs.sonarqube.org/display/PLUG/Plugin+Library/sonar-scanner-maven/sonar-maven-plugin
+[21]: https://docs.sonarsource.com/sonarqube-server/latest/extension-guide/developing-a-plugin/plugin-basics/sonar-scanner-maven/sonar-maven-plugin/
 [22]: http://www.gnu.org/licenses/lgpl.txt
 [23]: https://maven.apache.org/plugins/maven-toolchains-plugin/
 [24]: https://maven.apache.org/plugins/maven-compiler-plugin/
@@ -240,8 +247,9 @@
 [45]: https://github.com/commonmark/commonmark-java
 [46]: https://opensource.org/licenses/BSD-2-Clause
 [47]: http://www.slf4j.org
-[48]: http://www.opensource.org/licenses/mit-license.php
+[48]: https://opensource.org/license/mit
 [49]: https://maven.apache.org/plugins/maven-assembly-plugin/
 [50]: https://maven.apache.org/plugins/maven-jar-plugin/
 [51]: https://github.com/exasol/artifact-reference-checker-maven-plugin/
 [52]: https://github.com/exasol/artifact-reference-checker-maven-plugin/blob/main/LICENSE
+[53]: https://maven.apache.org/plugins/maven-dependency-plugin/

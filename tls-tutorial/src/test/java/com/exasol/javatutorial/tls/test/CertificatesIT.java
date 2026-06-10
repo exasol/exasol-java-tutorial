@@ -1,15 +1,9 @@
 package com.exasol.javatutorial.tls.test;
 
-import com.exasol.bucketfs.Bucket;
-import com.exasol.bucketfs.BucketAccessException;
-import com.exasol.containers.ExasolContainer;
-import com.exasol.dbbuilder.dialects.exasol.ExasolObjectFactory;
-import com.exasol.dbbuilder.dialects.exasol.ExasolSchema;
-import com.exasol.javatutorial.tls.Certificates;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import static com.exasol.javatutorial.tls.test.TlsTestConstants.LETS_ENCRYPT_ROOT_CA_1;
+import static java.util.Objects.requireNonNullElse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -18,15 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import static com.exasol.javatutorial.tls.test.TlsTestConstants.LETS_ENCRYPT_ROOT_CA_1;
-import static java.util.Objects.requireNonNullElse;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import com.exasol.bucketfs.Bucket;
+import com.exasol.bucketfs.BucketAccessException;
+import com.exasol.containers.ExasolContainer;
+import com.exasol.dbbuilder.dialects.exasol.ExasolObjectFactory;
+import com.exasol.dbbuilder.dialects.exasol.ExasolSchema;
+import com.exasol.javatutorial.tls.Certificates;
 
 @Testcontainers
 class CertificatesIT {
     @Container
-    final private static ExasolContainer<? extends ExasolContainer<?>> EXASOL;
+    private static final ExasolContainer<? extends ExasolContainer<?>> EXASOL;
 
     static {
         try (final ExasolContainer<? extends ExasolContainer<?>> container = new ExasolContainer<>()) {
@@ -39,7 +40,7 @@ class CertificatesIT {
     private static ExasolObjectFactory factory;
 
     @BeforeAll
-    static void beforeAll() throws SQLException {
+    static void beforeAll() {
         connection = EXASOL.createConnection();
         factory = new ExasolObjectFactory(EXASOL.createConnection());
     }
@@ -56,11 +57,10 @@ class CertificatesIT {
                 "", //
                 "US", //
                 "Thu Jun 04 13:04:38 CEST 2015", //
-                "Mon Jun 04 13:04:38 CEST 2035"
-        )));
+                "Mon Jun 04 13:04:38 CEST 2035")));
     }
 
-    private void installCertificatesScript(String fullyQualifiedScriptName) throws AssertionError {
+    private void installCertificatesScript(final String fullyQualifiedScriptName) throws AssertionError {
         final Bucket bucket = EXASOL.getDefaultBucket();
         try {
             bucket.uploadFile(Path.of("target", JAR_FILE_NAME), JAR_FILE_NAME);
@@ -91,14 +91,13 @@ class CertificatesIT {
         }
     }
 
-    private static List<List<String>> convertResultsetToListOfRows(Statement statement) throws SQLException {
+    private static List<List<String>> convertResultsetToListOfRows(final Statement statement) throws SQLException {
         final List<List<String>> rows = new ArrayList<>();
         try (final ResultSet result = statement.getResultSet()) {
             while (result.next()) {
                 final int columns = result.getMetaData().getColumnCount();
                 final List<String> row = new ArrayList<>();
-                for(int column = 1; column <= columns; ++column)
-                {
+                for (int column = 1; column <= columns; ++column) {
                     row.add(requireNonNullElse(result.getString(column), ""));
                 }
                 rows.add(row);

@@ -26,7 +26,7 @@ class MarkdownStatisticsScalarScriptIT {
     @Container
     private static final ExasolContainer<? extends ExasolContainer<?>> EXASOL;
     static {
-        try(final ExasolContainer<? extends ExasolContainer<?>> container = new ExasolContainer<>()) {
+        try (final ExasolContainer<? extends ExasolContainer<?>> container = new ExasolContainer<>()) {
             EXASOL = container.withReuse(true);
         }
     }
@@ -35,7 +35,7 @@ class MarkdownStatisticsScalarScriptIT {
     private static DatabaseObjectFactory factory;
 
     @BeforeAll
-    static void beforeAll() throws SQLException {
+    static void beforeAll() {
         connection = EXASOL.createConnection();
         factory = new ExasolObjectFactory(connection);
     }

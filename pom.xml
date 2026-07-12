@@ -5,9 +5,9 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
     <properties>
-        <revision>0.3.4</revision>
+        <revision>0.3.5</revision>
         <java.version>21</java.version>
-        <junit.version>6.0.1</junit.version>
+        <junit.version>6.1.2</junit.version>
     </properties>
     <modules>
         <module>markdown-statistics-tutorial</module>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.exasol</groupId>
             <artifactId>udf-api-java</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.10</version>
         </dependency>
         <dependency>
             <groupId>com.exasol</groupId>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.exasol</groupId>
             <artifactId>test-db-builder-java</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -76,7 +76,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>5.6.2</version>
+                <version>5.7.3</version>
                 <executions>
                     <execution>
                         <goals>
